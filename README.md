@@ -12,7 +12,11 @@ Alterne no cabeçalho entre **Cliente**, **Empresário** e **Barbeiro**. As aç�
 - Empresário: questionário de configuração, equipe, serviços, gastos fixos/variáveis, assinaturas, financeiro, perfis de clientes, folgas e transferência confirmada de reservas.
 - Barbeiro: agenda e ganhos individuais, início/conclusão, ausência com confirmação e transferência das próprias reservas.
 
-O botão **Monte sua barbearia** abre o assistente de oito etapas. Gerar o dashboard aplica as respostas e substitui o cenário fictício. A recorrência é calculada dos atendimentos, sem pergunta manual de visitas estimadas.
+Empresário e barbeiro podem cadastrar clientes e simular baixa de mensalidades no salão. Serviços existentes têm edição por lápis. Crédito, débito, Pix e dinheiro aparecem no faturamento; clientes em dia podem reservar o próximo ciclo com renovação pendente. A cobrança ilustrativa acontece no dia 28, antecipando o mês seguinte.
+
+**Simular login por e-mail** permite conferir os menus de `proprietario@ross.example`, `barbeiro1@ross.example` e `joao@cliente.ross.example`, além dos novos clientes cadastrados. É somente uma prévia, sem senha ou autenticação.
+
+O botão **Monte sua barbearia** abre o assistente de oito etapas, agora com navegação direta pelos tópicos. Gerar o dashboard aplica as respostas e substitui o cenário fictício. A recorrência é calculada dos atendimentos, sem pergunta manual de visitas estimadas.
 
 Veja [fluxos e limites da Ross](docs/ross-demo.md), [modelo financeiro](docs/demo-finance.md) e [validações executadas](docs/validation.md).
 

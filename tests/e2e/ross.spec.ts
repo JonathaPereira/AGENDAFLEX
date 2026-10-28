@@ -11,7 +11,7 @@ const value = async (p: Page) =>
       .replace(',', '.'),
   );
 
-test('15-day window crosses months and plan billing validity is respected', async ({
+test('15-day window crosses months and allows advance plan bookings', async ({
   page,
 }) => {
   await page.goto('/demo.html');
@@ -31,7 +31,7 @@ test('15-day window crosses months and plan billing validity is respected', asyn
   await page.getByRole('button', { name: '20:00', exact: true }).click();
   await expect(
     page.getByRole('button', { name: 'Simular agendamento' }),
-  ).toBeDisabled();
+  ).toBeEnabled();
   await page.getByRole('radio', { name: /Avulso/ }).check();
   await page.getByRole('button', { name: '20:00', exact: true }).click();
   await page.getByRole('button', { name: 'Simular agendamento' }).click();

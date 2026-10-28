@@ -87,3 +87,15 @@ A inspeção visual também cobriu o cliente Ross em desktop/mobile, a página d
 Build, typecheck e lint foram executados após a ampliação. CI remoto, gateway, persistência, autorização, RLS, notificações e concorrência entre sessões não foram validados nem implementados nesta entrega de demonstração.
 
 Uma checagem adicional de equipe/quadro de configuração passou em quatro execuções (desktop/mobile), incluindo desfazer o salário de um cadastro novo sem qualquer registro e manter identificadores únicos ao remover e adicionar profissionais no questionário. Custos e histórico são preservados na remoção quando há registros anteriores; um cadastro sem registros é desfeito integralmente.
+
+## Ross — cadastro, prévia por e-mail e renovação antecipada
+
+Foram adicionados seis cenários E2E em `tests/e2e/accounts.spec.ts`, executados com sucesso em desktop e mobile (doze execuções): cadastro por empresário/barbeiro com CPF, RG, endereço, celular e e-mail, rejeição de e-mail duplicado, perfil com dados cadastrais, menus por e-mail ilustrativo, navegação direta entre tópicos preservando respostas, edição de nome/duração do serviço e indisponibilidade quando não cabe antes do fechamento, reserva de plano no próximo ciclo, escolha de crédito sem confirmar pagamento, baixa de dinheiro confirmada/cancelada, bloqueio de segunda baixa do mesmo ciclo e liberação de cliente novo inicialmente sem pagamento.
+
+A regra anterior que bloqueava qualquer reserva de plano após 31/10 foi substituída por reserva antecipada com renovação pendente, mantendo o bloqueio para quem já está vencido. O teste da janela de quinze dias foi atualizado para essa regra. A reserva continua sujeita à confirmação de renovação antes do atendimento. A data de débito ilustrativa é dia 28 para o mês seguinte; escolher forma de pagamento não altera validade. A baixa registra ciclo, valor, meio e operador, separando o próximo ciclo do resultado de outubro.
+
+Build, typecheck, lint, verificação de formatação e sete testes Vitest (quatro unitários e três de integração do health) foram executados com sucesso. Também houve inspeção visual do cadastro em 360 px e dos recebimentos em desktop. O cabeçalho foi ajustado para acomodar os novos controles em telas pequenas e o seletor de pagamento ganhou nome acessível explícito. Execuções iniciais simultâneas da suíte disputaram servidor/artefatos; a execução final foi realizada isoladamente. Um teste de baixa foi corrigido para preencher novamente a busca após a atualização da tela.
+
+Esta validação cobre o protótipo. Login real, confirmação de e-mail, documentos reais, autorização por tenant, gateway, débito em cartão, Pix e armazenamento definitivo não foram implementados ou validados.
+
+Resultado final da suíte integrada: **66 testes E2E passaram** em Chromium desktop/mobile (54 cenários anteriores atualizados e doze execuções dos seis cenários novos). Comando: `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium pnpm test:e2e`.
