@@ -30,3 +30,11 @@ Não executados: aplicação da migração em PostgreSQL/Supabase, login com Sup
 Adicionada posteriormente em `apps/web/public/demo.html`, como protótipo autocontido, sem integração com Auth ou banco. Build, typecheck e lint passaram após a adição. A suíte Playwright passou com **16 testes** em desktop e mobile (10 da fundação e 6 da demonstração), incluindo criação/cancelamento de reserva fictícia, sincronização entre visões, início/conclusão de atendimento, filtros, cinco profissionais e ausência de overflow.
 
 O HTML também foi servido isoladamente por um servidor estático temporário, sem Vite ou API: nenhuma exceção JavaScript e apenas a requisição do próprio documento, sem dependências externas. As visões foram inspecionadas por capturas desktop e mobile. A navegação `file://` é bloqueada pela política do Chromium deste ambiente; a abertura direta por duplo clique não foi testada nesse navegador gerenciado.
+
+## Planos mensais, retratos e financeiro
+
+A ampliação da demo foi validada com **24 testes E2E passando** (14 da demo e 10 da fundação), em desktop e mobile Chromium. Foram executados cenários de combo incluído no plano com R$ 0 adicional, ausência de receita avulsa duplicada, comparação João/Antônio, uso zero no simulador, troca entre modelos de repasse, recálculo de aluguel, reinicialização de parâmetros e ausência dos menus financeiros nas outras visões. Os testes também decodificam o retrato incorporado, percorrem todos os menus sem exceções JavaScript e verificam ausência de overflow horizontal.
+
+Lint, typecheck, build e verificação de formatação passaram. Os cálculos iniciais conferidos foram receita mensal de R$ 3.470 e resultado de −R$ 690,70; aluguel de R$ 800 em vez de R$ 900 melhora o resultado para −R$ 590,70. Com esse aluguel e repasse de 40% da mensalidade, o resultado é −R$ 230,70. Os parâmetros são fictícios e estão explicados em `docs/demo-finance.md`.
+
+A inspeção visual cobriu os retratos de IA, símbolo fictício, seleção de profissional, dashboard financeiro, ganhos e menus em tela pequena. Não foi implementada autorização real: a separação entre empresário, cliente e barbeiro permanece somente de apresentação neste HTML.
