@@ -55,3 +55,13 @@ Com cabelo passando para 80 clientes, cinco vencidos e R$ 150, as mensalidades c
 A primeira execução com quatro navegadores paralelos teve dois timeouts em testes longos de mobile, com as demais 30 verificações passando. A concorrência padrão foi alinhada aos dois workers usados no CI e o extrato foi paginado; a suíte completa terminou com 32 passes. Nenhuma asserção foi removida ou desativada.
 
 Build, lint e typecheck foram executados com sucesso após a ampliação. A inspeção visual incluiu modo escuro no financeiro, lista de assinaturas, remuneração e tela mobile de 390 px, sem overflow horizontal observado. Estes resultados não validam pagamentos, cobrança, autorização no servidor ou Supabase: todos continuam fora do escopo deste HTML.
+
+## Questionário e dashboard personalizado
+
+A suíte integrada passou com **38 testes E2E** em desktop e mobile (32 existentes e seis execuções de três novos cenários do assistente). O questionário foi percorrido de ponta a ponta com equipe, remuneração, gastos, planos, preços e jornada diferentes do cenário inicial.
+
+No cenário de três profissionais, foram conferidos nome do negócio, paleta, três profissionais visíveis, três opções no seletor do barbeiro, R$ 2.230 em mensalidades em dia, R$ 3.500 em salários, preço avulso de R$ 70, jornada terminando às 18h e três reservas diárias por profissional a 50% de ocupação de seis sessões.
+
+Também foram executados retorno com rascunho preservado, cancelamento sem alterar o negócio, rejeição de vencidas maiores que clientes, rejeição de almoço inválido e configuração de oito profissionais atendendo somente aos sábados com sessões de 30 minutos. Nesse último caso, a revisão mostrou capacidade de 160 sessões no mês e alertou que a demanda dos planos era maior. A agenda respeitou as folgas, aceitou a sessão das 10h30 terminando às 11h e voltou a cinco profissionais/dez horários após reiniciar.
+
+A inspeção visual cobriu a entrada do questionário, a etapa exclusiva de gastos em mobile escuro, a revisão e o dashboard gerado. Build, lint e typecheck foram executados com sucesso. O fluxo foi servido também como HTML isolado por servidor estático, sem API ou Supabase. Respostas e cenários não são persistidos após recarregar a página.

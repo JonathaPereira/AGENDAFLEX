@@ -2024,6 +2024,232 @@
           font-size: 11px;
         }
       }
+
+      .wizard-progress {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin: 0 0 22px;
+      }
+      .wizard-progress > span {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        color: var(--muted);
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+      .wizard-progress b {
+        display: grid;
+        place-items: center;
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        background: var(--soft);
+        font-size: 10px;
+      }
+      .wizard-progress .current {
+        background: var(--soft-green);
+        color: var(--ink);
+        border-color: var(--green);
+      }
+      .wizard-progress .complete b {
+        background: #234e38;
+        color: white;
+      }
+      .wizard-fields {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        margin: 17px 0;
+      }
+      .wizard-fields input,
+      .wizard-fields select,
+      .wizard-plan input,
+      #wizard-form > .card-body > .field input {
+        border: 1px solid var(--line);
+        padding: 11px 12px;
+        border-radius: 7px;
+        background: var(--input);
+        color: var(--ink);
+        width: 100%;
+        min-width: 0;
+      }
+      .wizard-plan-list {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin-top: 20px;
+      }
+      .wizard-plan {
+        border: 1px solid var(--line);
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .wizard-section {
+        margin: 25px 0 12px;
+        font-size: 16px;
+      }
+      .wizard-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        padding: 20px 22px;
+        border-top: 1px solid var(--line);
+      }
+      .wizard-actions .primary {
+        margin-left: auto;
+      }
+      .wizard-review {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 26px;
+      }
+      .wizard-review h3 {
+        margin-bottom: 14px;
+      }
+      .wizard-weekdays {
+        padding: 17px;
+        margin: 20px 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+        font-size: 12px;
+      }
+      .wizard-weekdays legend {
+        padding: 0 8px;
+      }
+      .wizard-weekdays label {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .wizard-warning {
+        background: #f5eadd !important;
+        color: #81572b !important;
+        border-color: #b27c3c !important;
+      }
+      .custom-summary {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--soft-surface);
+        padding: 22px;
+        margin-bottom: 22px;
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .custom-summary h2 {
+        font-size: 24px;
+        margin: 12px 0 6px;
+      }
+      .custom-summary p {
+        font-size: 12px;
+      }
+      .custom-summary > p {
+        flex-basis: 100%;
+        padding: 12px;
+        border-radius: 6px;
+      }
+      .setup-cta {
+        margin-bottom: 20px;
+        padding: 20px;
+        border: 1px dashed var(--line);
+        border-radius: 12px;
+        background: var(--soft-surface);
+        display: flex;
+        gap: 18px;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .setup-cta p {
+        font-size: 12px;
+        margin-top: 5px;
+      }
+      .wizard-launch {
+        font-size: 11px;
+      }
+      .btn.primary {
+        background: var(--brand-button, #234e38);
+        border-color: var(--brand-button, #234e38);
+      }
+      html[data-palette='oceano'] {
+        --brand-button: #1f596c;
+      }
+      html[data-palette='terracota'] {
+        --brand-button: #86513b;
+      }
+      html[data-theme='dark'] .wizard-warning {
+        background: #483827 !important;
+        color: #f4d4a4 !important;
+      }
+      .menu button[data-view='configurar'] {
+        font-weight: 650;
+      }
+      @media (max-width: 640px) {
+        .wizard-progress {
+          grid-template-columns: 1fr 1fr;
+          gap: 6px;
+        }
+        .wizard-progress > span {
+          font-size: 10px;
+          padding: 9px;
+        }
+        .wizard-fields,
+        .wizard-review {
+          grid-template-columns: 1fr;
+        }
+        .wizard-actions {
+          padding: 17px;
+          gap: 7px;
+        }
+        .wizard-actions .primary {
+          width: 100%;
+          margin: 5px 0 0;
+        }
+        .setup-cta {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .wizard-launch {
+          width: 100%;
+        }
+        .theme-button {
+          margin-top: 0;
+        }
+        .role-bar {
+          position: relative;
+        }
+        .af-brand {
+          min-height: 24px;
+        }
+        .role-bar .theme-button {
+          position: absolute;
+          right: 14px;
+          top: 13px;
+        }
+        .role-bar .role-switch {
+          margin-top: 0;
+        }
+        .custom-summary h2 {
+          font-size: 21px;
+        }
+      }
+      h1,
+      .shop-brand strong,
+      .custom-summary h2 {
+        overflow-wrap: anywhere;
+      }
+      .shop-brand {
+        min-width: 0;
+      }
     </style>
   </head>
   <body>
@@ -2049,6 +2275,9 @@
         aria-pressed="false"
       >
         ☾ Modo escuro
+      </button>
+      <button type="button" class="btn wizard-launch" data-open-wizard>
+        Monte sua barbearia
       </button>
       <nav class="role-switch" aria-label="Visão da demonstração">
         <button type="button" data-role="cliente" aria-pressed="true">
@@ -2215,7 +2444,7 @@
       const employee = (id) => staff.find((p) => p.id === Number(id));
       const service = (id) => services.find((s) => s.id === Number(id));
       const avatar = (p) =>
-        `<span class="avatar photo a${p.id}" role="img" aria-label="Retrato fictício de ${p.name}"></span>`;
+        `<span class="avatar photo a${1 + ((p.id - 1) % 5)}" role="img" aria-label="Retrato fictício de ${escapeText(p.name)}"></span>`;
       const escapeText = (value) =>
         String(value).replace(
           /[&<>"']/g,
@@ -2436,18 +2665,24 @@
                 i < config.quantity - config.overdue
                   ? '2026-10-31'
                   : '2026-09-30',
-              visits: id === 'joao' ? 2 : id === 'antonio' ? 4 : 2 + (i % 3),
+              visits:
+                config.usage ??
+                (id === 'joao' ? 2 : id === 'antonio' ? 4 : 2 + (i % 3)),
             };
           });
         });
         const paid = members.filter(memberCurrent),
-          days = Array.from({ length: 27 }, (_, i) => i + 1).filter(
-            (day) => new Date(Date.UTC(2026, 9, day)).getUTCDay() !== 0,
+          days = Array.from({ length: 27 }, (_, i) => i + 1).filter((day) =>
+            workingOn(business, day),
           );
         const capacity = days.length * staff.length * daySlots.length;
         history = [];
         let index = 0;
-        for (let visit = 0; visit < 4; visit++) {
+        for (
+          let visit = 0;
+          visit < Math.max(0, ...paid.map((m) => m.visits));
+          visit++
+        ) {
           for (const m of paid) {
             if (visit >= m.visits || index >= capacity) continue;
             const person = staff[index % staff.length],
@@ -2469,41 +2704,44 @@
           }
         }
         seed = staff.flatMap((p, pi) =>
-          daySlots.map((time, i) => {
-            const m =
-                p.id === 1 && i === 2
-                  ? paid.find((m) => m.id === 'joao') || paid[0]
-                  : paid[(pi * 10 + i + 10) % Math.max(paid.length, 1)],
-              isPlan = Boolean(m) && i % 3 !== 0;
-            return {
-              id: p.id * 100 + i,
-              staff: p.id,
-              client:
-                p.id === 1 && i === 2
-                  ? 'João Oliveira'
-                  : isPlan
-                    ? m.name
-                    : [
-                        'André Ferreira',
-                        'Pedro Mendes',
-                        'Felipe Souza',
-                        'Gustavo Nunes',
-                        'Thiago Martins',
-                      ][pi],
-              service: isPlan ? planById(m.plan).service : 1 + ((pi + i) % 3),
-              memberId: isPlan ? m.id : null,
-              paymentKind: isPlan ? 'plano' : 'avulso',
-              time,
-              day: 28,
-              status:
-                i < 2
-                  ? 'Concluído'
-                  : p.id === 4 && i === 2
-                    ? 'Em atendimento'
-                    : 'Confirmado',
-            };
-          }),
+          daySlots
+            .slice(0, Math.round((daySlots.length * business.occupancy) / 100))
+            .map((time, i) => {
+              const m =
+                  p.id === 1 && i === 2
+                    ? paid.find((m) => m.id === 'joao') || paid[0]
+                    : paid[(pi * 10 + i + 10) % Math.max(paid.length, 1)],
+                isPlan = Boolean(m) && i % 3 !== 0;
+              return {
+                id: p.id * 100 + i,
+                staff: p.id,
+                client:
+                  p.id === 1 && i === 2
+                    ? 'João Oliveira'
+                    : isPlan
+                      ? m.name
+                      : [
+                          'André Ferreira',
+                          'Pedro Mendes',
+                          'Felipe Souza',
+                          'Gustavo Nunes',
+                          'Thiago Martins',
+                        ][pi % 5],
+                service: isPlan ? planById(m.plan).service : 1 + ((pi + i) % 3),
+                memberId: isPlan ? m.id : null,
+                paymentKind: isPlan ? 'plano' : 'avulso',
+                time,
+                day: 28,
+                status:
+                  i < 2
+                    ? 'Concluído'
+                    : p.id === 4 && i === 2
+                      ? 'Em atendimento'
+                      : 'Confirmado',
+              };
+            }),
         );
+        if (!workingOn(business, 28)) seed = [];
         appointments = structuredClone(seed);
         myBooking = null;
         selectedTime = '';
@@ -2567,7 +2805,7 @@
         '− Custos fixos e pró-labore':
           'Despesas mensais da empresa e remuneração do dono. Não inclui salários dos barbeiros.',
         '− Salários base da equipe':
-          'Soma dos salários base dos cinco profissionais no modo salário + comissão. Entra uma única vez como custo mensal.',
+          'Soma dos salários base dos profissionais no modo salário + comissão. Entra uma única vez como custo mensal.',
         'Receita esperada':
           'Quantidade cadastrada em cada plano multiplicada pelo seu preço. É potencial de receita, não dinheiro já recebido.',
         'Mensalidades em atraso':
@@ -2583,7 +2821,7 @@
         'Clientes cadastrados':
           'Total de contratos fictícios nos três planos, incluindo em dia e vencidos. Você pode editar a quantidade por plano.',
         Agendamentos:
-          'Quantidade de reservas no dia selecionado. A jornada tem dez sessões por profissional e duas horas de almoço.',
+          'Quantidade de reservas no dia selecionado. A capacidade por profissional depende da jornada e da duração configuradas no questionário.',
         'Mensalidade por plano':
           'Valor médio mensal por cliente deste plano. O total esperado é preço multiplicado pelo número de clientes; a parte vencida não é tratada como recebida.',
         'Quantidade de assinaturas':
@@ -2640,7 +2878,7 @@
         pop.onmouseleave = close;
       }
       function payrollFields() {
-        return `<section class="payroll-section"><h3>04 · Salário base + comissão</h3><p class="fine">O salário é mensal; a comissão vem dos serviços concluídos. Sem duplicar o salário no repasse por atendimento.</p><label class="field" style="margin:15px 0">Modelo de remuneração<select name="payMode"><option value="comissao" ${settings.payMode === 'comissao' ? 'selected' : ''}>Somente comissão</option><option value="base-comissao" ${settings.payMode === 'base-comissao' ? 'selected' : ''}>Salário base + comissão</option></select></label><div class="cost-fields">${staff.map((p) => inputField(`base${p.id}`, `Salário base · ${p.name}`)).join('')}</div></section>`;
+        return `<section class="payroll-section"><h3>04 · Salário base + comissão</h3><p class="fine">O salário é mensal; a comissão vem dos serviços concluídos. Sem duplicar o salário no repasse por atendimento.</p><label class="field" style="margin:15px 0">Modelo de remuneração<select name="payMode"><option value="comissao" ${settings.payMode === 'comissao' ? 'selected' : ''}>Somente comissão</option><option value="base-comissao" ${settings.payMode === 'base-comissao' ? 'selected' : ''}>Salário base + comissão</option></select></label><div class="cost-fields">${staff.map((p) => inputField(`base${p.id}`, `Salário base · ${escapeText(p.name)}`)).join('')}</div></section>`;
       }
       function subscriptionRows() {
         const list = members.filter(
@@ -2674,7 +2912,7 @@
             'Sua base de clientes, sem mistério.',
             'Altere preço e quantidade por plano. Vencidos não podem agendar na demonstração.',
           ) +
-          `<div class="stats">${stat('Clientes cadastrados', members.length, '100 por plano no cenário inicial', 'users')}${stat('Em dia', paid.length, 'Permitem novos agendamentos válidos', 'check')}${stat('Vencidas', expired.length, 'Agendamento bloqueado', 'clock')}${stat('Mensalidades em atraso', money(t.overdue), 'Não incluídas no recebido', 'money')}</div><div class="subscription-totals"><span>Receita esperada ${helpButton('Receita esperada')}<strong>${money(expected)}</strong></span><span>Recebido em mensalidades ${helpButton('Mensalidades recebidas')}<strong>${money(t.recurring)}</strong></span><span>Ticket médio cadastrado<strong>${money(members.length ? expected / members.length : 0)}</strong></span></div><form id="subscription-form" class="card"><div class="card-head"><h2>Monte o cenário da barbearia</h2></div><div class="plan-grid card-body">${plans.map((p) => `<section class="subscription-plan"><h3>${p.name}${helpButton('Mensalidade por plano')}</h3><label class="field">Clientes · ${p.name}<input name="${p.id}-quantity" type="number" min="0" max="1000" step="1" value="${planConfig[p.id].quantity}" required></label><label class="field">Vencidas · ${p.name}<input name="${p.id}-overdue" type="number" min="0" max="1000" step="1" value="${members.filter((m) => m.plan === p.id && !memberCurrent(m)).length}" required></label><label class="field">Mensalidade · ${p.name} (R$)<input name="${p.id}-price" type="number" min="1" max="10000" step="0.01" value="${p.price}" required></label></section>`).join('')}</div><div class="card-body" style="padding-top:0"><p class="fine">Aplicar gera novamente os clientes e a agenda fictícia. Reservas e regularizações manuais anteriores desta aba serão reiniciadas. Até 1.000 clientes por plano; histórico limitado à capacidade física do mês.</p><button type="submit" class="btn primary" style="margin-top:12px">Aplicar cenário de assinaturas</button><p id="subscription-error" role="alert" class="negative"></p></div></form><section class="card" style="margin-top:22px"><div class="card-head"><h2>Quem está em dia e quem venceu?</h2></div><div class="toolbar"><input class="control" id="subscriber-search" type="search" aria-label="Buscar assinante" placeholder="Buscar pelo nome…" value="${escapeText(subscriberQuery)}"><select class="control" id="subscriber-state" aria-label="Situação da assinatura"><option value="todos">Todas as situações</option><option value="em-dia" ${subscriberState === 'em-dia' ? 'selected' : ''}>Em dia</option><option value="vencida" ${subscriberState === 'vencida' ? 'selected' : ''}>Vencidas</option></select></div><div id="subscription-table">${subscriptionRows()}</div></section><div class="callout">Referência fixa: 28/10/2026. Em dia = válido até 31/10; vencido = válido até 30/09. Regularizar aqui é apenas uma simulação, sem processar pagamentos. No produto, confirmação de pagamento e autorização serão verificadas no servidor.</div>`
+          `<div class="stats">${stat('Clientes cadastrados', members.length, wizardApplied ? 'Conforme as respostas dos planos' : '100 por plano no cenário inicial', 'users')}${stat('Em dia', paid.length, 'Permitem novos agendamentos válidos', 'check')}${stat('Vencidas', expired.length, 'Agendamento bloqueado', 'clock')}${stat('Mensalidades em atraso', money(t.overdue), 'Não incluídas no recebido', 'money')}</div><div class="subscription-totals"><span>Receita esperada ${helpButton('Receita esperada')}<strong>${money(expected)}</strong></span><span>Recebido em mensalidades ${helpButton('Mensalidades recebidas')}<strong>${money(t.recurring)}</strong></span><span>Ticket médio cadastrado<strong>${money(members.length ? expected / members.length : 0)}</strong></span></div><form id="subscription-form" class="card"><div class="card-head"><h2>Monte o cenário da barbearia</h2></div><div class="plan-grid card-body">${plans.map((p) => `<section class="subscription-plan"><h3>${escapeText(p.name)}${helpButton('Mensalidade por plano')}</h3><label class="field">Clientes · ${escapeText(p.name)}<input name="${p.id}-quantity" type="number" min="0" max="1000" step="1" value="${planConfig[p.id].quantity}" required></label><label class="field">Vencidas · ${escapeText(p.name)}<input name="${p.id}-overdue" type="number" min="0" max="1000" step="1" value="${members.filter((m) => m.plan === p.id && !memberCurrent(m)).length}" required></label><label class="field">Mensalidade · ${escapeText(p.name)} (R$)<input name="${p.id}-price" type="number" min="1" max="10000" step="0.01" value="${p.price}" required></label></section>`).join('')}</div><div class="card-body" style="padding-top:0"><p class="fine">Aplicar gera novamente os clientes e a agenda fictícia. Reservas e regularizações manuais anteriores desta aba serão reiniciadas. Até 1.000 clientes por plano; histórico limitado à capacidade física do mês.</p><button type="submit" class="btn primary" style="margin-top:12px">Aplicar cenário de assinaturas</button><p id="subscription-error" role="alert" class="negative"></p></div></form><section class="card" style="margin-top:22px"><div class="card-head"><h2>Quem está em dia e quem venceu?</h2></div><div class="toolbar"><input class="control" id="subscriber-search" type="search" aria-label="Buscar assinante" placeholder="Buscar pelo nome…" value="${escapeText(subscriberQuery)}"><select class="control" id="subscriber-state" aria-label="Situação da assinatura"><option value="todos">Todas as situações</option><option value="em-dia" ${subscriberState === 'em-dia' ? 'selected' : ''}>Em dia</option><option value="vencida" ${subscriberState === 'vencida' ? 'selected' : ''}>Vencidas</option></select></div><div id="subscription-table">${subscriptionRows()}</div></section><div class="callout">Referência fixa: 28/10/2026. Em dia = válido até 31/10; vencido = válido até 30/09. Regularizar aqui é apenas uma simulação, sem processar pagamentos. No produto, confirmação de pagamento e autorização serão verificadas no servidor.</div>`
         );
       }
       function bindV3() {
@@ -2715,7 +2953,14 @@
                   'A quantidade vencida deve ficar entre zero e o total de clientes do plano. Use valores válidos.';
                 return;
               }
-              next[p.id] = { quantity, overdue, price };
+              next[p.id] = {
+                quantity,
+                overdue,
+                price,
+                ...(planConfig[p.id].usage != null
+                  ? { usage: planConfig[p.id].usage }
+                  : {}),
+              };
             }
             planConfig = next;
             subscriberQuery = '';
@@ -2771,6 +3016,491 @@
               );
             }),
         );
+      }
+
+      const defaultBusiness = {
+        name: 'Vértice Barbearia',
+        owner: 'Marcos',
+        city: 'Fortaleza, CE',
+        palette: 'floresta',
+        open: '09:00',
+        close: '21:00',
+        hasLunch: true,
+        lunchStart: '12:00',
+        lunchEnd: '14:00',
+        minutes: 60,
+        weekdays: [1, 2, 3, 4, 5, 6],
+        occupancy: 100,
+      };
+      let business = structuredClone(defaultBusiness),
+        wizardDraft = null,
+        wizardStep = 0,
+        wizardApplied = false;
+      const defaultStaffSnapshot = structuredClone(staff),
+        defaultServicesSnapshot = structuredClone(services),
+        defaultPlansSnapshot = structuredClone(plans);
+      const wizardSteps = [
+        'Seu negócio',
+        'Sua equipe',
+        'Remuneração',
+        'Gastos estimados',
+        'Planos mensais',
+        'Serviços avulsos',
+        'Jornada e capacidade',
+        'Revisão',
+      ];
+      const weekdayNames = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+      const toMinutes = (time) =>
+        Number(time.slice(0, 2)) * 60 + Number(time.slice(3));
+      const toTime = (minutes) =>
+        `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+      function slotsFor(b) {
+        const slots = [],
+          open = toMinutes(b.open),
+          close = toMinutes(b.close),
+          periods = b.hasLunch
+            ? [
+                [open, toMinutes(b.lunchStart)],
+                [toMinutes(b.lunchEnd), close],
+              ]
+            : [[open, close]];
+        for (const [start, end] of periods)
+          for (let t = start; t + b.minutes <= end; t += b.minutes)
+            slots.push(toTime(t));
+        return slots;
+      }
+      const workingOn = (b, day) =>
+        b.weekdays.includes(new Date(Date.UTC(2026, 9, day)).getUTCDay());
+      function openWizard() {
+        wizardDraft = {
+          business: structuredClone(business),
+          team: staff.map((p) => ({
+            ...structuredClone(p),
+            salary: settings[`base${p.id}`] ?? 1500,
+          })),
+          settings: structuredClone(settings),
+          plans: plans.map((p) => ({
+            ...structuredClone(p),
+            ...structuredClone(planConfig[p.id]),
+            usage: planConfig[p.id].usage ?? 3,
+          })),
+          services: structuredClone(services),
+        };
+        wizardStep = 0;
+        role = 'dono';
+        view = 'configurar';
+        render();
+      }
+      function resetCustomization() {
+        business = structuredClone(defaultBusiness);
+        staff.splice(0, staff.length, ...structuredClone(defaultStaffSnapshot));
+        services.splice(
+          0,
+          services.length,
+          ...structuredClone(defaultServicesSnapshot),
+        );
+        plans.splice(0, plans.length, ...structuredClone(defaultPlansSnapshot));
+        daySlots.splice(0, daySlots.length, ...slotsFor(business));
+        wizardDraft = null;
+        wizardStep = 0;
+        wizardApplied = false;
+      }
+      function draftMetrics(d) {
+        const slots = slotsFor(d.business),
+          days = Array.from({ length: 31 }, (_, i) => i + 1).filter((day) =>
+            workingOn(d.business, day),
+          ).length,
+          capacity = slots.length * d.team.length * days,
+          demand = d.plans.reduce(
+            (v, p) => v + (p.quantity - p.overdue) * p.usage,
+            0,
+          ),
+          expected = d.plans.reduce((v, p) => v + p.quantity * p.price, 0),
+          received = d.plans.reduce(
+            (v, p) => v + (p.quantity - p.overdue) * p.price,
+            0,
+          ),
+          salary =
+            d.settings.payMode === 'base-comissao'
+              ? d.team.reduce((v, p) => v + p.salary, 0)
+              : 0,
+          fixed = fixedKeys.reduce((v, k) => v + d.settings[k], 0);
+        return {
+          slots: slots.length,
+          days,
+          capacity,
+          demand,
+          expected,
+          received,
+          salary,
+          fixed,
+        };
+      }
+      function wizardInput(name, label, value, type = 'text', attrs = '') {
+        return `<label class="field">${label}<input name="${name}" type="${type}" value="${escapeText(value)}" ${attrs} required></label>`;
+      }
+      function wizardMoney(key, label, scope = 'settings') {
+        const v = wizardDraft[scope][key];
+        return `<div class="field-wrap">${wizardInput(key, `${label} (R$)`, v, 'number', 'min="0" max="1000000" step="0.01"')}${helpButton(label)}</div>`;
+      }
+      function wizardPage() {
+        if (!wizardDraft) {
+          wizardDraft = {
+            business: structuredClone(business),
+            team: staff.map((p) => ({
+              ...structuredClone(p),
+              salary: settings[`base${p.id}`] ?? 1500,
+            })),
+            settings: structuredClone(settings),
+            plans: plans.map((p) => ({
+              ...structuredClone(p),
+              ...structuredClone(planConfig[p.id]),
+              usage: planConfig[p.id].usage ?? 3,
+            })),
+            services: structuredClone(services),
+          };
+        }
+        const d = wizardDraft,
+          b = d.business;
+        let body = '';
+        if (wizardStep === 0)
+          body = `<div class="wizard-fields">${wizardInput('business-name', 'Como se chama seu negócio?', b.name, 'text', 'maxlength="60"')}${wizardInput('owner-name', 'Como podemos chamar o empresário?', b.owner, 'text', 'maxlength="40"')}${wizardInput('business-city', 'Em qual cidade ele funciona?', b.city, 'text', 'maxlength="60"')}<label class="field">Qual identidade visual prefere?<select name="palette">${[
+            ['floresta', 'Verde floresta'],
+            ['oceano', 'Azul petróleo'],
+            ['terracota', 'Terracota'],
+          ]
+            .map(
+              ([id, label]) =>
+                `<option value="${id}" ${b.palette === id ? 'selected' : ''}>${label}</option>`,
+            )
+            .join(
+              '',
+            )}</select></label></div><aside class="callout">Use informações fictícias neste teste. As respostas ficam somente na memória desta aba até você aplicar ou recarregar.</aside>`;
+        if (wizardStep === 1)
+          body = `${wizardInput('staff-count', 'Quantos profissionais atendem?', d.team.length, 'number', 'min="1" max="10" step="1"')}<p class="fine" style="margin:10px 0 20px">De 1 a 10 profissionais no protótipo. Altere a quantidade para mostrar os nomes. Os cinco retratos fictícios são reutilizados em equipes maiores.</p><div class="wizard-fields" id="wizard-staff-fields">${d.team.map((p, i) => wizardInput(`staff-name-${i}`, `Nome do profissional ${i + 1}`, p.name, 'text', 'maxlength="60"')).join('')}</div>`;
+        if (wizardStep === 2)
+          body = `<div class="wizard-fields"><label class="field">Como remunera sua equipe?<select name="payMode"><option value="comissao" ${d.settings.payMode === 'comissao' ? 'selected' : ''}>Somente comissão</option><option value="base-comissao" ${d.settings.payMode === 'base-comissao' ? 'selected' : ''}>Salário base + comissão</option></select></label><label class="field">Qual regra usa nos serviços de plano?<select name="model"><option value="fixo" ${d.settings.model === 'fixo' ? 'selected' : ''}>Valor fixo por atendimento</option><option value="percentual" ${d.settings.model === 'percentual' ? 'selected' : ''}>Percentual da mensalidade dividido pelos usos</option></select></label>${wizardInput('planPercent', 'Fração da mensalidade para comissão (%)', d.settings.planPercent, 'number', 'min="0" max="100" step="0.01"')}${wizardInput('avulsoPercent', 'Comissão de serviços avulsos (%)', d.settings.avulsoPercent, 'number', 'min="0" max="100" step="0.01"')}${[
+            ['cabelo', 'Repasse por corte'],
+            ['barba', 'Repasse por barba'],
+            ['completo', 'Repasse por combo'],
+            ['sobrancelha', 'Repasse por sobrancelha'],
+          ]
+            .map(([k, label]) => wizardMoney(k, label))
+            .join(
+              '',
+            )}</div><h3 class="wizard-section">Salário mensal de cada profissional</h3><p class="fine">Os valores são considerados apenas no modo salário base + comissão.</p><div class="wizard-fields">${d.team.map((p, i) => wizardInput(`salary-${i}`, `Salário base · ${escapeText(p.name)} (R$)`, p.salary, 'number', 'min="0" max="100000" step="0.01"')).join('')}</div><aside class="callout">As duas regras de plano não são somadas: aplica-se somente a opção escolhida. Salário entra uma única vez por mês.</aside>`;
+        if (wizardStep === 3)
+          body = `<h3 class="wizard-section">Gastos fixos estimados por mês</h3><p class="fine">Não inclua salários dos barbeiros aqui: eles já estão na etapa de remuneração.</p><div class="wizard-fields">${fixedKeys.map((k, i) => wizardMoney(k, fixedNames[i])).join('')}</div><h3 class="wizard-section">Gastos variáveis por serviço concluído</h3><div class="wizard-fields">${[
+            ['insumoCabelo', 'Insumos de cabelo'],
+            ['insumoBarba', 'Insumos de barba'],
+            ['insumoCombo', 'Insumos do combo'],
+            ['insumoSobrancelha', 'Insumos de sobrancelha'],
+            ['cafe', 'Café / descartáveis'],
+          ]
+            .map(([k, label]) => wizardMoney(k, label))
+            .join(
+              '',
+            )}${wizardInput('fee', 'Taxas de recebimento (%)', d.settings.fee, 'number', 'min="0" max="100" step="0.01"')}${wizardInput('tax', 'Tributos estimados (%)', d.settings.tax, 'number', 'min="0" max="100" step="0.01"')}</div>`;
+        if (wizardStep === 4)
+          body = `<p class="fine">Coloque zero clientes para não usar um plano no cenário. Quantidade vencida não pode superar o total. O preço continua sendo configurável.</p><div class="wizard-plan-list">${d.plans.map((p) => `<section class="wizard-plan"><h3>${escapeText(p.name)}</h3><div class="wizard-fields">${wizardInput(`${p.id}-name`, 'Nome do plano', p.name, 'text', 'maxlength="60"')}${wizardInput(`${p.id}-price`, 'Mensalidade média (R$)', p.price, 'number', 'min="1" max="10000" step="0.01"')}${wizardInput(`${p.id}-quantity`, 'Clientes cadastrados', p.quantity, 'number', 'min="0" max="1000" step="1"')}${wizardInput(`${p.id}-overdue`, 'Assinaturas vencidas', p.overdue, 'number', 'min="0" max="1000" step="1"')}${wizardInput(`${p.id}-usage`, 'Visitas estimadas por assinante no mês', p.usage, 'number', 'min="0" max="12" step="1"')}</div></section>`).join('')}</div>`;
+        if (wizardStep === 5)
+          body = `<p class="fine">Estes preços entram nas reservas avulsas e na comissão de avulsos. Serviços cobertos pelo plano continuam com R$ 0 adicional.</p><div class="wizard-fields">${d.services.map((p) => wizardInput(`service-${p.id}`, `${escapeText(p.name)} (R$)`, p.price, 'number', 'min="1" max="10000" step="0.01"')).join('')}</div><aside class="callout">O tempo reservado será definido na próxima etapa e aplicado igualmente a todos os serviços nesta demonstração.</aside>`;
+        if (wizardStep === 6)
+          body = `<div class="wizard-fields">${wizardInput('open', 'Abre às', b.open, 'time')}${wizardInput('close', 'Fecha às', b.close, 'time')}<label class="field">Tem pausa de almoço?<select name="hasLunch"><option value="sim" ${b.hasLunch ? 'selected' : ''}>Sim</option><option value="nao" ${!b.hasLunch ? 'selected' : ''}>Não</option></select></label><label class="field">Tempo reservado por atendimento<select name="minutes">${[30, 45, 60, 90, 120].map((n) => `<option value="${n}" ${b.minutes === n ? 'selected' : ''}>${n} minutos</option>`).join('')}</select></label>${wizardInput('lunchStart', 'Início do almoço', b.lunchStart, 'time')}${wizardInput('lunchEnd', 'Fim do almoço', b.lunchEnd, 'time')}${wizardInput('occupancy', 'Preenchimento fictício da agenda do dia (%)', b.occupancy, 'number', 'min="0" max="100" step="1"')}</div><fieldset class="wizard-weekdays"><legend>Em quais dias funciona?</legend>${weekdayNames.map((name, i) => `<label><input type="checkbox" name="weekday" value="${i}" ${b.weekdays.includes(i) ? 'checked' : ''}>${name}</label>`).join('')}</fieldset><aside class="callout">Nenhum atendimento cruza o almoço ou termina depois do fechamento. As sessões têm duração uniforme; este teste não cria um motor de disponibilidade em produção.</aside>`;
+        if (wizardStep === 7) {
+          const m = draftMetrics(d);
+          body = `<div class="wizard-review"><section><h3>${escapeText(b.name)}</h3><p>${escapeText(b.owner)} · ${escapeText(b.city)}</p><div class="ledger-line"><span>Equipe</span><strong>${d.team.length} profissionais</strong></div><div class="ledger-line"><span>Remuneração</span><strong>${d.settings.payMode === 'base-comissao' ? 'Base + comissão' : 'Somente comissão'}</strong></div><div class="ledger-line"><span>Comissão dos planos</span><strong>${d.settings.model === 'fixo' ? 'Fixa por serviço' : d.settings.planPercent + '% da mensalidade'}</strong></div><div class="ledger-line"><span>Custos fixos estimados</span><strong>${money(m.fixed)}/mês</strong></div><div class="ledger-line"><span>Salários base</span><strong>${money(m.salary)}/mês</strong></div></section><section><h3>Receita e capacidade</h3><div class="ledger-line"><span>Mensalidades previstas</span><strong>${money(m.expected)}</strong></div><div class="ledger-line"><span>Mensalidades em dia</span><strong>${money(m.received)}</strong></div><div class="ledger-line"><span>Por profissional/dia</span><strong>${m.slots} sessões</strong></div><div class="ledger-line"><span>Capacidade em outubro</span><strong>${m.capacity} sessões</strong></div><div class="ledger-line"><span>Demanda dos planos</span><strong>${m.demand} visitas</strong></div></section></div><div class="callout ${m.demand > m.capacity ? 'wizard-warning' : ''}">${m.demand > m.capacity ? `A demanda estimada supera a capacidade em ${m.demand - m.capacity} visitas. O histórico fictício será limitado aos horários possíveis; revise frequência, equipe ou jornada antes de tratar isso como um negócio viável.` : 'A demanda estimada dos planos cabe na capacidade calculada. Isso não garante distribuição viável de horários nem lucro.'}</div><p class="fine">Gerar aplica as respostas a planos, serviços, equipe, salários, agenda e financeiro. Reservas manuais da demo serão substituídas. Os números serão estimativas fictícias até 28/10, não projeções contábeis certificadas.</p>`;
+        }
+        return (
+          heading(
+            'Assistente de configuração',
+            'Sua barbearia, do seu jeito.',
+            'Responda uma etapa de cada vez. Nada muda no cenário atual até você revisar e gerar.',
+          ) +
+          `<div class="wizard-progress" aria-label="Progresso do questionário">${wizardSteps.map((name, i) => `<span class="${i === wizardStep ? 'current' : i < wizardStep ? 'complete' : ''}" ${i === wizardStep ? 'aria-current="step"' : ''}><b>${i + 1}</b>${name}</span>`).join('')}</div><form id="wizard-form" class="card"><div class="card-head"><h2>${wizardStep + 1}. ${wizardSteps[wizardStep]}</h2><span class="fine">${wizardStep + 1} de ${wizardSteps.length}</span></div><div class="card-body">${body}<p id="wizard-error" role="alert" class="negative"></p></div><div class="wizard-actions"><button type="button" class="btn" id="wizard-back" ${wizardStep === 0 ? 'disabled' : ''}>Voltar</button><button type="button" class="btn" id="wizard-cancel">Sair sem aplicar</button><button type="submit" class="btn primary">${wizardStep === 7 ? 'Gerar meu dashboard' : 'Continuar'}</button></div></form>`
+        );
+      }
+      function collectWizardStep(form) {
+        const f = new FormData(form),
+          d = wizardDraft,
+          num = (k) => Number(f.get(k)),
+          text = (k) => String(f.get(k) || '').trim(),
+          error = (message) => {
+            document.getElementById('wizard-error').textContent = message;
+            return false;
+          };
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return false;
+        }
+        if (wizardStep === 0) {
+          if (
+            !text('business-name') ||
+            !text('owner-name') ||
+            !text('business-city')
+          )
+            return error(
+              'Preencha os nomes e a cidade, sem usar apenas espaços.',
+            );
+          Object.assign(d.business, {
+            name: text('business-name'),
+            owner: text('owner-name'),
+            city: text('business-city'),
+            palette: text('palette'),
+          });
+        }
+        if (wizardStep === 1) {
+          if (d.team.some((_, i) => !text(`staff-name-${i}`)))
+            return error('Dê um nome para cada profissional.');
+          d.team.forEach((p, i) => {
+            p.name = text(`staff-name-${i}`);
+            p.short = p.name.split(' ')[0];
+          });
+        }
+        if (wizardStep === 2) {
+          d.settings.payMode = text('payMode');
+          d.settings.model = text('model');
+          for (const key of [
+            'planPercent',
+            'avulsoPercent',
+            'cabelo',
+            'barba',
+            'completo',
+            'sobrancelha',
+          ])
+            d.settings[key] = num(key);
+          d.team.forEach((p, i) => (p.salary = num(`salary-${i}`)));
+        }
+        if (wizardStep === 3)
+          for (const key of [
+            ...fixedKeys,
+            'insumoCabelo',
+            'insumoBarba',
+            'insumoCombo',
+            'insumoSobrancelha',
+            'cafe',
+            'fee',
+            'tax',
+          ])
+            d.settings[key] = num(key);
+        if (wizardStep === 4) {
+          for (const p of d.plans) {
+            const quantity = num(`${p.id}-quantity`),
+              overdue = num(`${p.id}-overdue`);
+            if (overdue > quantity)
+              return error(
+                `No plano ${escapeText(p.name)}, vencidas não podem superar clientes cadastrados.`,
+              );
+            if (!text(`${p.id}-name`))
+              return error('Todos os planos precisam de um nome.');
+          }
+          for (const p of d.plans)
+            Object.assign(p, {
+              name: text(`${p.id}-name`),
+              price: num(`${p.id}-price`),
+              quantity: num(`${p.id}-quantity`),
+              overdue: num(`${p.id}-overdue`),
+              usage: num(`${p.id}-usage`),
+            });
+        }
+        if (wizardStep === 5)
+          d.services.forEach((p) => (p.price = num(`service-${p.id}`)));
+        if (wizardStep === 6) {
+          const next = {
+            ...d.business,
+            open: text('open'),
+            close: text('close'),
+            lunchStart: text('lunchStart'),
+            lunchEnd: text('lunchEnd'),
+            hasLunch: text('hasLunch') === 'sim',
+            minutes: num('minutes'),
+            weekdays: f.getAll('weekday').map(Number),
+            occupancy: num('occupancy'),
+          };
+          if (next.open >= next.close)
+            return error(
+              'O fechamento precisa ser depois da abertura, no mesmo dia.',
+            );
+          if (!next.weekdays.length)
+            return error('Escolha ao menos um dia de funcionamento.');
+          if (
+            next.hasLunch &&
+            (next.lunchStart <= next.open ||
+              next.lunchEnd >= next.close ||
+              next.lunchStart >= next.lunchEnd)
+          )
+            return error(
+              'O almoço deve ficar dentro da jornada e terminar depois de começar.',
+            );
+          if (!slotsFor(next).length)
+            return error(
+              'Não cabe nenhum atendimento nessa jornada. Ajuste os horários ou a duração.',
+            );
+          d.business = next;
+        }
+        return true;
+      }
+      function applyWizard() {
+        const d = wizardDraft;
+        business = structuredClone(d.business);
+        staff.splice(
+          0,
+          staff.length,
+          ...d.team.map((p) => ({ ...p, short: p.name.split(' ')[0] })),
+        );
+        settings = structuredClone(d.settings);
+        for (const p of staff) settings[`base${p.id}`] = p.salary;
+        for (const p of d.plans) {
+          planById(p.id).name = p.name;
+          planConfig[p.id] = {
+            price: p.price,
+            quantity: p.quantity,
+            overdue: p.overdue,
+            usage: p.usage,
+          };
+        }
+        for (const p of d.services)
+          Object.assign(service(p.id), {
+            price: p.price,
+            duration: business.minutes,
+          });
+        daySlots.splice(0, daySlots.length, ...slotsFor(business));
+        selectedStaff = staff[0].id;
+        barberId = staff[0].id;
+        filterStaff = 'todos';
+        filterDay = 28;
+        gainsPage = 0;
+        subscriberPage = 0;
+        subscriberQuery = '';
+        subscriberState = 'todos';
+        rebuildScenario();
+        wizardApplied = true;
+        view = 'financeiro';
+        role = 'dono';
+        render();
+        document.getElementById('main').focus();
+        toast(
+          'Seu dashboard foi montado com as respostas. Apenas dados fictícios.',
+        );
+      }
+      function customizationSummary() {
+        if (!wizardApplied) return '';
+        const m = draftMetrics({
+          business,
+          team: staff.map((p) => ({
+            ...p,
+            salary: settings[`base${p.id}`] || 0,
+          })),
+          settings,
+          plans: plans.map((p) => ({
+            ...p,
+            ...planConfig[p.id],
+            usage: planConfig[p.id].usage ?? 3,
+          })),
+        });
+        return `<section class="custom-summary"><div><span class="badge green">Dashboard personalizado</span><h2>${escapeText(business.name)}</h2><p>${escapeText(business.city)} · ${staff.length} profissionais · ${business.open}–${business.close} · ${business.minutes} min por sessão · ${m.slots} sessões/profissional/dia</p><p>Planos: ${m.demand} visitas estimadas no mês · Capacidade da equipe: ${m.capacity} sessões.</p><p class="fine">Resultado parcial até 28/10: só os serviços fictícios já concluídos geram comissões e insumos. Atendimentos futuros ainda podem reduzir o resultado.</p></div><button type="button" class="btn" data-open-wizard>Revisar respostas</button>${m.demand > m.capacity ? `<p class="wizard-warning fine">Demanda de ${m.demand} usos supera capacidade mensal de ${m.capacity}. Histórico limitado aos horários possíveis.</p>` : ''}</section>`;
+      }
+      function personalizeBrand() {
+        document.title = `${business.name} · AgendaFlex · Demonstração`;
+        document.querySelector('.shop-brand strong').textContent =
+          business.name;
+        document.documentElement.dataset.palette = business.palette;
+        if (role === 'dono')
+          document.getElementById('identity').innerHTML =
+            `<span>${escapeText(business.owner)} · Empresário fictício</span><span class="avatar">${escapeText(business.owner[0] || 'E')}</span>`;
+        document.getElementById('breadcrumb').textContent = document
+          .getElementById('breadcrumb')
+          .textContent.replace('Vértice', business.name);
+        const footerLabel = document.querySelector(
+          '#main .footer>span:first-child',
+        );
+        if (footerLabel)
+          footerLabel.textContent = `${business.name} · Uma experiência AgendaFlex`;
+        if (wizardApplied) {
+          const heroLabel = document.querySelector('#main .hero-copy .eyebrow');
+          if (heroLabel) heroLabel.textContent = `Bem-vindo à ${business.name}`;
+          const ticketLabel = document.querySelector(
+            '#main .booking-ticket .row strong',
+          );
+          if (ticketLabel) ticketLabel.textContent = business.name;
+          const h1 = document.querySelector('#main>.heading h1');
+          if (h1 && h1.textContent === 'Bom dia, Marcos.')
+            h1.textContent = `Bom dia, ${business.owner}.`;
+        }
+      }
+      function bindWizard() {
+        document
+          .querySelectorAll('[data-open-wizard]')
+          .forEach((b) => (b.onclick = openWizard));
+        const form = document.getElementById('wizard-form');
+        if (!form) return;
+        form.onsubmit = (e) => {
+          e.preventDefault();
+          if (!collectWizardStep(form)) return;
+          if (wizardStep === 7) {
+            applyWizard();
+            return;
+          }
+          wizardStep++;
+          render();
+          document.getElementById('main').focus();
+        };
+        document.getElementById('wizard-back').onclick = () => {
+          if (!collectWizardStep(form)) return;
+          wizardStep = Math.max(0, wizardStep - 1);
+          render();
+        };
+        document.getElementById('wizard-cancel').onclick = () => {
+          view = 'visao';
+          wizardDraft = null;
+          wizardStep = 0;
+          render();
+          toast('O cenário aplicado foi preservado.');
+        };
+        const count = form.querySelector('[name="staff-count"]');
+        if (count)
+          count.oninput = () => {
+            const total = Number(count.value);
+            if (!Number.isInteger(total) || total < 1 || total > 10) {
+              count.reportValidity();
+              return;
+            }
+            form.querySelectorAll('[name^="staff-name-"]').forEach((el, i) => {
+              if (wizardDraft.team[i])
+                wizardDraft.team[i].name =
+                  el.value.trim() || wizardDraft.team[i].name;
+            });
+            const previous = wizardDraft.team;
+            wizardDraft.team = Array.from(
+              { length: total },
+              (_, i) =>
+                previous[i] || {
+                  ...structuredClone(defaultStaffSnapshot[i % 5]),
+                  id: i + 1,
+                  name:
+                    i < 5
+                      ? defaultStaffSnapshot[i].name
+                      : `Profissional ${i + 1}`,
+                  short:
+                    i < 5
+                      ? defaultStaffSnapshot[i].short
+                      : `Profissional ${i + 1}`,
+                  salary: 1500,
+                },
+            );
+            document.getElementById('wizard-staff-fields').innerHTML =
+              wizardDraft.team
+                .map((p, i) =>
+                  wizardInput(
+                    `staff-name-${i}`,
+                    `Nome do profissional ${i + 1}`,
+                    p.name,
+                    'text',
+                    'maxlength="60"',
+                  ),
+                )
+                .join('');
+          };
       }
 
       function commission(a, projected = false) {
@@ -2839,18 +3569,18 @@
       }
 
       function teamRail() {
-        return `<section class="team-rail" aria-label="Equipe da Vértice"><span>Os rostos por trás do cuidado · Retratos fictícios por IA</span>${staff.map((p) => `<div class="person">${avatar(p)}${p.short}</div>`).join('')}</section>`;
+        return `<section class="team-rail" aria-label="Equipe da Vértice"><span>Os rostos por trás do cuidado · Retratos fictícios por IA</span>${staff.map((p) => `<div class="person">${avatar(p)}${escapeText(p.short)}</div>`).join('')}</section>`;
       }
       function memberSelector() {
         const m = currentMember(),
           ok = m && memberCurrent(m);
-        return `<section class="member-banner ${m && !ok ? 'expired-banner' : ''}"><div><strong>${m ? (ok ? 'Assinatura em dia' : 'Assinatura vencida · Agendamento bloqueado') : 'Avulso ou assinante? Escolha um exemplo.'}</strong><p>${m ? `${m.name} · ${planById(m.plan).name} · ${money(planById(m.plan).price)}/mês · Validade: ${displayDate(m.paidThrough)}` : 'Nenhum login ou pagamento real. Experimente também o perfil com assinatura vencida.'}</p></div><label class="field">Perfil de demonstração<select id="member-select" class="control"><option value="">Visitante · Avulso</option>${members
+        return `<section class="member-banner ${m && !ok ? 'expired-banner' : ''}"><div><strong>${m ? (ok ? 'Assinatura em dia' : 'Assinatura vencida · Agendamento bloqueado') : 'Avulso ou assinante? Escolha um exemplo.'}</strong><p>${m ? `${m.name} · ${escapeText(planById(m.plan).name)} · ${money(planById(m.plan).price)}/mês · Validade: ${displayDate(m.paidThrough)}` : 'Nenhum login ou pagamento real. Experimente também o perfil com assinatura vencida.'}</p></div><label class="field">Perfil de demonstração<select id="member-select" class="control"><option value="">Visitante · Avulso</option>${members
           .filter((m) =>
             ['joao', 'antonio', 'carlos', 'm4', 'vencido'].includes(m.id),
           )
           .map(
             (m) =>
-              `<option value="${m.id}" ${m.id === clientMemberId ? 'selected' : ''}>${m.name} · ${memberCurrent(m) ? planById(m.plan).name : 'VENCIDO'}</option>`,
+              `<option value="${m.id}" ${m.id === clientMemberId ? 'selected' : ''}>${m.name} · ${memberCurrent(m) ? escapeText(planById(m.plan).name) : 'VENCIDO'}</option>`,
           )
           .join('')}</select></label></section>`;
       }
@@ -2862,7 +3592,7 @@
             'Seu estilo não tira férias.',
             'Três planos ilustrativos. Valores mensais; nenhum pagamento real será solicitado.',
           ) +
-          `<div class="plan-grid">${plans.map((p) => `<article class="card plan-card ${p.id === 'completo' ? 'featured' : ''}"><span class="badge ${p.id === 'completo' ? 'amber' : 'green'}">${p.id === 'completo' ? 'A experiência completa' : 'Plano mensal'}</span><h2>${p.name}</h2><p>${p.tag}</p><div class="plan-price">${money(p.price)}<small> / mês</small></div><ul><li>${p.includes.length > 1 ? 'Corte + barba incluídos' : 'Serviço de ' + service(p.service).name.toLowerCase()}</li><li>Escolha entre nossos cinco barbeiros</li><li>Sem adicional no serviço coberto</li><li>Uso sem limite neste cenário fictício</li></ul><button type="button" class="btn ${p.id === 'completo' ? 'lime' : 'primary'} full" data-try-plan="${p.id}">Experimentar plano ${p.name}</button><p class="fine" style="margin-top:15px">Não é uma oferta comercial. Mensalidade simulada como já paga; sem contratação ou renovação real.</p></article>`).join('')}</div><aside class="callout">Os três planos começam em R$ 120 neste cenário. O empresário pode alterar cada mensalidade; o combo não soma preços automaticamente. Sobrancelha fica fora dos planos. Frequência e limites deverão ser definidos por cada barbearia antes da implementação real.</aside>`
+          `<div class="plan-grid">${plans.map((p) => `<article class="card plan-card ${p.id === 'completo' ? 'featured' : ''}"><span class="badge ${p.id === 'completo' ? 'amber' : 'green'}">${p.id === 'completo' ? 'A experiência completa' : 'Plano mensal'}</span><h2>${escapeText(p.name)}</h2><p>${p.tag}</p><div class="plan-price">${money(p.price)}<small> / mês</small></div><ul><li>${p.includes.length > 1 ? 'Corte + barba incluídos' : 'Serviço de ' + service(p.service).name.toLowerCase()}</li><li>Escolha entre nossos ${staff.length} profissionais</li><li>Sem adicional no serviço coberto</li><li>Uso sem limite neste cenário fictício</li></ul><button type="button" class="btn ${p.id === 'completo' ? 'lime' : 'primary'} full" data-try-plan="${p.id}">Experimentar plano ${escapeText(p.name)}</button><p class="fine" style="margin-top:15px">Não é uma oferta comercial. Mensalidade simulada como já paga; sem contratação ou renovação real.</p></article>`).join('')}</div><aside class="callout">O empresário define a mensalidade de cada modalidade; o combo não soma preços automaticamente. Sobrancelha fica fora dos planos. Frequência e limites deverão ser definidos por cada barbearia antes da implementação real.</aside>`
         );
       }
       function memberRow(m) {
@@ -2877,7 +3607,7 @@
           allocation =
             ((fixedTotal() + salaryTotal()) * income) /
             (financialTotals().revenue || 1);
-        return `<tr data-member="${m.id}"><td><strong>${m.name}</strong><small>${p.name}</small></td><td>${memberCurrent(m) ? '<span class="badge green">Em dia</span>' : '<span class="badge red">Vencida</span>'}<small>${displayDate(m.paidThrough)}</small></td><td>${money(income)}<small>Preço: ${money(p.price)}/mês</small></td><td>${visits.length}</td><td>${visits.length ? money(income / visits.length) : 'Sem uso'}</td><td>${money(payout)}</td><td>${money(contribution)}</td><td class="${contribution - allocation < 0 ? 'negative' : 'positive'}">${money(contribution - allocation)}</td><td><button type="button" class="btn small" data-toggle-paid="${m.id}">${memberCurrent(m) ? 'Simular vencimento' : 'Simular regularização'}</button></td></tr>`;
+        return `<tr data-member="${m.id}"><td><strong>${m.name}</strong><small>${escapeText(p.name)}</small></td><td>${memberCurrent(m) ? '<span class="badge green">Em dia</span>' : '<span class="badge red">Vencida</span>'}<small>${displayDate(m.paidThrough)}</small></td><td>${money(income)}<small>Preço: ${money(p.price)}/mês</small></td><td>${visits.length}</td><td>${visits.length ? money(income / visits.length) : 'Sem uso'}</td><td>${money(payout)}</td><td>${money(contribution)}</td><td class="${contribution - allocation < 0 ? 'negative' : 'positive'}">${money(contribution - allocation)}</td><td><button type="button" class="btn small" data-toggle-paid="${m.id}">${memberCurrent(m) ? 'Simular vencimento' : 'Simular regularização'}</button></td></tr>`;
       }
 
       function financialPage() {
@@ -2931,7 +3661,7 @@
             )
             .join(
               '',
-            )}<div class="ledger-line total-line"><span>Resultado operacional</span><strong class="${t.result < 0 ? 'negative' : 'positive'}" data-testid="net-result">${money(t.result)}</strong></div><p class="fine" style="margin-top:16px">Margem: ${((t.revenue ? t.result / t.revenue : 0) * 100).toFixed(1).replace('.', ',')}%. Resultado gerencial estimado; não representa lucro contábil, saldo bancário ou dinheiro disponível para retirada.</p></div></section><aside class="stack"><section class="card card-body"><h2>O que está entrando na conta?</h2><div class="equation">${members.filter((m) => memberCurrent(m)).length} mensalidades em dia<br>${members.filter((m) => !memberCurrent(m)).length} vencidas · ${money(t.overdue)} não recebidos<br>${t.completed.length} atendimentos concluídos<br>Modelo de plano: <strong>${settings.model === 'fixo' ? 'valor fixo por serviço' : settings.planPercent + '% da mensalidade / usos concluídos'}</strong><br>Avulsos: ${settings.avulsoPercent}% do preço do serviço</div><p class="fine">Não se soma o preço de tabela a uma mensalidade já recebida. Agendamento incluído no plano não é nova receita. Taxas/tributos aplicados à receita bruta. Todos os parâmetros são fictícios e editáveis.</p><div class="spacer"></div><button type="button" class="btn primary full" data-view="custos">Ajustar custos e regras</button></section><section class="card card-body"><h2>A equipe e seus repasses</h2>${staff.map((p) => `<div class="team-line"><div class="person">${avatar(p)}<strong>${p.short}</strong></div><strong style="font-size:12px">${money(t.completed.filter((a) => a.staff === p.id).reduce((v, a) => v + commission(a), 0))}</strong></div>`).join('')}<p class="fine">Estimativas a liquidar, não pagamentos efetuados.</p></section></aside></div>`
+            )}<div class="ledger-line total-line"><span>Resultado operacional</span><strong class="${t.result < 0 ? 'negative' : 'positive'}" data-testid="net-result">${money(t.result)}</strong></div><p class="fine" style="margin-top:16px">Margem: ${((t.revenue ? t.result / t.revenue : 0) * 100).toFixed(1).replace('.', ',')}%. Resultado gerencial estimado; não representa lucro contábil, saldo bancário ou dinheiro disponível para retirada.</p></div></section><aside class="stack"><section class="card card-body"><h2>O que está entrando na conta?</h2><div class="equation">${members.filter((m) => memberCurrent(m)).length} mensalidades em dia<br>${members.filter((m) => !memberCurrent(m)).length} vencidas · ${money(t.overdue)} não recebidos<br>${t.completed.length} atendimentos concluídos<br>Modelo de plano: <strong>${settings.model === 'fixo' ? 'valor fixo por serviço' : settings.planPercent + '% da mensalidade / usos concluídos'}</strong><br>Avulsos: ${settings.avulsoPercent}% do preço do serviço</div><p class="fine">Não se soma o preço de tabela a uma mensalidade já recebida. Agendamento incluído no plano não é nova receita. Taxas/tributos aplicados à receita bruta. Todos os parâmetros são fictícios e editáveis.</p><div class="spacer"></div><button type="button" class="btn primary full" data-view="custos">Ajustar custos e regras</button></section><section class="card card-body"><h2>A equipe e seus repasses</h2>${staff.map((p) => `<div class="team-line"><div class="person">${avatar(p)}<strong>${escapeText(p.short)}</strong></div><strong style="font-size:12px">${money(t.completed.filter((a) => a.staff === p.id).reduce((v, a) => v + commission(a), 0))}</strong></div>`).join('')}<p class="fine">Estimativas a liquidar, não pagamentos efetuados.</p></section></aside></div>`
         );
       }
       function inputField(key, label, suffix = 'R$') {
@@ -2993,7 +3723,7 @@
             'Sua remuneração · Outubro 2026',
             'Seu cuidado tem valor.',
             'Somente seus repasses estimados. Sem acesso aos custos ou ao resultado da barbearia.',
-            `<div class="staff-overview">${avatar(p)}<label class="field">Simular outro profissional<select id="barber-select">${staff.map((p) => `<option value="${p.id}" ${p.id === barberId ? 'selected' : ''}>${p.name}</option>`).join('')}</select></label></div>`,
+            `<div class="staff-overview">${avatar(p)}<label class="field">Simular outro profissional<select id="barber-select">${staff.map((p) => `<option value="${p.id}" ${p.id === barberId ? 'selected' : ''}>${escapeText(p.name)}</option>`).join('')}</select></label></div>`,
           ) +
           `<div class="stats">${stat('Remuneração estimada', money(total + salaryOf(barberId)), 'Salário base + comissão · Não pago', 'money')}${stat('Atendimentos no mês', done.length, 'Somente concluídos por você', 'scissors')}${stat('Média por atendimento', done.length ? money(total / done.length) : money(0), 'Repasse médio, não preço ao cliente', 'grid')}${stat('Serviços de plano', planDone.length, 'Incluídos na mensalidade', 'star')}</div><section class="banner"><div><div class="eyebrow">Como você recebe</div><div class="pay-breakdown"><span>Salário base: <strong>${money(salaryOf(barberId))}</strong></span><span>Comissões: <strong>${money(total)}</strong></span><span>Total estimado: <strong>${money(total + salaryOf(barberId))}</strong></span></div><h2>${settings.model === 'fixo' ? 'Cada atendimento conta.' : 'Uma fração do plano, dividida pelos usos.'}</h2><p>${settings.model === 'fixo' ? `Corte: ${money(settings.cabelo)} · Barba: ${money(settings.barba)} · Combo: ${money(settings.completo)} por atendimento concluído de plano.` : `${settings.planPercent}% da mensalidade dividido pelos usos concluídos do cliente, atribuído a quem atendeu. Valores provisórios até o fechamento.`}</p><p>Avulsos: ${settings.avulsoPercent}% do preço do serviço. Você vê apenas sua remuneração.</p></div>${avatar(p)}</section><section class="card"><div class="card-head"><h2>Seu extrato de atendimentos</h2><span class="badge amber">Valores estimados</span></div><div class="subscription-pagination"><span>${done.length} atendimentos · Página ${gainsPage + 1} de ${Math.max(1, Math.ceil(done.length / 20))}</span><button type="button" class="btn small" data-gains-page="-1" aria-label="Página anterior de atendimentos" ${gainsPage === 0 ? 'disabled' : ''}>Anterior</button><button type="button" class="btn small" data-gains-page="1" aria-label="Próxima página de atendimentos" ${gainsPage >= Math.ceil(done.length / 20) - 1 ? 'disabled' : ''}>Próxima</button></div><div class="table-scroll"><table><thead><tr><th>Dia</th><th>Cliente</th><th>Serviço</th><th>Origem</th><th>Seu repasse</th></tr></thead><tbody>${done
             .slice(gainsPage * 20, (gainsPage + 1) * 20)
@@ -3051,7 +3781,12 @@
             }
             const data = new FormData(form),
               next = { ...settings };
-            for (const key of Object.keys(defaultSettings)) {
+            for (const key of Object.keys(settings)) {
+              if (
+                key.startsWith('base') &&
+                !staff.some((p) => `base${p.id}` === key)
+              )
+                continue;
               if (['model', 'payMode'].includes(key)) {
                 const value = data.get(key);
                 if (
@@ -3138,6 +3873,12 @@
               ]
             : role === 'dono'
               ? [
+                  [
+                    'configurar',
+                    'Configurar negócio',
+                    'grid',
+                    'Começar por aqui',
+                  ],
                   ['visao', 'Visão geral', 'grid', 'Operação'],
                   ['agenda', 'Agenda', 'calendar', ''],
                   ['equipe', 'Minha equipe', 'users', ''],
@@ -3168,35 +3909,46 @@
             ? '<span>Olá, visitante</span><span class="avatar">VC</span>'
             : role === 'dono'
               ? '<span>Marcos · Proprietário fictício</span><span class="avatar">MV</span>'
-              : `<span>${employee(barberId).name} · Barbeiro fictício</span>${avatar(employee(barberId))}`;
+              : `<span>${escapeText(employee(barberId).name)} · Barbeiro fictício</span>${avatar(employee(barberId))}`;
         document.getElementById('identity').innerHTML = identity;
         document.getElementById('breadcrumb').textContent =
           `Vértice / ${menus.find((m) => m[0] === view)?.[1] || 'Demonstração'}`;
         const html =
-          view === 'assinantes' && role === 'dono'
-            ? subscriptionsPage()
-            : view === 'planos'
-              ? plansPage()
-              : role === 'dono' &&
-                  ['assinantes', 'financeiro', 'custos', 'simulador'].includes(
-                    view,
-                  )
-                ? financialPage()
-                : role === 'barbeiro' && view === 'ganhos'
-                  ? earningsPage()
-                  : view === 'equipe'
-                    ? teamPage()
-                    : view === 'servicos'
-                      ? servicesPage()
-                      : role === 'cliente'
-                        ? view === 'meu'
-                          ? myBookingPage()
-                          : bookingPage()
-                        : role === 'dono'
-                          ? ownerPage()
-                          : barberPage();
+          view === 'configurar' && role === 'dono'
+            ? wizardPage()
+            : view === 'assinantes' && role === 'dono'
+              ? subscriptionsPage()
+              : view === 'planos'
+                ? plansPage()
+                : role === 'dono' &&
+                    [
+                      'assinantes',
+                      'financeiro',
+                      'custos',
+                      'simulador',
+                    ].includes(view)
+                  ? financialPage()
+                  : role === 'barbeiro' && view === 'ganhos'
+                    ? earningsPage()
+                    : view === 'equipe'
+                      ? teamPage()
+                      : view === 'servicos'
+                        ? servicesPage()
+                        : role === 'cliente'
+                          ? view === 'meu'
+                            ? myBookingPage()
+                            : bookingPage()
+                          : role === 'dono'
+                            ? ownerPage()
+                            : barberPage();
         const main = document.getElementById('main');
-        main.innerHTML = html + teamRail() + footer();
+        main.innerHTML =
+          (role === 'dono' && view !== 'configurar'
+            ? customizationSummary()
+            : '') +
+          html +
+          teamRail() +
+          footer();
         main.classList.remove('enter');
         void main.offsetWidth;
         main.classList.add('enter');
@@ -3204,6 +3956,8 @@
         bindFinance();
         bindV3();
         bindHelp();
+        bindWizard();
+        personalizeBrand();
       }
       function bookingPage() {
         const s = service(selectedService),
@@ -3217,11 +3971,11 @@
           )
           .map((a) => a.time);
         const times = daySlots;
-        return `${memberSelector()}<div class="hero"><div class="hero-copy"><div class="eyebrow">Bem-vindo à Vértice · Desde 2018</div><h1>Seu estilo.<br>Seu melhor momento.</h1><p>Um bom corte muda o dia. Escolha seu cuidado e reserve um tempo para você.</p><div class="tags"><span>${icon('star', 13)} 4,9 · avaliação fictícia</span><span>${icon('clock', 13)} Seg–sáb, 09h às 21h</span></div></div><div class="hero-art" aria-hidden="true"><div class="shop-logo"><svg aria-hidden="true" viewBox="0 0 48 48" fill="none"><path d="M24 3 44 14v20L24 45 4 34V14Z" stroke="currentColor" stroke-width="1.5"/><path d="m14 15 10 20 10-20M17 26h14" stroke="currentColor" stroke-width="2.4"/><circle cx="24" cy="11" r="1.5" fill="currentColor"/></svg></div><div class="seal">ESTILO<br>& CUIDADO<br>VÉRTICE</div></div></div>
+        return `${memberSelector()}<div class="hero"><div class="hero-copy"><div class="eyebrow">Bem-vindo à Vértice · Desde 2018</div><h1>Seu estilo.<br>Seu melhor momento.</h1><p>Um bom corte muda o dia. Escolha seu cuidado e reserve um tempo para você.</p><div class="tags"><span>${escapeText(business.city)}</span><span>${icon('star', 13)} 4,9 · avaliação fictícia</span><span>${icon('clock', 13)} ${business.weekdays.map((i) => weekdayNames[i]).join(', ')} · ${business.open}–${business.close}</span></div></div><div class="hero-art" aria-hidden="true"><div class="shop-logo"><svg aria-hidden="true" viewBox="0 0 48 48" fill="none"><path d="M24 3 44 14v20L24 45 4 34V14Z" stroke="currentColor" stroke-width="1.5"/><path d="m14 15 10 20 10-20M17 26h14" stroke="currentColor" stroke-width="2.4"/><circle cx="24" cy="11" r="1.5" fill="currentColor"/></svg></div><div class="seal">ESTILO<br>& CUIDADO<br>VÉRTICE</div></div></div>
  <div class="booking-columns"><section class="card"><div class="card-body"><div class="steps"><div class="step active"><span>1</span>Seu cuidado</div><div class="step active"><span>2</span>Profissional</div><div class="step ${selectedTime ? 'active' : ''}"><span>3</span>Seu horário</div></div><div class="section-title"><h2>O que vamos fazer hoje?</h2><span>01 / 03</span></div><div class="service-grid">${services.map((item) => `<button type="button" class="choice" data-service="${item.id}" aria-pressed="${item.id === selectedService}"><span class="service-icon">${icon('scissors')}</span><strong>${item.name}</strong><small>${item.duration} min</small><span class="price">${money(item.price)}</span></button>`).join('')}</div>
- <div class="spacer"></div><div class="section-title"><h2>Escolha seu barbeiro</h2><span>02 / 03</span></div><div class="staff-choices">${staff.map((p) => `<button type="button" class="choice staff-choice" data-staff="${p.id}" aria-pressed="${p.id === selectedStaff}">${avatar(p)}<strong>${p.short}</strong><small>${p.specialty}</small></button>`).join('')}</div>
- <div class="spacer"></div><div class="section-title"><h2>Um tempo só seu</h2><span>Outubro 2026 · 03 / 03</span></div><div class="dates">${['Qua', 'Qui', 'Sex', 'Sáb'].map((day, i) => `<button type="button" class="choice date-choice" data-day="${28 + i}" aria-pressed="${selectedDay === 28 + i}"><small>${day}</small><strong>${28 + i}</strong><small>OUT</small></button>`).join('')}</div><div class="spacer"></div><div class="times">${times.map((time) => `<button type="button" class="choice time" data-time="${time}" aria-pressed="${selectedTime === time}" ${occupied.includes(time) ? 'disabled title="Ocupado nesta demonstração"' : ''}>${time}${occupied.includes(time) ? '<span class="hidden"> ocupado</span>' : ''}</button>`).join('')}</div><p class="footnote" style="margin-top:13px">Sessões de 1 hora. Almoço 12h–14h; último início às 20h. O dia 28 está cheio: escolha 29, 30 ou 31 para testar. Simulação local, sem reserva real.</p></div></section>
- <aside class="card summary"><div class="card-head"><h2>Seu próximo cuidado</h2>${icon('calendar')}</div><div class="card-body"><div class="row" style="margin-bottom:15px">${avatar(p)}<div><h3>${p.name}</h3><p style="font-size:11px">Vértice Barbearia</p></div></div><div class="summary-item"><span>Serviço</span><strong>${s.name}</strong></div><div class="summary-item"><span>Duração</span><strong>${s.duration} minutos</strong></div><div class="summary-item"><span>Data</span><strong>${selectedDay} de outubro, 2026</strong></div><div class="summary-item"><span>Horário</span><strong>${selectedTime || 'Escolha um horário'}</strong></div><div class="total"><span>Total estimado</span><strong>${money(coveredService() ? 0 : s.price)}</strong></div><p class="footnote">${currentMember() && !memberCurrent(currentMember()) ? 'Assinatura vencida. Regularize para liberar o agendamento.' : coveredService() ? 'Incluído no plano. Mensalidade já paga; sem cobrança adicional neste atendimento.' : 'Atendimento avulso. Serviço fora do plano será cobrado à parte.'}</p><button type="button" id="book" class="btn primary full" ${!selectedTime || (currentMember() && !eligibleForDate(currentMember(), selectedDay)) ? 'disabled' : ''}>Simular agendamento ${icon('arrow', 15)}</button><p class="footnote">${currentMember() && !eligibleForDate(currentMember(), selectedDay) ? 'Assinatura vencida: regularize para agendar.' : 'Sem cobrança real. Veja a reserva na agenda do empresário.'}</p></div></aside></div>`;
+ <div class="spacer"></div><div class="section-title"><h2>Escolha seu barbeiro</h2><span>02 / 03</span></div><div class="staff-choices">${staff.map((p) => `<button type="button" class="choice staff-choice" data-staff="${p.id}" aria-pressed="${p.id === selectedStaff}">${avatar(p)}<strong>${escapeText(p.short)}</strong><small>${p.specialty}</small></button>`).join('')}</div>
+ <div class="spacer"></div><div class="section-title"><h2>Um tempo só seu</h2><span>Outubro 2026 · 03 / 03</span></div><div class="dates">${['Qua', 'Qui', 'Sex', 'Sáb'].map((day, i) => `<button type="button" class="choice date-choice" data-day="${28 + i}" aria-pressed="${selectedDay === 28 + i}" ${workingOn(business, 28 + i) ? '' : 'disabled'}><small>${day}</small><strong>${28 + i}</strong><small>OUT</small></button>`).join('')}</div><div class="spacer"></div><div class="times">${times.map((time) => `<button type="button" class="choice time" data-time="${time}" aria-pressed="${selectedTime === time}" ${occupied.includes(time) || !workingOn(business, selectedDay) ? 'disabled title="Indisponível neste cenário"' : ''}>${time}${occupied.includes(time) ? '<span class="hidden"> ocupado</span>' : ''}</button>`).join('')}</div><p class="footnote" style="margin-top:13px">Sessões de ${business.minutes} minutos · ${daySlots.length} horários por profissional/dia. ${business.hasLunch ? `Almoço ${business.lunchStart}–${business.lunchEnd}.` : ''} Dias de folga ficam desabilitados. Escolha uma data com horários livres. Simulação local.</p></div></section>
+ <aside class="card summary"><div class="card-head"><h2>Seu próximo cuidado</h2>${icon('calendar')}</div><div class="card-body"><div class="row" style="margin-bottom:15px">${avatar(p)}<div><h3>${escapeText(p.name)}</h3><p style="font-size:11px">Vértice Barbearia</p></div></div><div class="summary-item"><span>Serviço</span><strong>${s.name}</strong></div><div class="summary-item"><span>Duração</span><strong>${s.duration} minutos</strong></div><div class="summary-item"><span>Data</span><strong>${selectedDay} de outubro, 2026</strong></div><div class="summary-item"><span>Horário</span><strong>${selectedTime || 'Escolha um horário'}</strong></div><div class="total"><span>Total estimado</span><strong>${money(coveredService() ? 0 : s.price)}</strong></div><p class="footnote">${currentMember() && !memberCurrent(currentMember()) ? 'Assinatura vencida. Regularize para liberar o agendamento.' : coveredService() ? 'Incluído no plano. Mensalidade já paga; sem cobrança adicional neste atendimento.' : 'Atendimento avulso. Serviço fora do plano será cobrado à parte.'}</p><button type="button" id="book" class="btn primary full" ${!selectedTime || !workingOn(business, selectedDay) || (currentMember() && !eligibleForDate(currentMember(), selectedDay)) ? 'disabled' : ''}>Simular agendamento ${icon('arrow', 15)}</button><p class="footnote">${currentMember() && !eligibleForDate(currentMember(), selectedDay) ? 'Assinatura vencida: regularize para agendar.' : 'Sem cobrança real. Veja a reserva na agenda do empresário.'}</p></div></aside></div>`;
       }
       function myBookingPage() {
         const a = appointments.find((item) => item.id === myBooking);
@@ -3242,7 +3996,7 @@
             'Meu agendamento',
             'Um resumo do seu cuidado. Todos os dados abaixo são fictícios.',
           ) +
-          `<section class="card" style="max-width:600px;margin:auto"><div class="card-body success-box"><div class="success-icon">${icon(a.status === 'Cancelado' ? 'calendar' : 'check', 27)}</div><h2>${a.status === 'Cancelado' ? 'Simulação cancelada' : 'Seu momento está reservado.'}</h2><p>${a.status === 'Cancelado' ? 'Você pode escolher um novo horário.' : 'Apenas nesta demonstração. Não existe uma reserva real.'}</p><div class="booking-ticket"><div class="row spread"><strong>Vértice Barbearia</strong>${badge(a.status)}</div><br>${s.name} · ${s.duration} minutos<br>Com ${p.name}<br><strong>${a.day} de outubro de 2026, às ${a.time}</strong><br>${money(a.paymentKind === 'plano' ? 0 : s.price)} · ${a.paymentKind === 'plano' ? 'Incluído na mensalidade' : 'Avulso simulado'}<br><small>Cliente fictício: ${escapeText(a.client)}</small></div><div class="row wrap" style="justify-content:center">${a.status === 'Confirmado' ? '<button type="button" id="cancel-booking" class="btn">Cancelar simulação</button>' : ''}<button type="button" id="new-booking" class="btn primary">${a.status === 'Cancelado' ? 'Escolher outro horário' : 'Voltar aos serviços'}</button></div></div></section>`
+          `<section class="card" style="max-width:600px;margin:auto"><div class="card-body success-box"><div class="success-icon">${icon(a.status === 'Cancelado' ? 'calendar' : 'check', 27)}</div><h2>${a.status === 'Cancelado' ? 'Simulação cancelada' : 'Seu momento está reservado.'}</h2><p>${a.status === 'Cancelado' ? 'Você pode escolher um novo horário.' : 'Apenas nesta demonstração. Não existe uma reserva real.'}</p><div class="booking-ticket"><div class="row spread"><strong>Vértice Barbearia</strong>${badge(a.status)}</div><br>${s.name} · ${s.duration} minutos<br>Com ${escapeText(p.name)}<br><strong>${a.day} de outubro de 2026, às ${a.time}</strong><br>${money(a.paymentKind === 'plano' ? 0 : s.price)} · ${a.paymentKind === 'plano' ? 'Incluído na mensalidade' : 'Avulso simulado'}<br><small>Cliente fictício: ${escapeText(a.client)}</small></div><div class="row wrap" style="justify-content:center">${a.status === 'Confirmado' ? '<button type="button" id="cancel-booking" class="btn">Cancelar simulação</button>' : ''}<button type="button" id="new-booking" class="btn primary">${a.status === 'Cancelado' ? 'Escolher outro horário' : 'Voltar aos serviços'}</button></div></div></section>`
         );
       }
       function teamPage() {
@@ -3252,9 +4006,9 @@
             role === 'dono'
               ? 'Uma equipe. Muitos talentos.'
               : 'Seu estilo, em boas mãos.',
-            'Cinco profissionais fictícios, cada um com a sua especialidade.',
+            `${staff.length} profissionais fictícios, cada um com a sua especialidade.`,
           ) +
-          `<div class="team-grid">${staff.map((p) => `<article class="card staff-card">${avatar(p)}<h2>${p.name}</h2><p>${p.specialty}</p><p>${p.bio}</p><div class="availability">Seg–sáb · 09h–21h · Almoço 12h–14h</div><div class="spacer"></div>${role === 'cliente' ? `<button type="button" class="btn primary full" data-choose-staff="${p.id}">Agendar com ${p.short}</button>` : `<div class="row spread"><span class="badge green">Profissional ativo</span><button type="button" class="btn small" data-team-agenda="${p.id}">Ver agenda</button></div>`}</article>`).join('')}</div>`
+          `<div class="team-grid">${staff.map((p) => `<article class="card staff-card">${avatar(p)}<h2>${escapeText(p.name)}</h2><p>${p.specialty}</p><p>${p.bio}</p><div class="availability">${business.open}–${business.close} · ${business.hasLunch ? `Pausa ${business.lunchStart}–${business.lunchEnd}` : 'Sem pausa no cenário'}</div><div class="spacer"></div>${role === 'cliente' ? `<button type="button" class="btn primary full" data-choose-staff="${p.id}">Agendar com ${escapeText(p.short)}</button>` : `<div class="row spread"><span class="badge green">Profissional ativo</span><button type="button" class="btn small" data-team-agenda="${p.id}">Ver agenda</button></div>`}</article>`).join('')}</div>`
         );
       }
       function servicesPage() {
@@ -3264,11 +4018,11 @@
             'Serviços & cuidados',
             'Exemplo de catálogo. Preços e durações são fictícios.',
           ) +
-          `<div class="service-grid">${services.map((s) => `<article class="card card-body"><div class="row spread"><span class="stat-icon">${icon('scissors', 22)}</span><span class="badge green">Ativo na demo</span></div><div class="spacer"></div><h2>${s.name}</h2><p style="margin:10px 0 20px">${s.detail}</p><div class="row spread"><span class="footnote">${icon('clock', 13)} ${s.duration} minutos · 5 profissionais</span><strong>${money(s.price)}</strong></div></article>`).join('')}</div>`
+          `<div class="service-grid">${services.map((s) => `<article class="card card-body"><div class="row spread"><span class="stat-icon">${icon('scissors', 22)}</span><span class="badge green">Ativo na demo</span></div><div class="spacer"></div><h2>${s.name}</h2><p style="margin:10px 0 20px">${s.detail}</p><div class="row spread"><span class="footnote">${icon('clock', 13)} ${s.duration} minutos · ${staff.length} profissionais</span><strong>${money(s.price)}</strong></div></article>`).join('')}</div>`
         );
       }
       function staffFilter() {
-        return `<select id="staff-filter" class="control" aria-label="Filtrar profissional"><option value="todos">Todos os profissionais</option>${staff.map((p) => `<option value="${p.id}" ${String(filterStaff) === String(p.id) ? 'selected' : ''}>${p.name}</option>`).join('')}</select>`;
+        return `<select id="staff-filter" class="control" aria-label="Filtrar profissional"><option value="todos">Todos os profissionais</option>${staff.map((p) => `<option value="${p.id}" ${String(filterStaff) === String(p.id) ? 'selected' : ''}>${escapeText(p.name)}</option>`).join('')}</select>`;
       }
       function ownerPage() {
         const dayItems = appointments.filter((a) => a.day === filterDay),
@@ -3279,9 +4033,9 @@
             'Seu negócio, em perspectiva',
             view === 'agenda' ? 'Agenda da barbearia' : 'Bom dia, Marcos.',
             'Quarta-feira, 28 de outubro de 2026 · Uma boa experiência começa na organização.',
-            `<button type="button" id="owner-new" class="btn primary">+ Simular novo agendamento</button>`,
+            `<div class="row wrap"><button type="button" class="btn" data-open-wizard>Personalizar meu negócio</button><button type="button" id="owner-new" class="btn primary">+ Simular novo agendamento</button></div>`,
           ) +
-          `<div class="stats">${stat('Agendamentos', active.length, 'No dia selecionado', 'calendar')}${stat('Avulsos previstos', money(active.reduce((v, a) => v + (a.paymentKind === 'plano' ? 0 : service(a.service).price), 0)), 'Planos não são somados novamente', 'money')}${stat('Concluídos', completed.length, 'Atendimentos finalizados na demo', 'check')}${stat('Equipe', 5, 'Profissionais no estabelecimento', 'users')}</div><div class="columns"><section class="card"><div class="card-head"><h2>Agenda do dia</h2><span class="badge green">${filterDay} out · Demonstração</span></div><div class="toolbar"><select id="day-filter" class="control" aria-label="Filtrar dia">${[28, 29, 30, 31].map((day) => `<option value="${day}" ${filterDay === day ? 'selected' : ''}>${day} de outubro</option>`).join('')}</select>${staffFilter()}<input type="search" id="search" class="control" aria-label="Buscar cliente" placeholder="Buscar cliente…" value="${escapeText(search)}"></div><div id="agenda-table">${ownerTable()}</div></section><aside class="stack"><section class="card"><div class="card-head"><h2>Na casa hoje</h2><small>5 profissionais</small></div><div class="card-body">${staff.map((p) => `<div class="team-line"><div class="person">${avatar(p)}<div><strong>${p.name}</strong><small>${p.specialty}</small></div></div><div class="mini-count">${active.filter((a) => a.staff === p.id).length}<br>horários</div></div>`).join('')}</div></section><section class="card"><div class="card-head"><h2>Movimento da semana</h2></div><div class="card-body"><p class="footnote">Distribuição ilustrativa, sem dados reais.</p><div class="chart" aria-label="Gráfico ilustrativo do movimento semanal">${['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'].map((d, i) => `<div class="bar-col"><div class="bar ${i === 2 ? 'current' : ''}" style="height:${[45, 60, 78, 50, 85, 95][i]}%"></div>${d}</div>`).join('')}</div></div></section></aside></div>`
+          `<div class="stats">${stat('Agendamentos', active.length, 'No dia selecionado', 'calendar')}${stat('Avulsos previstos', money(active.reduce((v, a) => v + (a.paymentKind === 'plano' ? 0 : service(a.service).price), 0)), 'Planos não são somados novamente', 'money')}${stat('Concluídos', completed.length, 'Atendimentos finalizados na demo', 'check')}${stat('Equipe', staff.length, 'Profissionais no estabelecimento', 'users')}</div><div class="columns"><section class="card"><div class="card-head"><h2>Agenda do dia</h2><span class="badge green">${filterDay} out · Demonstração</span></div><div class="toolbar"><select id="day-filter" class="control" aria-label="Filtrar dia">${[28, 29, 30, 31].map((day) => `<option value="${day}" ${filterDay === day ? 'selected' : ''}>${day} de outubro</option>`).join('')}</select>${staffFilter()}<input type="search" id="search" class="control" aria-label="Buscar cliente" placeholder="Buscar cliente…" value="${escapeText(search)}"></div><div id="agenda-table">${ownerTable()}</div></section><aside class="stack"><section class="card"><div class="card-head"><h2>Na casa hoje</h2><small>${staff.length} profissionais</small></div><div class="card-body">${staff.map((p) => `<div class="team-line"><div class="person">${avatar(p)}<div><strong>${escapeText(p.name)}</strong><small>${p.specialty}</small></div></div><div class="mini-count">${active.filter((a) => a.staff === p.id).length}<br>horários</div></div>`).join('')}</div></section><section class="card"><div class="card-head"><h2>Movimento da semana</h2></div><div class="card-body"><p class="footnote">Distribuição ilustrativa, sem dados reais.</p><div class="chart" aria-label="Gráfico ilustrativo do movimento semanal">${['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'].map((d, i) => `<div class="bar-col"><div class="bar ${i === 2 ? 'current' : ''}" style="height:${[45, 60, 78, 50, 85, 95][i]}%"></div>${d}</div>`).join('')}</div></div></section></aside></div>`
         );
       }
       function ownerTable() {
@@ -3296,7 +4050,7 @@
           )
           .sort((a, b) => a.time.localeCompare(b.time));
         return rows.length
-          ? `<div class="table-scroll"><table><caption class="hidden">Agendamentos fictícios do dia selecionado</caption><thead><tr><th>Horário</th><th>Cliente / serviço</th><th>Profissional</th><th>Status</th><th>Valor</th></tr></thead><tbody>${rows.map((a) => `<tr><td><strong>${a.time}</strong></td><td><strong>${escapeText(a.client)}</strong><small>${service(a.service).name} · ${service(a.service).duration} min${a.paymentKind === 'plano' ? ' · Plano mensal' : ' · Avulso'}</small></td><td><div class="person">${avatar(employee(a.staff))}${employee(a.staff).short}</div></td><td>${badge(a.status)}</td><td class="money">${a.paymentKind === 'plano' ? '<span class="badge green">Incluído no plano</span>' : money(service(a.service).price)}</td></tr>`).join('')}</tbody></table></div>`
+          ? `<div class="table-scroll"><table><caption class="hidden">Agendamentos fictícios do dia selecionado</caption><thead><tr><th>Horário</th><th>Cliente / serviço</th><th>Profissional</th><th>Status</th><th>Valor</th></tr></thead><tbody>${rows.map((a) => `<tr><td><strong>${a.time}</strong></td><td><strong>${escapeText(a.client)}</strong><small>${service(a.service).name} · ${service(a.service).duration} min${a.paymentKind === 'plano' ? ' · Plano mensal' : ' · Avulso'}</small></td><td><div class="person">${avatar(employee(a.staff))}${escapeText(employee(a.staff).short)}</div></td><td>${badge(a.status)}</td><td class="money">${a.paymentKind === 'plano' ? '<span class="badge green">Incluído no plano</span>' : money(service(a.service).price)}</td></tr>`).join('')}</tbody></table></div>`
           : '<div class="empty">Nenhum agendamento para esses filtros.<br>Experimente outro dia ou profissional.</div>';
       }
       function barberPage() {
@@ -3311,17 +4065,17 @@
             .sort((a, b) => a.time.localeCompare(b.time)),
           completed = items.filter((a) => a.status === 'Concluído'),
           next = items.find((a) => a.status !== 'Concluído');
-        const choose = `<label class="field">Simular outro profissional<select id="barber-select">${staff.map((p) => `<option value="${p.id}" ${p.id === barberId ? 'selected' : ''}>${p.name}</option>`).join('')}</select></label>`;
+        const choose = `<label class="field">Simular outro profissional<select id="barber-select">${staff.map((p) => `<option value="${p.id}" ${p.id === barberId ? 'selected' : ''}>${escapeText(p.name)}</option>`).join('')}</select></label>`;
         return (
           heading(
             'Seu dia, com mais leveza',
             view === 'resumo'
               ? 'Seu trabalho em perspectiva.'
-              : `Bom dia, ${p.short}.`,
+              : `Bom dia, ${escapeText(p.short)}.`,
             'Quarta-feira, 28 de outubro de 2026 · Sua agenda pessoal de demonstração.',
             choose,
           ) +
-          `<div class="stats">${stat('Seus atendimentos', items.length, 'Agendados para hoje', 'calendar')}${stat('Já concluídos', completed.length, 'Bom trabalho até aqui', 'check')}${stat('A atender', items.length - completed.length, 'Inclui atendimento em andamento', 'clock')}${stat('Seu repasse no dia', money(completed.reduce((v, a) => v + commission(a), 0)), 'Estimativa da regra vigente · Não pago', 'money')}</div>${next ? `<section class="banner"><div><div class="eyebrow">${next.status === 'Em atendimento' ? 'Em atendimento' : 'Próximo da sua agenda'}</div><h2>${next.time} · ${escapeText(next.client)}</h2><p>${service(next.service).name} · ${service(next.service).duration} min · ${money(service(next.service).price)}</p></div><span class="badge ${next.status === 'Em atendimento' ? 'blue' : 'green'}">${next.status}</span></section>` : ''}<div class="columns"><section class="card"><div class="card-head"><h2>${view === 'resumo' ? 'Atendimentos e resultados' : 'Sua agenda de hoje'}</h2><small>28 de outubro</small></div><div class="timeline">${items.map((a) => `<article class="appointment"><time>${a.time}</time><div><h3>${escapeText(a.client)}</h3>${badge(a.status)}<p>${service(a.service).name} · ${service(a.service).duration} min</p><div class="payout-cell">${a.paymentKind === 'plano' ? 'Plano mensal' : 'Avulso'} · Repasse estimado ${money(commission(a, true))}</div></div><div class="actions">${a.status === 'Confirmado' ? `<button type="button" class="btn small primary" data-start="${a.id}">Iniciar atendimento</button>` : a.status === 'Em atendimento' ? `<button type="button" class="btn small primary" data-finish="${a.id}">Concluir atendimento</button>` : `<span class="footnote">${icon('check', 14)} Finalizado</span>`}</div></article>`).join('') || '<div class="empty">Sua agenda está livre neste dia.</div>'}</div></section><aside class="stack"><section class="card"><div class="card-head"><h2>Seu espaço</h2></div><div class="card-body"><div class="row">${avatar(p)}<div><h3>${p.name}</h3><p style="font-size:11px">${p.specialty}</p></div></div><div class="spacer"></div><div class="info-grid"><div class="info-box"><small>Início do dia</small><strong>09:00</strong></div><div class="info-box"><small>Fim do dia</small><strong>21:00</strong></div></div><p class="footnote" style="margin-top:17px">Almoço: 12h às 14h · 10 sessões de 1h por dia.<br>O barbeiro acompanha somente sua própria lista nesta visão de demonstração.</p></div></section><section class="card card-body"><h3>Um cuidado de cada vez.</h3><p style="font-size:12px;margin-top:10px">Experimente iniciar e concluir um atendimento. A visão do empresário acompanha a alteração nesta mesma página.</p></section></aside></div>`
+          `<div class="stats">${stat('Seus atendimentos', items.length, 'Agendados para hoje', 'calendar')}${stat('Já concluídos', completed.length, 'Bom trabalho até aqui', 'check')}${stat('A atender', items.length - completed.length, 'Inclui atendimento em andamento', 'clock')}${stat('Seu repasse no dia', money(completed.reduce((v, a) => v + commission(a), 0)), 'Estimativa da regra vigente · Não pago', 'money')}</div>${next ? `<section class="banner"><div><div class="eyebrow">${next.status === 'Em atendimento' ? 'Em atendimento' : 'Próximo da sua agenda'}</div><h2>${next.time} · ${escapeText(next.client)}</h2><p>${service(next.service).name} · ${service(next.service).duration} min · ${money(service(next.service).price)}</p></div><span class="badge ${next.status === 'Em atendimento' ? 'blue' : 'green'}">${next.status}</span></section>` : ''}<div class="columns"><section class="card"><div class="card-head"><h2>${view === 'resumo' ? 'Atendimentos e resultados' : 'Sua agenda de hoje'}</h2><small>28 de outubro</small></div><div class="timeline">${items.map((a) => `<article class="appointment"><time>${a.time}</time><div><h3>${escapeText(a.client)}</h3>${badge(a.status)}<p>${service(a.service).name} · ${service(a.service).duration} min</p><div class="payout-cell">${a.paymentKind === 'plano' ? 'Plano mensal' : 'Avulso'} · Repasse estimado ${money(commission(a, true))}</div></div><div class="actions">${a.status === 'Confirmado' ? `<button type="button" class="btn small primary" data-start="${a.id}">Iniciar atendimento</button>` : a.status === 'Em atendimento' ? `<button type="button" class="btn small primary" data-finish="${a.id}">Concluir atendimento</button>` : `<span class="footnote">${icon('check', 14)} Finalizado</span>`}</div></article>`).join('') || '<div class="empty">Sua agenda está livre neste dia.</div>'}</div></section><aside class="stack"><section class="card"><div class="card-head"><h2>Seu espaço</h2></div><div class="card-body"><div class="row">${avatar(p)}<div><h3>${escapeText(p.name)}</h3><p style="font-size:11px">${p.specialty}</p></div></div><div class="spacer"></div><div class="info-grid"><div class="info-box"><small>Início do dia</small><strong>${business.open}</strong></div><div class="info-box"><small>Fim do dia</small><strong>${business.close}</strong></div></div><p class="footnote" style="margin-top:17px">${business.hasLunch ? `Almoço: ${business.lunchStart} às ${business.lunchEnd}` : 'Sem pausa de almoço no cenário'} · ${daySlots.length} sessões de ${business.minutes} min por dia.<br>O barbeiro acompanha somente sua própria lista nesta visão de demonstração.</p></div></section><section class="card card-body"><h3>Um cuidado de cada vez.</h3><p style="font-size:12px;margin-top:10px">Experimente iniciar e concluir um atendimento. A visão do empresário acompanha a alteração nesta mesma página.</p></section></aside></div>`
         );
       }
       function bind() {
@@ -3391,6 +4145,10 @@
             !eligibleForDate(currentMember(), selectedDay)
           ) {
             toast('Assinatura vencida. Regularize antes de agendar.');
+            return;
+          }
+          if (!workingOn(business, selectedDay)) {
+            toast('A empresa não funciona nesse dia.');
             return;
           }
           if (!daySlots.includes(selectedTime)) return;
@@ -3513,6 +4271,7 @@
         .querySelectorAll('[data-role]')
         .forEach((b) => (b.onclick = () => setRole(b.dataset.role)));
       document.getElementById('reset').onclick = () => {
+        resetCustomization();
         planConfig = structuredClone(defaultPlanConfig);
         subscriberQuery = '';
         subscriberState = 'todos';

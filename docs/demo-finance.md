@@ -71,3 +71,24 @@ Aluguel, energia, água, internet, software, maquinário/depreciação, pró-lab
 O modo escuro mantém a escolha ao navegar entre visões durante a sessão. Navegação agrupada, tabelas paginadas de assinantes e atendimentos, foco visível e suporte a `prefers-reduced-motion`. As fotografias têm nomes acessíveis.
 
 O barbeiro vê apenas sua remuneração na interface; cliente e profissional não têm menus financeiros do dono. **Isso não protege informações reais:** o arquivo inteiro contém dados fictícios acessíveis a quem o baixar. Proteção efetiva depende de autenticação, autorização no servidor e RLS na etapa seguinte.
+
+## Assistente de configuração por perguntas
+
+O botão **Monte sua barbearia** e o menu **Empresário → Configurar negócio** abrem um questionário de oito etapas:
+
+1. Negócio: nome, empresário, cidade e paleta visual.
+2. Equipe: de 1 a 10 profissionais com nomes editáveis.
+3. Remuneração: somente comissão ou base + comissão, salário individual, repasses fixos, percentual do plano e comissão de avulsos.
+4. Gastos estimados: uma etapa própria para despesas fixas, insumos, café, taxas e tributos.
+5. Planos: nome, preço, quantidade de clientes, vencidas e frequência mensal estimada por assinante. Zero clientes remove o plano do volume simulado.
+6. Serviços: preços dos quatro serviços avulsos.
+7. Jornada: abertura, fechamento, pausa opcional, duração uniforme de sessão, dias da semana e percentual de preenchimento fictício da agenda do dia.
+8. Revisão: salários, custos fixos, receita prevista/recebida, capacidade e demanda antes de aplicar.
+
+Voltar preserva respostas válidas; sair sem aplicar descarta o rascunho e mantém o cenário atual. Só **Gerar meu dashboard** muda a demonstração. As respostas atualizam efetivamente os clientes, os valores dos planos, o catálogo, a equipe, os salários, a identidade visual, as sessões e os cálculos financeiros. **Revisar respostas** abre o assistente preenchido com a configuração aplicada. Recarregar ou reiniciar volta ao cenário base; nada é salvo no servidor.
+
+As despesas e os salários não são receitas. O resumo não promete lucro: mostra a conta resultante das regras e do histórico sintético gerado. A capacidade de outubro considera os dias da semana marcados, o número de profissionais e as sessões que cabem antes/depois do almoço. Quando a demanda mensal de assinantes em dia ultrapassa essa capacidade, aparece um aviso; a geração de histórico não cria horários sobrepostos para absorver o excesso. O histórico financeiro continua limitado aos dias até a referência 28/10, enquanto a capacidade da revisão considera o mês inteiro.
+
+O preenchimento percentual controla somente a agenda sintética do dia 28; não é uma taxa histórica comprovada. A frequência dos planos controla a geração de visitas do mês e não muda o direito real de um assinante. Todos os serviços usam a duração uniforme de sessão escolhida. O protótipo não resolve feriados, férias, pausas individuais ou distribuição real de demanda. Os cinco retratos são reutilizados quando há mais de cinco profissionais.
+
+Caso validado: equipe de três pessoas, salários de R$ 1.000/R$ 1.200/R$ 1.300, planos de 10/5/8 clientes, 1/0/2 vencidos e preços de R$ 100/R$ 50/R$ 180. O resumo mostrou R$ 2.230 em mensalidades em dia e R$ 3.500 em salários. A jornada 10h–18h com pausa 12h–14h gerou seis sessões por profissional, e 50% de preenchimento gerou três reservas por profissional no dia.
