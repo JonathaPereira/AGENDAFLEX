@@ -38,7 +38,7 @@ test('answers build a dashboard, team, services and agenda matching the business
   await page.getByLabel('Aluguel (R$)', { exact: true }).fill('1200');
   await next(page);
   const planCards = page.locator('.wizard-plan');
-  for (const [index, qty, overdue, price, usage] of [
+  for (const [index, qty, overdue, price] of [
     [0, 10, 1, 100, 2],
     [1, 5, 0, 50, 1],
     [2, 8, 2, 180, 3],
@@ -51,9 +51,6 @@ test('answers build a dashboard, team, services and agenda matching the business
       .getByLabel('Assinaturas vencidas', { exact: true })
       .fill(String(overdue));
     await card.getByLabel('Mensalidade média (R$)').fill(String(price));
-    await card
-      .getByLabel('Visitas estimadas por assinante no mês')
-      .fill(String(usage));
   }
   await next(page);
   await page.getByLabel('Corte de cabelo (R$)', { exact: true }).fill('70');
@@ -143,7 +140,7 @@ test('keeps drafts when returning, validates overdue and lunch, and cancels with
   await page.getByLabel('Fim do almoço').fill('14:00');
   await next(page);
   await page.getByRole('button', { name: 'Sair sem aplicar' }).click();
-  await expect(page.locator('.shop-brand')).toContainText('Vértice');
+  await expect(page.locator('.shop-brand')).toContainText('Ross');
   await expect(
     page.locator('.stat').filter({ hasText: 'Equipe' }),
   ).toContainText('5');
@@ -182,7 +179,7 @@ test('larger team and limited schedule warn about capacity and honor days off', 
     '8 profissionais',
   );
   await expect(page.locator('.footer>span').first()).toHaveText(
-    'Vértice Barbearia · Uma experiência AgendaFlex',
+    'Ross Barbearia · Uma experiência AgendaFlex',
   );
   await page
     .locator('#menu')

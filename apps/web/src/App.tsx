@@ -44,7 +44,7 @@ function Layout({ area, panel = false }: { area: string; panel?: boolean }) {
         </NavLink>
         <NavLink to="/painel">Estabelecimento</NavLink>
         <NavLink to="/saas">Gestão SaaS</NavLink>
-        <a href="/demo.html">Demo da barbearia ↗</a>
+        <a href="/demo.html">Ross Barbearia ↗</a>
       </nav>
       <main id="main" className="content" tabIndex={-1}>
         <div className="eyebrow">

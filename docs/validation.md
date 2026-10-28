@@ -65,3 +65,25 @@ No cenário de três profissionais, foram conferidos nome do negócio, paleta, t
 Também foram executados retorno com rascunho preservado, cancelamento sem alterar o negócio, rejeição de vencidas maiores que clientes, rejeição de almoço inválido e configuração de oito profissionais atendendo somente aos sábados com sessões de 30 minutos. Nesse último caso, a revisão mostrou capacidade de 160 sessões no mês e alertou que a demanda dos planos era maior. A agenda respeitou as folgas, aceitou a sessão das 10h30 terminando às 11h e voltou a cinco profissionais/dez horários após reiniciar.
 
 A inspeção visual cobriu a entrada do questionário, a etapa exclusiva de gastos em mobile escuro, a revisão e o dashboard gerado. Build, lint e typecheck foram executados com sucesso. O fluxo foi servido também como HTML isolado por servidor estático, sem API ou Supabase. Respostas e cenários não são persistidos após recarregar a página.
+
+## Ross Barbearia — identidade e novos fluxos
+
+A experiência foi adaptada à Ross, com versão web da logo fornecida, tema carvão/laranja, cabeçalho minimalista e serviços no início do fluxo do cliente. Os registros continuam fictícios, sem pagamentos reais ou autenticação.
+
+A suíte integrada executou **54 testes E2E com sucesso** em desktop e mobile Chromium: 38 verificações anteriores atualizadas para a nova identidade e 16 execuções de oito cenários específicos da Ross. Foram verificados:
+
+- quinze datas de 28/10 a 11/11, serviço de plano em novembro bloqueado pela validade de outubro e reserva avulsa aceita no mesmo período;
+- exibição de plano atual, ciclo e aviso explícito de integração de pagamentos futura;
+- cadastro de barbeiro/serviço, remoção confirmada de profissional sem reservas e bloqueio de remoção com compromissos ativos;
+- gasto adicional fixo de R$ 100 e variável de R$ 2 por atendimento, com resultado financeiro alterado exatamente pelo custo correspondente e sem duplicação ao remover o variável;
+- folga bloqueando o profissional original, transferência confirmada preservando cliente/serviço/horário e recusa quando não existe outro barbeiro disponível;
+- ausência com confirmação, cancelamento sem geração de comissão, reabertura do horário das 11h ainda válido e manutenção do bloqueio das 09h já passadas;
+- perfil de cliente com reservas futuras e realizados no ano; indicadores de recorrência aumentando automaticamente ao concluir atendimento;
+- adição/remoção no questionário, incluindo novos gastos e serviços sem a pergunta manual de visitas estimadas;
+- oito profissionais, sete serviços e três gastos adicionais mantendo a largura do documento dentro dos viewports de 360, 768 e 1440 px.
+
+A inspeção visual também cobriu o cliente Ross em desktop/mobile, a página de folgas e a lista de clientes, com HTML servido isoladamente sem API. Uma falha inicial de teste identificou que o seletor de tipo de gasto precisava de nome acessível explícito; isso foi corrigido e as verificações financeira e integrada passaram. A escolha de plano também foi ajustada para selecionar expressamente a modalidade de plano no agendamento.
+
+Build, typecheck e lint foram executados após a ampliação. CI remoto, gateway, persistência, autorização, RLS, notificações e concorrência entre sessões não foram validados nem implementados nesta entrega de demonstração.
+
+Uma checagem adicional de equipe/quadro de configuração passou em quatro execuções (desktop/mobile), incluindo desfazer o salário de um cadastro novo sem qualquer registro e manter identificadores únicos ao remover e adicionar profissionais no questionário. Custos e histórico são preservados na remoção quando há registros anteriores; um cadastro sem registros é desfeito integralmente.

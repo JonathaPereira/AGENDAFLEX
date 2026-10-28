@@ -1,10 +1,24 @@
-# AgendaFlex
+# AgendaFlex · Ross Barbearia
 
-Fundação de um SaaS multi-tenant e White Label para agendamentos. Esta Etapa 1 contém infraestrutura, layouts e contratos; **não contém motor de agendamentos, login funcional ou dados de empresas**.
+Monorepo da fundação do AgendaFlex e demonstração interativa da Ross Barbearia. A marca de referência é real; **profissionais, clientes, preços, salários e históricos são fictícios**. Não há pagamentos, autenticação ou reservas reais nesta demonstração.
 
-## Execução rápida
+## Abrir a demonstração sem instalação
 
-Requisitos: Node.js 24 e pnpm 10.11.0 (`corepack enable` e `corepack prepare pnpm@10.11.0 --activate`, se necessário).
+Abra `apps/web/public/demo.html` no navegador, com dois cliques. O HTML contém logo, retratos, estilos e interações e não precisa de internet, API ou Supabase.
+
+Alterne no cabeçalho entre **Cliente**, **Empresário** e **Barbeiro**. As ações ficam somente na memória da mesma aba; recarregar ou **Reiniciar demo** restaura o cenário inicial.
+
+- Cliente: serviços primeiro, escolha avulso/plano, agenda de quinze dias e plano/ciclo de faturamento.
+- Empresário: questionário de configuração, equipe, serviços, gastos fixos/variáveis, assinaturas, financeiro, perfis de clientes, folgas e transferência confirmada de reservas.
+- Barbeiro: agenda e ganhos individuais, início/conclusão, ausência com confirmação e transferência das próprias reservas.
+
+O botão **Monte sua barbearia** abre o assistente de oito etapas. Gerar o dashboard aplica as respostas e substitui o cenário fictício. A recorrência é calculada dos atendimentos, sem pergunta manual de visitas estimadas.
+
+Veja [fluxos e limites da Ross](docs/ross-demo.md), [modelo financeiro](docs/demo-finance.md) e [validações executadas](docs/validation.md).
+
+## Executar o monorepo localmente
+
+Requisitos: Node.js 24 e pnpm 10.11.0. Com Corepack disponível: `corepack enable` e `corepack prepare pnpm@10.11.0 --activate`.
 
 ```sh
 pnpm install
@@ -12,9 +26,9 @@ cp .env.example .env
 pnpm dev
 ```
 
-Frontend: `http://localhost:5173`. API: `http://localhost:3001/health`.
+Frontend da fundação: `http://localhost:5173`. Demonstração Ross: `http://localhost:5173/demo.html`. API: `http://localhost:3001/health`.
 
-Nenhuma credencial ou serviço externo é necessário para iniciar a interface e o health check. Rotas: `/` (portal), `/painel` (estabelecimento), `/saas` (administração). Os painéis são estruturas públicas sem sessão ou informações privadas, não áreas protegidas prontas para produção.
+Nenhuma credencial externa é necessária para iniciar a fundação, o health ou a demo. `.env.example` documenta as integrações opcionais. As rotas `/`, `/painel` e `/saas` continuam como base técnica do SaaS, sem dados privados.
 
 ```sh
 pnpm build
@@ -26,18 +40,8 @@ pnpm exec playwright install --with-deps chromium
 pnpm test:e2e
 ```
 
-Veja [instalação e configuração](docs/development.md), [arquitetura](docs/architecture.md), [segurança e tenants](docs/auth-and-tenancy.md) e [banco e migrações](database/README.md).
+Quando houver Chromium instalado no sistema, os E2E podem usar `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/caminho/para/chromium pnpm test:e2e`.
 
-## Demonstração visual da barbearia
+Documentação: [desenvolvimento](docs/development.md), [arquitetura](docs/architecture.md), [autenticação e isolamento](docs/auth-and-tenancy.md) e [banco/migrações](database/README.md).
 
-Abra `apps/web/public/demo.html` diretamente no navegador (duplo clique) ou, com `pnpm dev` ligado, visite `http://localhost:5173/demo.html`. O HTML é autocontido e não precisa de instalação, API, internet, Supabase ou login.
-
-A Barbearia Vértice possui cinco profissionais fictícios. Alterne entre Cliente, Empresário e Barbeiro no topo. Simule uma reserva como cliente e consulte o resultado na agenda do empresário; inicie/conclua um atendimento como barbeiro e veja o status atualizado. Há filtros por dia e profissional, busca de cliente, catálogo e equipe.
-
-Os dados vivem apenas na memória desta página e desaparecem ao recarregar ou clicar em **Reiniciar demo**. As datas são um cenário fixo de outubro de 2026. Os horários são ilustrativos: não há motor de disponibilidade em produção, autenticação, pagamentos ou reserva real. A troca entre visões serve apenas para apresentar a experiência e não representa controle de acesso. As três visões compartilham dados somente dentro da mesma aba.
-
-A demo inclui planos mensais, retratos fictícios dos cinco barbeiros, comparador de repasses fixos e percentuais, financeiro do empresário com custos editáveis e extrato de ganhos do profissional. Veja as [hipóteses e fórmulas da demonstração](docs/demo-finance.md). A separação das visões é ilustrativa e não protege dados reais.
-
-Na versão atual da demo, o botão **Modo escuro** fica no topo. **Empresário → Planos e assinantes** permite alterar quantidade, mensalidade e vencidas (padrão: 100 por plano, R$ 120, 10 vencidas por plano). O perfil vencido do cliente fica bloqueado para novos agendamentos. Em **Custos e repasses**, é possível escolher salário base + comissão ou somente comissão. Os botões **?** explicam os valores. A jornada simulada escolhida é 09h–21h, almoço 12h–14h, dez atendimentos de uma hora por barbeiro.
-
-Para testar a personalização por perguntas, clique em **Monte sua barbearia** no topo (ou **Empresário → Configurar negócio**). Responda às oito etapas e clique em **Gerar meu dashboard**. Equipe, remuneração, gastos, planos, serviços, identidade e jornada passam a seguir suas respostas. A revisão avisa quando a demanda dos planos ultrapassa a capacidade. Tudo continua fictício e apenas nesta aba.
+O produto real ainda exige Supabase Auth, autorização/RLS, persistência, integração de pagamentos, notificações e controle de concorrência. Os seletores de visão/perfil do HTML servem para apresentação e não protegem dados reais.

@@ -249,7 +249,7 @@ test('all menus render with portraits and plan profiles cover the advertised ser
   for (const [plan, profile] of [
     ['Cabelo em dia', 'joao'],
     ['Barba impecável', 'm4'],
-    ['Vértice completo', 'carlos'],
+    ['Ross completo', 'carlos'],
   ]) {
     await page
       .locator('#menu')
@@ -270,6 +270,8 @@ test('dark theme survives navigation and financial explanations open by keyboard
   page,
 }) => {
   await page.goto('/demo.html');
+  await page.getByRole('button', { name: /Modo claro/ }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   await page.getByRole('button', { name: /Modo escuro/ }).click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await page.getByRole('button', { name: 'Empresário', exact: true }).click();

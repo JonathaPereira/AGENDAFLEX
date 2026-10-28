@@ -1,6 +1,8 @@
 # Demonstração de planos, assinaturas e finanças
 
-O HTML `apps/web/public/demo.html` é autocontido e usa somente dados fictícios. Pode ser aberto sozinho ou em `/demo.html` no Vite. Não cobra, contrata planos, autentica ou reserva horários reais. Retratos gerados por IA e marca Vértice são fictícios e estão incorporados no arquivo.
+A interface atual foi adaptada para a Ross Barbearia. Novos fluxos operacionais, calendário de quinze dias e limites estão descritos em [Ross — demonstração](ross-demo.md).
+
+O HTML `apps/web/public/demo.html` é autocontido e usa somente dados fictícios. Pode ser aberto sozinho ou em `/demo.html` no Vite. Não cobra, contrata planos, autentica ou reserva horários reais. Retratos gerados por IA e marca Ross são fictícios e estão incorporados no arquivo.
 
 ## Cenário inicial editável
 
@@ -77,10 +79,10 @@ O barbeiro vê apenas sua remuneração na interface; cliente e profissional nã
 O botão **Monte sua barbearia** e o menu **Empresário → Configurar negócio** abrem um questionário de oito etapas:
 
 1. Negócio: nome, empresário, cidade e paleta visual.
-2. Equipe: de 1 a 10 profissionais com nomes editáveis.
+2. Equipe: de 1 a 20 profissionais com nomes editáveis.
 3. Remuneração: somente comissão ou base + comissão, salário individual, repasses fixos, percentual do plano e comissão de avulsos.
 4. Gastos estimados: uma etapa própria para despesas fixas, insumos, café, taxas e tributos.
-5. Planos: nome, preço, quantidade de clientes, vencidas e frequência mensal estimada por assinante. Zero clientes remove o plano do volume simulado.
+5. Planos: nome, preço, quantidade de clientes, vencidas e frequência observada automaticamente no histórico. Zero clientes remove o plano do volume simulado.
 6. Serviços: preços dos quatro serviços avulsos.
 7. Jornada: abertura, fechamento, pausa opcional, duração uniforme de sessão, dias da semana e percentual de preenchimento fictício da agenda do dia.
 8. Revisão: salários, custos fixos, receita prevista/recebida, capacidade e demanda antes de aplicar.
