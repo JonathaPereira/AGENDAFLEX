@@ -24,3 +24,9 @@ O pnpm padrão da máquina era 11: foi usado um shim Corepack temporário no PAT
 A instalação emitiu avisos de depreciação do ESLint 9 e de dependências transitivas do Drizzle Kit. Esses avisos não são resultados de uma auditoria de vulnerabilidades; uma auditoria de segurança de dependências não foi executada nesta etapa.
 
 Não executados: aplicação da migração em PostgreSQL/Supabase, login com Supabase Auth, testes de RLS com usuários reais e workflow no GitHub Actions. Não havia instância/credenciais de banco configuradas. Os clientes e o schema estão preparados, mas esses fluxos não são apresentados como funcionais ou validados. Não há deploy nem implementação da Etapa 2.
+
+## Demonstração visual da barbearia
+
+Adicionada posteriormente em `apps/web/public/demo.html`, como protótipo autocontido, sem integração com Auth ou banco. Build, typecheck e lint passaram após a adição. A suíte Playwright passou com **16 testes** em desktop e mobile (10 da fundação e 6 da demonstração), incluindo criação/cancelamento de reserva fictícia, sincronização entre visões, início/conclusão de atendimento, filtros, cinco profissionais e ausência de overflow.
+
+O HTML também foi servido isoladamente por um servidor estático temporário, sem Vite ou API: nenhuma exceção JavaScript e apenas a requisição do próprio documento, sem dependências externas. As visões foram inspecionadas por capturas desktop e mobile. A navegação `file://` é bloqueada pela política do Chromium deste ambiente; a abertura direta por duplo clique não foi testada nesse navegador gerenciado.

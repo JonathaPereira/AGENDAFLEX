@@ -1,0 +1,2011 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Vértice · Demonstração AgendaFlex</title>
+    <style>
+      :root {
+        --bg: #f4f5ef;
+        --paper: #fff;
+        --ink: #202c25;
+        --muted: #66716a;
+        --line: #e2e6dc;
+        --green: #234e38;
+        --lime: #d6ee98;
+        --soft: #edf2e5;
+        --orange: #9d5227;
+        --shadow: 0 12px 32px #26332206;
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+        font-synthesis: none;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+      button,
+      a,
+      input,
+      select {
+        -webkit-tap-highlight-color: transparent;
+      }
+      button {
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      a {
+        color: inherit;
+      }
+      button:focus-visible,
+      a:focus-visible,
+      input:focus-visible,
+      select:focus-visible {
+        outline: 3px solid #54832c;
+        outline-offset: 4px;
+      }
+      button {
+        color: inherit;
+      }
+      svg {
+        vertical-align: middle;
+        flex-shrink: 0;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+      h1 {
+        font-size: clamp(28px, 3.3vw, 40px);
+        font-weight: 650;
+        letter-spacing: -1.5px;
+        line-height: 1.15;
+      }
+      h2 {
+        font-size: 18px;
+        letter-spacing: -0.4px;
+      }
+      h3 {
+        font-size: 15px;
+      }
+      p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+      .demo-bar {
+        background: #172b20;
+        color: #e8efdf;
+        padding: 12px 28px;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 11px;
+      }
+      .demo-bar strong {
+        color: var(--lime);
+        letter-spacing: 1.1px;
+      }
+      .demo-bar button {
+        border: 0;
+        background: none;
+        color: #e8efdf;
+        text-decoration: underline;
+        font-size: 11px;
+      }
+      .role-bar {
+        background: #fff;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 16px 30px;
+      }
+      .af-brand {
+        font-weight: 750;
+        letter-spacing: -0.7px;
+        font-size: 19px;
+        white-space: nowrap;
+      }
+      .af-brand span {
+        font-weight: 400;
+      }
+      .af-brand small {
+        display: block;
+        font-size: 10px;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        color: var(--muted);
+        margin-top: 3px;
+      }
+      .role-switch {
+        display: flex;
+        padding: 4px;
+        border-radius: 11px;
+        background: #f1f3ec;
+        gap: 4px;
+      }
+      .role-switch button {
+        border: 0;
+        background: none;
+        padding: 10px 19px;
+        border-radius: 8px;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .role-switch button[aria-pressed='true'] {
+        background: #fff;
+        box-shadow: 0 2px 6px #192c1610;
+        font-weight: 700;
+      }
+      .shell {
+        display: grid;
+        grid-template-columns: 220px minmax(0, 1fr);
+        min-height: calc(100dvh - 120px);
+      }
+      .sidebar {
+        border-right: 1px solid var(--line);
+        background: #fbfcf7;
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      .shop-brand {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+      }
+      .shop-logo {
+        width: 41px;
+        height: 44px;
+        background: var(--green);
+        color: var(--lime);
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        font-family: Georgia, serif;
+        font-size: 30px;
+      }
+      .shop-brand strong {
+        font-size: 16px;
+        letter-spacing: -0.6px;
+      }
+      .shop-brand small {
+        display: block;
+        color: var(--muted);
+        font-size: 10px;
+        margin-top: 4px;
+      }
+      .nav-label {
+        font-size: 9px;
+        letter-spacing: 1.8px;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        padding-left: 12px;
+      }
+      .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .menu button {
+        border: 0;
+        background: none;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-align: left;
+        border-radius: 9px;
+        padding: 12px;
+        color: var(--muted);
+        font-size: 12px;
+        white-space: nowrap;
+      }
+      .menu button.active {
+        background: #e8efdc;
+        color: #284a31;
+        font-weight: 650;
+      }
+      .side-note {
+        margin-top: auto;
+        border: 1px solid var(--line);
+        padding: 15px;
+        border-radius: 10px;
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .side-note strong {
+        display: block;
+        color: var(--ink);
+        font-size: 12px;
+        margin-bottom: 4px;
+      }
+      .workspace {
+        min-width: 0;
+      }
+      .page-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        border-bottom: 1px solid var(--line);
+        padding: 18px 34px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .page-top .who {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .avatar {
+        display: inline-grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #e2e9d8;
+        color: #314331;
+        font-weight: 650;
+        font-size: 12px;
+        flex-shrink: 0;
+        border: 3px solid #fff;
+      }
+      .avatar.a1 {
+        background: #ebe0ce;
+        color: #6e513a;
+      }
+      .avatar.a2 {
+        background: #dce5d8;
+        color: #39533b;
+      }
+      .avatar.a3 {
+        background: #e2def0;
+        color: #615781;
+      }
+      .avatar.a4 {
+        background: #e9d8ce;
+        color: #81513b;
+      }
+      .avatar.a5 {
+        background: #d6e4e9;
+        color: #3b6273;
+      }
+      .page {
+        padding: 32px 34px 24px;
+        max-width: 1440px;
+        margin: auto;
+      }
+      .heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 20px;
+        margin-bottom: 28px;
+      }
+      .eyebrow {
+        color: var(--muted);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1.8px;
+        margin-bottom: 10px;
+      }
+      .heading p {
+        margin-top: 10px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 11px 17px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .btn.primary {
+        background: var(--green);
+        color: white;
+        border-color: var(--green);
+      }
+      .btn.lime {
+        background: var(--lime);
+        color: #263c28;
+        border-color: var(--lime);
+      }
+      .btn:hover {
+        filter: brightness(0.96);
+      }
+      .btn.small {
+        padding: 7px 11px;
+        font-size: 11px;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .spread {
+        justify-content: space-between;
+      }
+      .wrap {
+        flex-wrap: wrap;
+      }
+      .card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .card-head {
+        padding: 20px 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border-bottom: 1px solid #eef0e9;
+      }
+      .card-head small {
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .card-body {
+        padding: 22px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 10px;
+        padding: 5px 8px;
+        border-radius: 5px;
+        white-space: nowrap;
+        font-weight: 600;
+      }
+      .badge.green {
+        background: #edf3e5;
+        color: #46622b;
+      }
+      .badge.amber {
+        background: #fbefdc;
+        color: #85591e;
+      }
+      .badge.gray {
+        background: #f0f1ed;
+        color: #647067;
+      }
+      .badge.blue {
+        background: #e8eff5;
+        color: #42617d;
+      }
+      .badge.red {
+        background: #fae9e4;
+        color: #99513e;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+      .stat {
+        padding: 20px;
+      }
+      .stat-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 11px;
+        gap: 5px;
+      }
+      .stat-icon {
+        background: var(--soft);
+        border-radius: 8px;
+        padding: 8px;
+        color: var(--green);
+      }
+      .stat-value {
+        font-size: 29px;
+        letter-spacing: -1px;
+        margin: 13px 0 7px;
+        font-weight: 650;
+      }
+      .stat small {
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .columns {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 310px;
+        gap: 22px;
+      }
+      .stack {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+      }
+      .toolbar {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        padding: 15px 22px;
+        border-bottom: 1px solid var(--line);
+        align-items: center;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .field input,
+      .field select,
+      select.control,
+      input.control {
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 10px 12px;
+        background: #fff;
+        color: var(--ink);
+        font-size: 12px;
+        min-width: 0;
+        max-width: 100%;
+      }
+      .field input:focus,
+      .control:focus {
+        border-color: var(--green);
+      }
+      .toolbar input {
+        flex: 1;
+        min-width: 120px;
+      }
+      .table-scroll {
+        overflow-x: auto;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 12px;
+        text-align: left;
+        white-space: nowrap;
+      }
+      th {
+        padding: 12px 20px;
+        background: #fafbf8;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 500;
+      }
+      td {
+        padding: 15px 20px;
+        border-top: 1px solid #eff1eb;
+      }
+      td small {
+        display: block;
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+      .person {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+      .person .avatar {
+        height: 31px;
+        width: 31px;
+        border: 0;
+        font-size: 10px;
+      }
+      .money {
+        font-variant-numeric: tabular-nums;
+      }
+      .empty {
+        padding: 35px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .team-line {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        padding: 13px 0;
+        border-bottom: 1px solid #f0f2ec;
+      }
+      .team-line:last-child {
+        border: 0;
+      }
+      .team-line small {
+        font-size: 10px;
+        color: var(--muted);
+        display: block;
+        margin-top: 4px;
+      }
+      .team-line strong {
+        font-size: 12px;
+      }
+      .mini-count {
+        font-size: 10px;
+        color: var(--muted);
+        text-align: right;
+      }
+      .chart {
+        height: 100px;
+        display: flex;
+        align-items: flex-end;
+        gap: 11px;
+        padding: 16px 0 0;
+      }
+      .bar-col {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 7px;
+        text-align: center;
+        font-size: 9px;
+        color: var(--muted);
+      }
+      .bar {
+        border-radius: 4px 4px 0 0;
+        background: #dfebd0;
+        min-height: 8px;
+      }
+      .bar.current {
+        background: var(--green);
+      }
+      .footnote {
+        font-size: 10px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+        padding-top: 28px;
+        margin-top: 4px;
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .hero {
+        background: #1f3a2c;
+        color: #fff;
+        border-radius: 15px;
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        overflow: hidden;
+        margin-bottom: 25px;
+        min-height: 260px;
+      }
+      .hero-copy {
+        padding: 33px;
+      }
+      .hero .eyebrow {
+        color: #c9d5bc;
+      }
+      .hero h1 {
+        font-family: Georgia, serif;
+        font-weight: 400;
+        font-size: clamp(32px, 3.7vw, 49px);
+        line-height: 1.12;
+        letter-spacing: -1.5px;
+        margin-bottom: 16px;
+      }
+      .hero p {
+        color: #c8d2c3;
+        font-size: 12px;
+        max-width: 340px;
+      }
+      .hero .tags {
+        margin-top: 23px;
+        display: flex;
+        gap: 15px;
+        font-size: 10px;
+        color: #dce7d0;
+        flex-wrap: wrap;
+      }
+      .hero-art {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(
+          ellipse at 65% 10%,
+          #63834b60,
+          transparent 65%
+        );
+        overflow: hidden;
+      }
+      .hero-art:before {
+        content: '';
+        position: absolute;
+        width: 210px;
+        height: 210px;
+        border: 1px solid #ffffff18;
+        border-radius: 50%;
+        box-shadow:
+          0 0 0 30px #ffffff05,
+          0 0 0 60px #ffffff04;
+      }
+      .hero-art .v {
+        font-family: Georgia, serif;
+        font-size: 160px;
+        color: #d6ee98;
+        line-height: 1;
+        font-style: italic;
+        position: relative;
+      }
+      .hero-art .seal {
+        position: absolute;
+        bottom: 25px;
+        right: 22px;
+        border: 1px solid #cde7a640;
+        border-radius: 50%;
+        height: 72px;
+        width: 72px;
+        font-size: 8px;
+        letter-spacing: 1.2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        line-height: 1.9;
+        color: #d6ee98;
+        transform: rotate(-12deg);
+      }
+      .booking-columns {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 300px;
+        gap: 22px;
+        align-items: start;
+      }
+      .steps {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        font-size: 11px;
+        color: var(--muted);
+        margin-bottom: 22px;
+      }
+      .step {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+      .step span {
+        height: 22px;
+        width: 22px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: #e8ecdf;
+        font-size: 10px;
+      }
+      .step.active {
+        color: var(--green);
+        font-weight: 650;
+      }
+      .step.active span {
+        color: white;
+        background: var(--green);
+      }
+      .section-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 17px;
+      }
+      .section-title span {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .service-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .choice {
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 17px;
+        background: white;
+        text-align: left;
+        transition:
+          border-color 0.15s,
+          background 0.15s;
+        min-width: 0;
+      }
+      .choice[aria-pressed='true'] {
+        border-color: var(--green);
+        background: #f4f8ee;
+        box-shadow: 0 0 0 1px var(--green);
+      }
+      .choice .service-icon {
+        display: inline-grid;
+        place-items: center;
+        background: var(--soft);
+        padding: 8px;
+        border-radius: 7px;
+        margin-bottom: 14px;
+        color: var(--green);
+      }
+      .choice strong {
+        display: block;
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+      .choice small {
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .choice .price {
+        float: right;
+        color: var(--ink);
+        font-weight: 650;
+        font-size: 12px;
+      }
+      .staff-choices {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 9px;
+      }
+      .staff-choice {
+        padding: 14px 4px;
+        text-align: center;
+      }
+      .staff-choice .avatar {
+        height: 46px;
+        width: 46px;
+        font-size: 14px;
+        margin-bottom: 10px;
+        border: 0;
+      }
+      .staff-choice strong {
+        font-size: 10px;
+      }
+      .staff-choice small {
+        font-size: 9px;
+      }
+      .spacer {
+        height: 26px;
+      }
+      .dates {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 2px;
+      }
+      .date-choice {
+        min-width: 61px;
+        text-align: center;
+        padding: 11px 8px;
+      }
+      .date-choice strong {
+        font-size: 20px;
+        margin: 5px 0;
+      }
+      .date-choice small {
+        font-size: 9px;
+      }
+      .times {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 9px;
+      }
+      .time {
+        padding: 10px;
+        text-align: center;
+        font-size: 12px;
+      }
+      .summary {
+        position: sticky;
+        top: 18px;
+      }
+      .summary .card-head {
+        background: #fafbf7;
+      }
+      .summary-item {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-size: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid #edf0e7;
+      }
+      .summary-item span {
+        color: var(--muted);
+      }
+      .summary-item strong {
+        text-align: right;
+        font-weight: 550;
+      }
+      .total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20px 0;
+        font-size: 12px;
+      }
+      .total strong {
+        font-size: 26px;
+        letter-spacing: -1px;
+      }
+      .full {
+        width: 100%;
+      }
+      .summary .footnote {
+        margin-top: 13px;
+        text-align: center;
+      }
+      .service-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      .staff-card {
+        padding: 26px;
+      }
+      .staff-card > .avatar {
+        width: 58px;
+        height: 58px;
+        font-size: 19px;
+        border: 0;
+        margin-bottom: 15px;
+      }
+      .staff-card p {
+        font-size: 12px;
+        margin: 8px 0 18px;
+      }
+      .availability {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        font-size: 10px;
+        color: #46622b;
+      }
+      .availability:before {
+        content: '';
+        width: 5px;
+        height: 5px;
+        background: #708f40;
+        border-radius: 50%;
+      }
+      .banner {
+        border: 1px solid #d6e3c9;
+        background: #ecf3e3;
+        border-radius: 12px;
+        padding: 22px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+      .banner h2 {
+        font-size: 20px;
+        margin: 7px 0;
+      }
+      .banner p {
+        font-size: 12px;
+      }
+      .timeline {
+        padding: 5px 22px;
+      }
+      .appointment {
+        display: grid;
+        grid-template-columns: 56px minmax(0, 1fr) auto;
+        gap: 15px;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--line);
+        align-items: center;
+      }
+      .appointment:last-child {
+        border: 0;
+      }
+      .appointment time {
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .appointment small {
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .appointment h3 {
+        margin-bottom: 6px;
+      }
+      .appointment p {
+        font-size: 11px;
+        margin-top: 5px;
+      }
+      .actions {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+      }
+      .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .info-box {
+        background: #f7f9f3;
+        border-radius: 8px;
+        padding: 15px;
+      }
+      .info-box small {
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .info-box strong {
+        display: block;
+        margin-top: 7px;
+        font-size: 20px;
+      }
+      .success-box {
+        text-align: center;
+        padding: 30px 10px;
+      }
+      .success-icon {
+        display: grid;
+        place-items: center;
+        background: var(--soft);
+        color: var(--green);
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        margin: 0 auto 18px;
+        font-size: 25px;
+      }
+      .success-box h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      .success-box p {
+        margin-bottom: 20px;
+      }
+      .booking-ticket {
+        text-align: left;
+        background: #f7f9f1;
+        border: 1px dashed #c6d5b7;
+        border-radius: 10px;
+        padding: 18px;
+        font-size: 13px;
+        line-height: 1.9;
+        margin-bottom: 22px;
+      }
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #1c3628;
+        color: #fff;
+        padding: 14px 22px;
+        border-radius: 10px;
+        box-shadow: 0 5px 25px #0002;
+        font-size: 12px;
+        z-index: 50;
+        max-width: 90vw;
+        text-align: center;
+      }
+      .toast:empty {
+        display: none;
+      }
+      .skip {
+        position: absolute;
+        top: -100px;
+        left: 15px;
+        background: #fff;
+        padding: 10px;
+        z-index: 100;
+      }
+      .skip:focus {
+        top: 10px;
+      }
+      .hidden {
+        display: none !important;
+      }
+      @media (min-width: 1500px) {
+        .sidebar {
+          padding-top: 40px;
+        }
+        .page {
+          padding-top: 40px;
+        }
+        .hero {
+          min-height: 295px;
+        }
+      }
+      @media (max-width: 1150px) {
+        .shell {
+          grid-template-columns: 180px minmax(0, 1fr);
+        }
+        .sidebar {
+          padding: 25px 12px;
+        }
+        .page {
+          padding: 25px 22px;
+        }
+        .page-top {
+          padding: 16px 22px;
+        }
+        .columns,
+        .booking-columns {
+          grid-template-columns: minmax(0, 1fr) 265px;
+        }
+        .stat {
+          padding: 16px;
+        }
+        .stats {
+          gap: 10px;
+        }
+        .card-body {
+          padding: 18px;
+        }
+        .staff-choices {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .team-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .hero-copy {
+          padding: 27px;
+        }
+      }
+      @media (max-width: 920px) {
+        .columns,
+        .booking-columns {
+          grid-template-columns: 1fr;
+        }
+        .summary {
+          position: static;
+        }
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .staff-choices {
+          grid-template-columns: repeat(5, 1fr);
+        }
+        .hero {
+          grid-template-columns: 1.5fr 1fr;
+        }
+        .hero-art .v {
+          font-size: 130px;
+        }
+        .columns > .stack {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          align-items: start;
+        }
+      }
+      @media (max-width: 640px) {
+        .demo-bar {
+          padding: 10px 14px;
+          gap: 10px;
+          font-size: 9px;
+          align-items: flex-start;
+        }
+        .demo-bar .demo-detail {
+          display: block;
+          margin-top: 4px;
+          line-height: 1.5;
+        }
+        .demo-bar button {
+          font-size: 9px;
+          white-space: nowrap;
+        }
+        .role-bar {
+          padding: 13px 14px;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 12px;
+        }
+        .af-brand {
+          font-size: 16px;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+        .af-brand small {
+          margin: 0 0 0 auto;
+          font-size: 9px;
+        }
+        .role-switch button {
+          flex: 1;
+          justify-content: center;
+          padding: 10px;
+          font-size: 11px;
+        }
+        .role-switch {
+          width: 100%;
+        }
+        .shell {
+          display: block;
+          min-height: 0;
+        }
+        .sidebar {
+          padding: 15px;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+          gap: 12px;
+        }
+        .shop-brand .shop-logo {
+          height: 31px;
+          width: 31px;
+          font-size: 23px;
+        }
+        .shop-brand strong {
+          font-size: 14px;
+        }
+        .shop-brand small {
+          font-size: 9px;
+        }
+        .nav-label,
+        .side-note {
+          display: none;
+        }
+        .menu {
+          flex-direction: row;
+          overflow-x: auto;
+          gap: 4px;
+        }
+        .menu button {
+          padding: 10px;
+          font-size: 10px;
+          gap: 6px;
+          flex-shrink: 0;
+        }
+        .menu svg {
+          width: 14px;
+        }
+        .page-top {
+          padding: 12px 16px;
+          font-size: 10px;
+        }
+        .page-top .avatar {
+          height: 28px;
+          width: 28px;
+          font-size: 9px;
+          border: 0;
+        }
+        .page {
+          padding: 24px 16px;
+        }
+        .heading {
+          align-items: flex-start;
+          flex-direction: column;
+          margin-bottom: 22px;
+          gap: 15px;
+        }
+        .heading p {
+          font-size: 12px;
+        }
+        .hero {
+          min-height: 0;
+          grid-template-columns: 1fr;
+        }
+        .hero-copy {
+          padding: 26px;
+        }
+        .hero h1 {
+          font-size: 37px;
+        }
+        .hero-art {
+          display: none;
+        }
+        .stats {
+          gap: 10px;
+          margin-bottom: 18px;
+        }
+        .stat {
+          padding: 15px;
+        }
+        .stat-top {
+          font-size: 10px;
+        }
+        .stat-icon {
+          padding: 5px;
+        }
+        .stat-value {
+          font-size: 26px;
+        }
+        .columns {
+          gap: 18px;
+        }
+        .columns > .stack {
+          display: flex;
+        }
+        .staff-choices {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .service-grid {
+          gap: 9px;
+        }
+        .choice {
+          padding: 13px;
+        }
+        .card-head {
+          padding: 18px;
+        }
+        .card-body {
+          padding: 17px;
+        }
+        .booking-columns {
+          gap: 18px;
+        }
+        .team-grid {
+          grid-template-columns: 1fr;
+        }
+        .appointment {
+          grid-template-columns: 45px 1fr;
+          gap: 10px;
+        }
+        .appointment .actions {
+          grid-column: 2;
+        }
+        .banner {
+          padding: 18px;
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .toolbar {
+          padding: 13px;
+          gap: 8px;
+        }
+        .toolbar input {
+          width: 100%;
+          flex-basis: 100%;
+        }
+        .steps {
+          gap: 12px;
+          font-size: 10px;
+        }
+        .times {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .footer {
+          font-size: 9px;
+        }
+        .row select {
+          max-width: 180px;
+        }
+        .btn {
+          padding: 10px 13px;
+          font-size: 11px;
+        }
+        .section-title h2 {
+          font-size: 16px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main" class="skip">Ir para o conteúdo</a>
+    <div class="demo-bar">
+      <div>
+        <strong>DEMONSTRAÇÃO INTERATIVA</strong
+        ><span class="demo-detail">
+          · Dados fictícios. Nenhum agendamento real ou pagamento é
+          realizado.</span
+        >
+      </div>
+      <button id="reset" type="button">Reiniciar demo ↻</button>
+    </div>
+    <header class="role-bar">
+      <div class="af-brand">
+        Agenda<span>Flex</span><small>Uma plataforma. Cada experiência.</small>
+      </div>
+      <nav class="role-switch" aria-label="Visão da demonstração">
+        <button type="button" data-role="cliente" aria-pressed="true">
+          Cliente</button
+        ><button type="button" data-role="dono" aria-pressed="false">
+          Empresário</button
+        ><button type="button" data-role="barbeiro" aria-pressed="false">
+          Barbeiro
+        </button>
+      </nav>
+    </header>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="shop-brand">
+          <div class="shop-logo" aria-hidden="true">v.</div>
+          <div><strong>Vértice</strong><small>BARBEARIA & CUIDADO</small></div>
+        </div>
+        <div>
+          <div class="nav-label">Seu espaço</div>
+          <nav class="menu" id="menu" aria-label="Menu da visão atual"></nav>
+        </div>
+        <div class="side-note">
+          <strong>Feito para o seu negócio.</strong>Uma demonstração do
+          AgendaFlex com a identidade da Barbearia Vértice.<br /><br />Sem
+          login. Tudo fica apenas nesta página até você recarregar.
+        </div>
+      </aside>
+      <div class="workspace">
+        <div class="page-top">
+          <span id="breadcrumb">Vértice / Agendar</span>
+          <div class="who" id="identity"></div>
+        </div>
+        <main id="main" class="page" tabindex="-1"></main>
+      </div>
+    </div>
+    <div class="toast" role="status" id="toast"></div>
+    <script>
+      'use strict';
+      const icons = {
+        grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+        calendar:
+          '<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18m-13 4h2m4 0h2"/>',
+        users:
+          '<circle cx="9" cy="8" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3m1-16a3 3 0 0 1 0 6m3 10v-3a6 6 0 0 0-2-4"/>',
+        scissors:
+          '<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="m8 8 12 12M8 16 20 4"/>',
+        clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+        money:
+          '<rect x="2" y="5" width="20" height="14" rx="3"/><circle cx="12" cy="12" r="3"/><path d="M6 12h.01M18 12h.01"/>',
+        check: '<path d="m5 12 4 4L19 6"/>',
+        arrow: '<path d="M5 12h14m-5-5 5 5-5 5"/>',
+        star: '<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3l-5.6 2.9 1.1-6.2L3 9.6l6.2-.9Z"/>',
+      };
+      const icon = (name, size = 17) =>
+        `<svg aria-hidden="true" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round">${icons[name] || icons.grid}</svg>`;
+      const staff = [
+        {
+          id: 1,
+          name: 'Rafael Lima',
+          short: 'Rafael',
+          initials: 'RL',
+          specialty: 'Clássicos & tesoura',
+          bio: 'Acabamento preciso e um clássico que nunca sai de moda.',
+        },
+        {
+          id: 2,
+          name: 'Bruno Alves',
+          short: 'Bruno',
+          initials: 'BA',
+          specialty: 'Degradê & estilo',
+          bio: 'Degradês bem desenhados, do discreto ao marcante.',
+        },
+        {
+          id: 3,
+          name: 'Caio Santos',
+          short: 'Caio',
+          initials: 'CS',
+          specialty: 'Barba & navalha',
+          bio: 'Rituais de cuidado para uma barba com personalidade.',
+        },
+        {
+          id: 4,
+          name: 'Diego Costa',
+          short: 'Diego',
+          initials: 'DC',
+          specialty: 'Cortes modernos',
+          bio: 'Textura, movimento e um visual com a sua identidade.',
+        },
+        {
+          id: 5,
+          name: 'Lucas Rocha',
+          short: 'Lucas',
+          initials: 'LR',
+          specialty: 'Corte & finalização',
+          bio: 'Atenção aos detalhes, da conversa ao último acabamento.',
+        },
+      ];
+      const services = [
+        {
+          id: 1,
+          name: 'Corte de cabelo',
+          duration: 40,
+          price: 55,
+          detail: 'Tesoura ou máquina, do seu jeito.',
+        },
+        {
+          id: 2,
+          name: 'Barba completa',
+          duration: 30,
+          price: 35,
+          detail: 'Desenho, toalha quente e cuidado.',
+        },
+        {
+          id: 3,
+          name: 'Corte + barba',
+          duration: 60,
+          price: 80,
+          detail: 'O ritual completo para renovar.',
+        },
+        {
+          id: 4,
+          name: 'Sobrancelha',
+          duration: 15,
+          price: 20,
+          detail: 'Um detalhe que faz a diferença.',
+        },
+      ];
+      const seed = [
+        {
+          id: 1,
+          staff: 1,
+          client: 'André Ferreira',
+          service: 1,
+          time: '09:00',
+          day: 28,
+          status: 'Concluído',
+        },
+        {
+          id: 2,
+          staff: 2,
+          client: 'Pedro Mendes',
+          service: 3,
+          time: '09:00',
+          day: 28,
+          status: 'Concluído',
+        },
+        {
+          id: 3,
+          staff: 3,
+          client: 'Felipe Souza',
+          service: 2,
+          time: '09:30',
+          day: 28,
+          status: 'Concluído',
+        },
+        {
+          id: 4,
+          staff: 4,
+          client: 'Gustavo Nunes',
+          service: 1,
+          time: '10:00',
+          day: 28,
+          status: 'Em atendimento',
+        },
+        {
+          id: 5,
+          staff: 5,
+          client: 'Thiago Martins',
+          service: 3,
+          time: '10:00',
+          day: 28,
+          status: 'Confirmado',
+        },
+        {
+          id: 6,
+          staff: 1,
+          client: 'João Oliveira',
+          service: 3,
+          time: '11:00',
+          day: 28,
+          status: 'Confirmado',
+        },
+        {
+          id: 7,
+          staff: 2,
+          client: 'Matheus Castro',
+          service: 1,
+          time: '11:00',
+          day: 28,
+          status: 'Confirmado',
+        },
+        {
+          id: 8,
+          staff: 3,
+          client: 'Vinícius Lopes',
+          service: 2,
+          time: '14:00',
+          day: 28,
+          status: 'Confirmado',
+        },
+        {
+          id: 9,
+          staff: 4,
+          client: 'Daniel Ramos',
+          service: 1,
+          time: '14:00',
+          day: 28,
+          status: 'Confirmado',
+        },
+        {
+          id: 10,
+          staff: 5,
+          client: 'Henrique Dias',
+          service: 1,
+          time: '15:00',
+          day: 28,
+          status: 'Confirmado',
+        },
+      ];
+      let appointments = structuredClone(seed),
+        role = 'cliente',
+        view = 'agendar',
+        selectedStaff = 1,
+        selectedService = 1,
+        selectedDay = 28,
+        selectedTime = '',
+        barberId = 1,
+        filterStaff = 'todos',
+        filterDay = 28,
+        search = '',
+        myBooking = null,
+        toastTimer;
+      const money = (value) =>
+        value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+      const employee = (id) => staff.find((p) => p.id === Number(id));
+      const service = (id) => services.find((s) => s.id === Number(id));
+      const avatar = (p) =>
+        `<span class="avatar a${p.id}" aria-hidden="true">${p.initials}</span>`;
+      const escapeText = (value) =>
+        String(value).replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              '&': '&amp;',
+              '<': '&lt;',
+              '>': '&gt;',
+              '"': '&quot;',
+              "'": '&#39;',
+            })[c],
+        );
+      function toast(message) {
+        document.getElementById('toast').textContent = message;
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(
+          () => (document.getElementById('toast').textContent = ''),
+          5000,
+        );
+      }
+      function badge(status) {
+        const color =
+          {
+            Concluído: 'gray',
+            Confirmado: 'green',
+            'Em atendimento': 'blue',
+            Cancelado: 'red',
+          }[status] || 'amber';
+        return `<span class="badge ${color}">${status}</span>`;
+      }
+      function setRole(next) {
+        role = next;
+        view =
+          next === 'cliente'
+            ? 'agendar'
+            : next === 'dono'
+              ? 'visao'
+              : 'minha-agenda';
+        search = '';
+        render();
+      }
+      function heading(eyebrow, title, description, action = '') {
+        return `<div class="heading"><div><div class="eyebrow">${eyebrow}</div><h1>${title}</h1><p>${description}</p></div>${action}</div>`;
+      }
+      function stat(label, value, note, symbol) {
+        return `<article class="card stat"><div class="stat-top">${label}<span class="stat-icon">${icon(symbol)}</span></div><div class="stat-value">${value}</div><small>${note}</small></article>`;
+      }
+      function footer() {
+        return '<footer class="footer"><span>Vértice Barbearia · Uma experiência AgendaFlex</span><span>Protótipo visual · Outubro de 2026 · Dados fictícios</span></footer>';
+      }
+      function render() {
+        document
+          .querySelectorAll('[data-role]')
+          .forEach((b) =>
+            b.setAttribute('aria-pressed', String(b.dataset.role === role)),
+          );
+        const menus =
+          role === 'cliente'
+            ? [
+                ['agendar', 'Agendar horário', 'calendar'],
+                ['meu', 'Meu agendamento', 'clock'],
+                ['equipe', 'Conheça a equipe', 'users'],
+              ]
+            : role === 'dono'
+              ? [
+                  ['visao', 'Visão geral', 'grid'],
+                  ['agenda', 'Agenda', 'calendar'],
+                  ['equipe', 'Minha equipe', 'users'],
+                  ['servicos', 'Serviços', 'scissors'],
+                ]
+              : [
+                  ['minha-agenda', 'Minha agenda', 'calendar'],
+                  ['resumo', 'Meu resumo', 'grid'],
+                ];
+        document.getElementById('menu').innerHTML = menus
+          .map(
+            ([id, name, symbol]) =>
+              `<button type="button" data-view="${id}" class="${view === id ? 'active' : ''}" ${view === id ? 'aria-current="page"' : ''}>${icon(symbol)}${name}</button>`,
+          )
+          .join('');
+        const identity =
+          role === 'cliente'
+            ? '<span>Olá, visitante</span><span class="avatar">VC</span>'
+            : role === 'dono'
+              ? '<span>Marcos · Proprietário fictício</span><span class="avatar a1">MV</span>'
+              : `<span>${employee(barberId).name} · Barbeiro fictício</span>${avatar(employee(barberId))}`;
+        document.getElementById('identity').innerHTML = identity;
+        document.getElementById('breadcrumb').textContent =
+          `Vértice / ${menus.find((m) => m[0] === view)?.[1] || 'Demonstração'}`;
+        const html =
+          view === 'equipe'
+            ? teamPage()
+            : view === 'servicos'
+              ? servicesPage()
+              : role === 'cliente'
+                ? view === 'meu'
+                  ? myBookingPage()
+                  : bookingPage()
+                : role === 'dono'
+                  ? ownerPage()
+                  : barberPage();
+        document.getElementById('main').innerHTML = html + footer();
+        bind();
+      }
+      function bookingPage() {
+        const s = service(selectedService),
+          p = employee(selectedStaff);
+        const occupied = appointments
+          .filter(
+            (a) =>
+              a.staff === selectedStaff &&
+              a.day === selectedDay &&
+              a.status !== 'Cancelado',
+          )
+          .map((a) => a.time);
+        const times = [
+          '09:00',
+          '10:30',
+          '11:00',
+          '13:00',
+          '14:00',
+          '15:00',
+          '16:00',
+          '17:00',
+        ];
+        return `<div class="hero"><div class="hero-copy"><div class="eyebrow">Bem-vindo à Vértice · Desde 2018</div><h1>Seu estilo.<br>Seu melhor momento.</h1><p>Um bom corte muda o dia. Escolha seu cuidado e reserve um tempo para você.</p><div class="tags"><span>${icon('star', 13)} 4,9 · avaliação fictícia</span><span>${icon('clock', 13)} Seg–sáb, 09h às 19h</span></div></div><div class="hero-art" aria-hidden="true"><span class="v">v.</span><div class="seal">ESTILO<br>& CUIDADO<br>VÉRTICE</div></div></div>
+ <div class="booking-columns"><section class="card"><div class="card-body"><div class="steps"><div class="step active"><span>1</span>Seu cuidado</div><div class="step active"><span>2</span>Profissional</div><div class="step ${selectedTime ? 'active' : ''}"><span>3</span>Seu horário</div></div><div class="section-title"><h2>O que vamos fazer hoje?</h2><span>01 / 03</span></div><div class="service-grid">${services.map((item) => `<button type="button" class="choice" data-service="${item.id}" aria-pressed="${item.id === selectedService}"><span class="service-icon">${icon('scissors')}</span><strong>${item.name}</strong><small>${item.duration} min</small><span class="price">${money(item.price)}</span></button>`).join('')}</div>
+ <div class="spacer"></div><div class="section-title"><h2>Escolha seu barbeiro</h2><span>02 / 03</span></div><div class="staff-choices">${staff.map((p) => `<button type="button" class="choice staff-choice" data-staff="${p.id}" aria-pressed="${p.id === selectedStaff}">${avatar(p)}<strong>${p.short}</strong><small>${p.specialty}</small></button>`).join('')}</div>
+ <div class="spacer"></div><div class="section-title"><h2>Um tempo só seu</h2><span>Outubro 2026 · 03 / 03</span></div><div class="dates">${['Qua', 'Qui', 'Sex', 'Sáb'].map((day, i) => `<button type="button" class="choice date-choice" data-day="${28 + i}" aria-pressed="${selectedDay === 28 + i}"><small>${day}</small><strong>${28 + i}</strong><small>OUT</small></button>`).join('')}</div><div class="spacer"></div><div class="times">${times.map((time) => `<button type="button" class="choice time" data-time="${time}" aria-pressed="${selectedTime === time}" ${occupied.includes(time) ? 'disabled title="Ocupado nesta demonstração"' : ''}>${time}${occupied.includes(time) ? '<span class="hidden"> ocupado</span>' : ''}</button>`).join('')}</div><p class="footnote" style="margin-top:13px">Horários ilustrativos. Esta simulação não calcula disponibilidade real.</p></div></section>
+ <aside class="card summary"><div class="card-head"><h2>Seu próximo cuidado</h2>${icon('calendar')}</div><div class="card-body"><div class="row" style="margin-bottom:15px">${avatar(p)}<div><h3>${p.name}</h3><p style="font-size:11px">Vértice Barbearia</p></div></div><div class="summary-item"><span>Serviço</span><strong>${s.name}</strong></div><div class="summary-item"><span>Duração</span><strong>${s.duration} minutos</strong></div><div class="summary-item"><span>Data</span><strong>${selectedDay} de outubro, 2026</strong></div><div class="summary-item"><span>Horário</span><strong>${selectedTime || 'Escolha um horário'}</strong></div><div class="total"><span>Total estimado</span><strong>${money(s.price)}</strong></div><button type="button" id="book" class="btn primary full" ${!selectedTime ? 'disabled' : ''}>Simular agendamento ${icon('arrow', 15)}</button><p class="footnote">Sem cobrança e sem cadastro.<br>Você verá o resultado na agenda do empresário.</p></div></aside></div>`;
+      }
+      function myBookingPage() {
+        const a = appointments.find((item) => item.id === myBooking);
+        if (!a)
+          return (
+            heading(
+              'Seu espaço',
+              'Tudo pronto para o próximo corte?',
+              'Você ainda não fez um agendamento nesta demonstração.',
+            ) +
+            '<button type="button" data-view="agendar" class="btn primary">Escolher um horário</button>'
+          );
+        const p = employee(a.staff),
+          s = service(a.service);
+        return (
+          heading(
+            'Seu espaço',
+            'Meu agendamento',
+            'Um resumo do seu cuidado. Todos os dados abaixo são fictícios.',
+          ) +
+          `<section class="card" style="max-width:600px;margin:auto"><div class="card-body success-box"><div class="success-icon">${icon(a.status === 'Cancelado' ? 'calendar' : 'check', 27)}</div><h2>${a.status === 'Cancelado' ? 'Simulação cancelada' : 'Seu momento está reservado.'}</h2><p>${a.status === 'Cancelado' ? 'Você pode escolher um novo horário.' : 'Apenas nesta demonstração. Não existe uma reserva real.'}</p><div class="booking-ticket"><div class="row spread"><strong>Vértice Barbearia</strong>${badge(a.status)}</div><br>${s.name} · ${s.duration} minutos<br>Com ${p.name}<br><strong>${a.day} de outubro de 2026, às ${a.time}</strong><br>${money(s.price)} · Sem cobrança<br><small>Cliente fictício: Visitante da demo</small></div><div class="row wrap" style="justify-content:center">${a.status === 'Confirmado' ? '<button type="button" id="cancel-booking" class="btn">Cancelar simulação</button>' : ''}<button type="button" id="new-booking" class="btn primary">${a.status === 'Cancelado' ? 'Escolher outro horário' : 'Voltar aos serviços'}</button></div></div></section>`
+        );
+      }
+      function teamPage() {
+        return (
+          heading(
+            'Pessoas que fazem a diferença',
+            role === 'dono'
+              ? 'Uma equipe. Muitos talentos.'
+              : 'Seu estilo, em boas mãos.',
+            'Cinco profissionais fictícios, cada um com a sua especialidade.',
+          ) +
+          `<div class="team-grid">${staff.map((p) => `<article class="card staff-card">${avatar(p)}<h2>${p.name}</h2><p>${p.specialty}</p><p>${p.bio}</p><div class="availability">Atende de segunda a sábado</div><div class="spacer"></div>${role === 'cliente' ? `<button type="button" class="btn primary full" data-choose-staff="${p.id}">Agendar com ${p.short}</button>` : `<div class="row spread"><span class="badge green">Profissional ativo</span><button type="button" class="btn small" data-team-agenda="${p.id}">Ver agenda</button></div>`}</article>`).join('')}</div>`
+        );
+      }
+      function servicesPage() {
+        return (
+          heading(
+            'Catálogo da barbearia',
+            'Serviços & cuidados',
+            'Exemplo de catálogo. Preços e durações são fictícios.',
+          ) +
+          `<div class="service-grid">${services.map((s) => `<article class="card card-body"><div class="row spread"><span class="stat-icon">${icon('scissors', 22)}</span><span class="badge green">Ativo na demo</span></div><div class="spacer"></div><h2>${s.name}</h2><p style="margin:10px 0 20px">${s.detail}</p><div class="row spread"><span class="footnote">${icon('clock', 13)} ${s.duration} minutos · 5 profissionais</span><strong>${money(s.price)}</strong></div></article>`).join('')}</div>`
+        );
+      }
+      function staffFilter() {
+        return `<select id="staff-filter" class="control" aria-label="Filtrar profissional"><option value="todos">Todos os profissionais</option>${staff.map((p) => `<option value="${p.id}" ${String(filterStaff) === String(p.id) ? 'selected' : ''}>${p.name}</option>`).join('')}</select>`;
+      }
+      function ownerPage() {
+        const dayItems = appointments.filter((a) => a.day === filterDay),
+          active = dayItems.filter((a) => a.status !== 'Cancelado'),
+          completed = active.filter((a) => a.status === 'Concluído');
+        return (
+          heading(
+            'Seu negócio, em perspectiva',
+            view === 'agenda' ? 'Agenda da barbearia' : 'Bom dia, Marcos.',
+            'Quarta-feira, 28 de outubro de 2026 · Uma boa experiência começa na organização.',
+            `<button type="button" id="owner-new" class="btn primary">+ Simular novo agendamento</button>`,
+          ) +
+          `<div class="stats">${stat('Agendamentos', active.length, 'No dia selecionado', 'calendar')}${stat('Receita prevista', money(active.reduce((v, a) => v + service(a.service).price, 0)), 'Inclui atendimentos ainda não concluídos', 'money')}${stat('Concluídos', completed.length, 'Atendimentos finalizados na demo', 'check')}${stat('Equipe', 5, 'Profissionais no estabelecimento', 'users')}</div><div class="columns"><section class="card"><div class="card-head"><h2>Agenda do dia</h2><span class="badge green">${filterDay} out · Demonstração</span></div><div class="toolbar"><select id="day-filter" class="control" aria-label="Filtrar dia">${[28, 29, 30, 31].map((day) => `<option value="${day}" ${filterDay === day ? 'selected' : ''}>${day} de outubro</option>`).join('')}</select>${staffFilter()}<input type="search" id="search" class="control" aria-label="Buscar cliente" placeholder="Buscar cliente…" value="${escapeText(search)}"></div><div id="agenda-table">${ownerTable()}</div></section><aside class="stack"><section class="card"><div class="card-head"><h2>Na casa hoje</h2><small>5 profissionais</small></div><div class="card-body">${staff.map((p) => `<div class="team-line"><div class="person">${avatar(p)}<div><strong>${p.name}</strong><small>${p.specialty}</small></div></div><div class="mini-count">${active.filter((a) => a.staff === p.id).length}<br>horários</div></div>`).join('')}</div></section><section class="card"><div class="card-head"><h2>Movimento da semana</h2></div><div class="card-body"><p class="footnote">Distribuição ilustrativa, sem dados reais.</p><div class="chart" aria-label="Gráfico ilustrativo do movimento semanal">${['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'].map((d, i) => `<div class="bar-col"><div class="bar ${i === 2 ? 'current' : ''}" style="height:${[45, 60, 78, 50, 85, 95][i]}%"></div>${d}</div>`).join('')}</div></div></section></aside></div>`
+        );
+      }
+      function ownerTable() {
+        const rows = appointments
+          .filter(
+            (a) =>
+              a.day === filterDay &&
+              (filterStaff === 'todos' || a.staff === Number(filterStaff)) &&
+              a.client
+                .toLocaleLowerCase('pt-BR')
+                .includes(search.toLocaleLowerCase('pt-BR')),
+          )
+          .sort((a, b) => a.time.localeCompare(b.time));
+        return rows.length
+          ? `<div class="table-scroll"><table><caption class="hidden">Agendamentos fictícios do dia selecionado</caption><thead><tr><th>Horário</th><th>Cliente / serviço</th><th>Profissional</th><th>Status</th><th>Valor</th></tr></thead><tbody>${rows.map((a) => `<tr><td><strong>${a.time}</strong></td><td><strong>${escapeText(a.client)}</strong><small>${service(a.service).name} · ${service(a.service).duration} min</small></td><td><div class="person">${avatar(employee(a.staff))}${employee(a.staff).short}</div></td><td>${badge(a.status)}</td><td class="money">${money(service(a.service).price)}</td></tr>`).join('')}</tbody></table></div>`
+          : '<div class="empty">Nenhum agendamento para esses filtros.<br>Experimente outro dia ou profissional.</div>';
+      }
+      function barberPage() {
+        const p = employee(barberId),
+          items = appointments
+            .filter(
+              (a) =>
+                a.staff === barberId &&
+                a.day === 28 &&
+                a.status !== 'Cancelado',
+            )
+            .sort((a, b) => a.time.localeCompare(b.time)),
+          completed = items.filter((a) => a.status === 'Concluído'),
+          next = items.find((a) => a.status !== 'Concluído');
+        const choose = `<label class="field">Simular outro profissional<select id="barber-select">${staff.map((p) => `<option value="${p.id}" ${p.id === barberId ? 'selected' : ''}>${p.name}</option>`).join('')}</select></label>`;
+        return (
+          heading(
+            'Seu dia, com mais leveza',
+            view === 'resumo'
+              ? 'Seu trabalho em perspectiva.'
+              : `Bom dia, ${p.short}.`,
+            'Quarta-feira, 28 de outubro de 2026 · Sua agenda pessoal de demonstração.',
+            choose,
+          ) +
+          `<div class="stats">${stat('Seus atendimentos', items.length, 'Agendados para hoje', 'calendar')}${stat('Já concluídos', completed.length, 'Bom trabalho até aqui', 'check')}${stat('A atender', items.length - completed.length, 'Inclui atendimento em andamento', 'clock')}${stat('Valor dos serviços', money(completed.reduce((v, a) => v + service(a.service).price, 0)), 'Concluídos · Não representa comissão', 'money')}</div>${next ? `<section class="banner"><div><div class="eyebrow">${next.status === 'Em atendimento' ? 'Em atendimento' : 'Próximo da sua agenda'}</div><h2>${next.time} · ${escapeText(next.client)}</h2><p>${service(next.service).name} · ${service(next.service).duration} min · ${money(service(next.service).price)}</p></div><span class="badge ${next.status === 'Em atendimento' ? 'blue' : 'green'}">${next.status}</span></section>` : ''}<div class="columns"><section class="card"><div class="card-head"><h2>${view === 'resumo' ? 'Atendimentos e resultados' : 'Sua agenda de hoje'}</h2><small>28 de outubro</small></div><div class="timeline">${items.map((a) => `<article class="appointment"><time>${a.time}</time><div><h3>${escapeText(a.client)}</h3>${badge(a.status)}<p>${service(a.service).name} · ${service(a.service).duration} min</p></div><div class="actions">${a.status === 'Confirmado' ? `<button type="button" class="btn small primary" data-start="${a.id}">Iniciar atendimento</button>` : a.status === 'Em atendimento' ? `<button type="button" class="btn small primary" data-finish="${a.id}">Concluir atendimento</button>` : `<span class="footnote">${icon('check', 14)} Finalizado</span>`}</div></article>`).join('') || '<div class="empty">Sua agenda está livre neste dia.</div>'}</div></section><aside class="stack"><section class="card"><div class="card-head"><h2>Seu espaço</h2></div><div class="card-body"><div class="row">${avatar(p)}<div><h3>${p.name}</h3><p style="font-size:11px">${p.specialty}</p></div></div><div class="spacer"></div><div class="info-grid"><div class="info-box"><small>Início do dia</small><strong>09:00</strong></div><div class="info-box"><small>Fim do dia</small><strong>19:00</strong></div></div><p class="footnote" style="margin-top:17px">Almoço ilustrativo: 12h às 13h.<br>O barbeiro acompanha somente sua própria lista nesta visão de demonstração.</p></div></section><section class="card card-body"><h3>Um cuidado de cada vez.</h3><p style="font-size:12px;margin-top:10px">Experimente iniciar e concluir um atendimento. A visão do empresário acompanha a alteração nesta mesma página.</p></section></aside></div>`
+        );
+      }
+      function bind() {
+        document.querySelectorAll('[data-view]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              view = b.dataset.view;
+              render();
+            }),
+        );
+        document.querySelectorAll('[data-service]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              selectedService = Number(b.dataset.service);
+              selectedTime = '';
+              render();
+            }),
+        );
+        document.querySelectorAll('[data-staff]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              selectedStaff = Number(b.dataset.staff);
+              selectedTime = '';
+              render();
+            }),
+        );
+        document.querySelectorAll('[data-day]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              selectedDay = Number(b.dataset.day);
+              selectedTime = '';
+              render();
+            }),
+        );
+        document.querySelectorAll('[data-time]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              selectedTime = b.dataset.time;
+              render();
+            }),
+        );
+        document.querySelectorAll('[data-choose-staff]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              selectedStaff = Number(b.dataset.chooseStaff);
+              selectedTime = '';
+              view = 'agendar';
+              render();
+              document.getElementById('main').focus();
+            }),
+        );
+        document.querySelectorAll('[data-team-agenda]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              filterStaff = b.dataset.teamAgenda;
+              view = 'agenda';
+              render();
+            }),
+        );
+        const on = (id, event, fn) => {
+          const el = document.getElementById(id);
+          if (el) el.addEventListener(event, fn);
+        };
+        on('book', 'click', () => {
+          if (!selectedTime) return;
+          const existing = appointments.find(
+            (a) =>
+              a.id === myBooking &&
+              a.status !== 'Cancelado' &&
+              a.status !== 'Concluído',
+          );
+          if (existing) {
+            view = 'meu';
+            render();
+            toast(
+              'Você já tem uma simulação ativa. Cancele antes de escolher outra.',
+            );
+            return;
+          }
+          if (
+            appointments.some(
+              (a) =>
+                a.day === selectedDay &&
+                a.staff === selectedStaff &&
+                a.time === selectedTime &&
+                a.status !== 'Cancelado',
+            )
+          ) {
+            selectedTime = '';
+            render();
+            toast('Escolha outro horário para a simulação.');
+            return;
+          }
+          const a = {
+            id: Date.now(),
+            staff: selectedStaff,
+            service: selectedService,
+            day: selectedDay,
+            time: selectedTime,
+            client: 'Visitante da demo',
+            status: 'Confirmado',
+          };
+          appointments.push(a);
+          myBooking = a.id;
+          view = 'meu';
+          render();
+          document.getElementById('main').focus();
+          toast(
+            'Agendamento fictício criado. Veja também na visão Empresário.',
+          );
+        });
+        on('cancel-booking', 'click', () => {
+          const a = appointments.find((a) => a.id === myBooking);
+          if (a) a.status = 'Cancelado';
+          selectedTime = '';
+          render();
+          toast('Simulação cancelada. Nenhuma reserva real foi afetada.');
+        });
+        on('new-booking', 'click', () => {
+          view = 'agendar';
+          selectedTime = '';
+          render();
+        });
+        on('owner-new', 'click', () => {
+          setRole('cliente');
+          toast(
+            'Escolha serviço, profissional e horário para criar uma simulação.',
+          );
+        });
+        on('staff-filter', 'change', (e) => {
+          filterStaff = e.target.value;
+          document.getElementById('agenda-table').innerHTML = ownerTable();
+        });
+        on('day-filter', 'change', (e) => {
+          filterDay = Number(e.target.value);
+          render();
+        });
+        on('search', 'input', (e) => {
+          search = e.target.value;
+          document.getElementById('agenda-table').innerHTML = ownerTable();
+        });
+        on('barber-select', 'change', (e) => {
+          barberId = Number(e.target.value);
+          render();
+        });
+        document.querySelectorAll('[data-start]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              if (
+                appointments.some(
+                  (a) => a.staff === barberId && a.status === 'Em atendimento',
+                )
+              ) {
+                toast(
+                  'Conclua o atendimento em andamento antes de iniciar outro.',
+                );
+                return;
+              }
+              appointments.find(
+                (a) => a.id === Number(b.dataset.start),
+              ).status = 'Em atendimento';
+              render();
+              toast('Atendimento iniciado na demonstração.');
+            }),
+        );
+        document.querySelectorAll('[data-finish]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              appointments.find(
+                (a) => a.id === Number(b.dataset.finish),
+              ).status = 'Concluído';
+              render();
+              toast('Atendimento concluído na demonstração.');
+            }),
+        );
+      }
+      document
+        .querySelectorAll('[data-role]')
+        .forEach((b) => (b.onclick = () => setRole(b.dataset.role)));
+      document.getElementById('reset').onclick = () => {
+        appointments = structuredClone(seed);
+        myBooking = null;
+        selectedTime = '';
+        selectedStaff = 1;
+        selectedService = 1;
+        selectedDay = 28;
+        barberId = 1;
+        filterStaff = 'todos';
+        filterDay = 28;
+        search = '';
+        setRole('cliente');
+        toast('Demonstração reiniciada com os dados originais.');
+      };
+      render();
+    </script>
+  </body>
+</html>
