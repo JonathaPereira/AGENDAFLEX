@@ -1700,6 +1700,330 @@
           scroll-behavior: auto !important;
         }
       }
+      :root {
+        --surface: #fff;
+        --soft-surface: #fafbf7;
+        --input: #fff;
+        --dark-green-text: #46622b;
+        --soft-green: #edf3e5;
+        --muted: #606c64;
+        color-scheme: light;
+      }
+      :root[data-theme='dark'] {
+        color-scheme: dark;
+        --bg: #111b17;
+        --surface: #1b2821;
+        --paper: #1b2821;
+        --ink: #e4ece2;
+        --muted: #b1c1b5;
+        --line: #35473b;
+        --green: #b7d794;
+        --lime: #d0e7a7;
+        --soft: #2a3d2d;
+        --soft-surface: #203027;
+        --input: #16231c;
+        --dark-green-text: #d0e7af;
+        --soft-green: #2c402d;
+      }
+      .card,
+      .choice,
+      .btn {
+        background: var(--surface);
+        color: var(--ink);
+      }
+      .sidebar,
+      .card-head,
+      .role-bar,
+      .summary .card-head,
+      th {
+        background: var(--soft-surface);
+      }
+      .page-top,
+      .topbar {
+        border-color: var(--line);
+      }
+      .choice[aria-pressed='true'],
+      .info-box,
+      .equation,
+      .booking-ticket {
+        background: var(--soft-surface);
+      }
+      .field input,
+      .field select,
+      select.control,
+      input.control {
+        background: var(--input);
+        color: var(--ink);
+        border-color: var(--line);
+      }
+      .role-switch {
+        background: var(--bg);
+      }
+      .role-switch button[aria-pressed='true'] {
+        background: var(--surface);
+      }
+      .menu button.active {
+        background: var(--soft-green);
+        color: var(--dark-green-text);
+      }
+      .menu button:hover {
+        background: var(--soft-green);
+      }
+      .member-banner,
+      .banner {
+        background: var(--soft-surface);
+        border-color: var(--line);
+      }
+      .callout {
+        background: var(--soft-surface);
+        color: var(--muted);
+      }
+      .badge.green {
+        background: var(--soft-green);
+        color: var(--dark-green-text);
+      }
+      .btn.primary {
+        background: #234e38;
+        color: #fff;
+        border-color: #234e38;
+      }
+      .btn.lime {
+        background: #d6ee98;
+        color: #263c28;
+      }
+      .btn:disabled {
+        opacity: 0.5;
+      }
+      .menu-group {
+        color: var(--muted);
+      }
+      .info-button {
+        display: inline-grid;
+        place-items: center;
+        width: 17px;
+        height: 17px;
+        margin-left: 5px;
+        padding: 0;
+        border-radius: 50%;
+        font-size: 10px;
+        font-weight: 650;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        background: var(--surface);
+        vertical-align: middle;
+        flex-shrink: 0;
+      }
+      .info-button:hover,
+      .info-button:focus-visible {
+        background: var(--soft-green);
+        color: var(--ink);
+      }
+      .field-wrap {
+        position: relative;
+        min-width: 0;
+      }
+      .field-wrap > label {
+        padding-right: 20px;
+      }
+      .field-wrap > .info-button {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      .field-wrap input {
+        width: 100%;
+      }
+      .stat-top {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+      .stat-top .stat-icon {
+        margin-left: auto;
+      }
+      #help-popover {
+        position: fixed;
+        inset: auto;
+        margin: 0;
+        max-width: 310px;
+        width: calc(100vw - 24px);
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--surface);
+        color: var(--ink);
+        box-shadow: 0 12px 40px #0003;
+        z-index: 1000;
+      }
+      #help-popover strong {
+        font-size: 13px;
+      }
+      #help-popover p {
+        font-size: 12px;
+        margin: 10px 0;
+      }
+      #help-popover > span {
+        font-size: 9px;
+        color: var(--muted);
+      }
+      .expired-banner {
+        border-color: #bb6a54;
+        background: #fff0eb;
+      }
+      .expired-banner strong {
+        color: #8d3e2c;
+      }
+      .payroll-section {
+        border-block: 1px solid var(--line);
+        margin: 22px 0;
+        padding: 22px 0;
+      }
+      .pay-breakdown {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        font-size: 12px;
+        margin: 12px 0;
+      }
+      .pay-breakdown span {
+        padding: 9px;
+        background: var(--soft);
+        border-radius: 7px;
+      }
+      .subscription-plan {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        min-width: 0;
+      }
+      .subscription-plan h3 {
+        font-size: 17px;
+      }
+      .subscription-plan input {
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        padding: 10px;
+        background: var(--input);
+        color: var(--ink);
+        width: 100%;
+      }
+      .subscription-pagination {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .subscription-pagination > span {
+        margin-right: auto;
+      }
+      .subscription-totals {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 15px;
+        margin-bottom: 22px;
+      }
+      .subscription-totals > span {
+        border: 1px solid var(--line);
+        padding: 18px;
+        border-radius: 10px;
+        font-size: 12px;
+      }
+      .subscription-totals strong {
+        display: block;
+        font-size: 24px;
+        margin-top: 9px;
+      }
+      .theme-button {
+        margin-left: auto;
+        font-size: 11px;
+      }
+      .role-bar {
+        flex-wrap: wrap;
+      }
+      :root[data-theme='dark'] .hero,
+      :root[data-theme='dark'] .plan-card.featured {
+        background: #203b2c;
+      }
+      :root[data-theme='dark'] .plan-card.featured {
+        color: #f2f6ee;
+      }
+      :root[data-theme='dark'] .badge.gray {
+        background: #354038;
+        color: #d6dfd7;
+      }
+      :root[data-theme='dark'] .badge.amber,
+      :root[data-theme='dark'] .private-tag {
+        background: #493b26;
+        color: #f1d19d;
+      }
+      :root[data-theme='dark'] .badge.red {
+        background: #4b302c;
+        color: #ffd0c2;
+      }
+      :root[data-theme='dark'] .badge.blue {
+        background: #2a4050;
+        color: #c2deef;
+      }
+      :root[data-theme='dark'] .expired-banner {
+        background: #352721;
+        color: #ffd0c2;
+      }
+      :root[data-theme='dark'] .expired-banner strong {
+        color: #ffd0c2;
+      }
+      :root[data-theme='dark'] .positive {
+        color: #b6db9d;
+      }
+      :root[data-theme='dark'] .negative {
+        color: #ffb09b;
+      }
+      :root[data-theme='dark'] .stat-icon,
+      :root[data-theme='dark'] .choice .service-icon {
+        background: #2c402f;
+        color: #cce2bb;
+      }
+      :root[data-theme='dark'] td,
+      :root[data-theme='dark'] .team-line,
+      :root[data-theme='dark'] .summary-item {
+        border-color: var(--line);
+      }
+      :root[data-theme='dark'] .shop-logo {
+        background: #203d2c;
+        color: #d6ee98;
+      }
+      :root[data-theme='dark'] .avatar:not(.photo) {
+        background: #344634;
+        color: #e3eddf;
+      }
+      @media (max-width: 640px) {
+        .theme-button {
+          align-self: flex-end;
+          margin-top: -38px;
+          max-width: 130px;
+        }
+        .af-brand small {
+          display: none;
+        }
+        .subscription-totals {
+          grid-template-columns: 1fr;
+        }
+        .subscription-pagination {
+          gap: 7px;
+          padding: 12px;
+          font-size: 10px;
+        }
+        .role-bar .role-switch {
+          margin-top: 5px;
+        }
+        .pay-breakdown {
+          flex-direction: column;
+          gap: 7px;
+        }
+        .ledger-line {
+          font-size: 11px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1718,6 +2042,14 @@
       <div class="af-brand">
         Agenda<span>Flex</span><small>Uma plataforma. Cada experiência.</small>
       </div>
+      <button
+        type="button"
+        class="btn theme-button"
+        id="theme-toggle"
+        aria-pressed="false"
+      >
+        ☾ Modo escuro
+      </button>
       <nav class="role-switch" aria-label="Visão da demonstração">
         <button type="button" data-role="cliente" aria-pressed="true">
           Cliente</button
@@ -1768,6 +2100,11 @@
       </div>
     </div>
     <div class="toast" role="status" id="toast"></div>
+    <div id="help-popover" popover role="tooltip">
+      <strong id="help-title"></strong>
+      <p id="help-description"></p>
+      <span>Exemplo fictício · Escape para fechar</span>
+    </div>
     <script>
       'use strict';
       const icons = {
@@ -1833,14 +2170,14 @@
         {
           id: 1,
           name: 'Corte de cabelo',
-          duration: 40,
+          duration: 60,
           price: 55,
           detail: 'Tesoura ou máquina, do seu jeito.',
         },
         {
           id: 2,
           name: 'Barba completa',
-          duration: 30,
+          duration: 60,
           price: 35,
           detail: 'Desenho, toalha quente e cuidado.',
         },
@@ -1854,103 +2191,12 @@
         {
           id: 4,
           name: 'Sobrancelha',
-          duration: 15,
+          duration: 60,
           price: 20,
           detail: 'Um detalhe que faz a diferença.',
         },
       ];
-      const seed = [
-        {
-          id: 1,
-          staff: 1,
-          client: 'André Ferreira',
-          service: 1,
-          time: '09:00',
-          day: 28,
-          status: 'Concluído',
-        },
-        {
-          id: 2,
-          staff: 2,
-          client: 'Pedro Mendes',
-          service: 3,
-          time: '09:00',
-          day: 28,
-          status: 'Concluído',
-        },
-        {
-          id: 3,
-          staff: 3,
-          client: 'Felipe Souza',
-          service: 2,
-          time: '09:30',
-          day: 28,
-          status: 'Concluído',
-        },
-        {
-          id: 4,
-          staff: 4,
-          client: 'Gustavo Nunes',
-          service: 1,
-          time: '10:00',
-          day: 28,
-          status: 'Em atendimento',
-        },
-        {
-          id: 5,
-          staff: 5,
-          client: 'Thiago Martins',
-          service: 3,
-          time: '10:00',
-          day: 28,
-          status: 'Confirmado',
-        },
-        {
-          id: 6,
-          staff: 1,
-          client: 'João Oliveira',
-          service: 3,
-          time: '11:00',
-          day: 28,
-          status: 'Confirmado',
-        },
-        {
-          id: 7,
-          staff: 2,
-          client: 'Matheus Castro',
-          service: 1,
-          time: '11:00',
-          day: 28,
-          status: 'Confirmado',
-        },
-        {
-          id: 8,
-          staff: 3,
-          client: 'Vinícius Lopes',
-          service: 2,
-          time: '14:00',
-          day: 28,
-          status: 'Confirmado',
-        },
-        {
-          id: 9,
-          staff: 4,
-          client: 'Daniel Ramos',
-          service: 1,
-          time: '14:00',
-          day: 28,
-          status: 'Confirmado',
-        },
-        {
-          id: 10,
-          staff: 5,
-          client: 'Henrique Dias',
-          service: 1,
-          time: '15:00',
-          day: 28,
-          status: 'Confirmado',
-        },
-      ];
+      let seed = [];
       let appointments = structuredClone(seed),
         role = 'cliente',
         view = 'agendar',
@@ -1986,7 +2232,7 @@
         {
           id: 'cabelo',
           name: 'Cabelo em dia',
-          price: 150,
+          price: 120,
           service: 1,
           includes: [1],
           tag: 'Seu corte, sempre em dia',
@@ -1994,7 +2240,7 @@
         {
           id: 'barba',
           name: 'Barba impecável',
-          price: 100,
+          price: 120,
           service: 2,
           includes: [2],
           tag: 'Um cuidado de respeito',
@@ -2002,56 +2248,23 @@
         {
           id: 'completo',
           name: 'Vértice completo',
-          price: 250,
+          price: 120,
           service: 3,
           includes: [1, 2, 3],
           tag: 'Cabelo + barba, do seu jeito',
         },
       ];
-      const members = Array.from({ length: 20 }, (_, i) => ({
-        id:
-          i === 0 ? 'joao' : i === 1 ? 'antonio' : i === 2 ? 'carlos' : `m${i}`,
-        name: [
-          'João Oliveira',
-          'Antônio Mendes',
-          'Carlos Ribeiro',
-          'Eduardo Silva',
-          'Renato Moura',
-          'Paulo Teixeira',
-          'Alexandre Reis',
-          'Marcos Dias',
-          'Ricardo Leal',
-          'Fábio Barros',
-          'Leandro Melo',
-          'Vitor Araújo',
-          'Samuel Lima',
-          'Roberto Braga',
-          'Leonardo Cruz',
-          'Miguel Sales',
-          'Davi Moreira',
-          'Arthur Pinto',
-          'Gabriel Luz',
-          'Enzo Tavares',
-        ][i],
-        plan: i < 2 ? 'cabelo' : i === 2 ? 'completo' : plans[i % 3].id,
-        visits: i === 0 ? 2 : i === 1 ? 4 : 2 + (i % 3),
-      }));
+      let members = [],
+        history = [];
       const planById = (id) => plans.find((p) => p.id === id);
-      const history = members.flatMap((m, index) =>
-        Array.from({ length: m.visits }, (_, i) => ({
-          id: `historic-${index}-${i}`,
-          memberId: m.id,
-          client: m.name,
-          paymentKind: 'plano',
-          service: planById(m.plan).service,
-          staff: 1 + ((index + i) % 5),
-          day: 2 + i * 6,
-          time: '09:00',
-          status: 'Concluído',
-        })),
-      );
       const defaultSettings = {
         model: 'fixo',
+        payMode: 'base-comissao',
+        base1: 1500,
+        base2: 1500,
+        base3: 1500,
+        base4: 1500,
+        base5: 1500,
         planPercent: 40,
         avulsoPercent: 45,
         fee: 2,
@@ -2104,12 +2317,8 @@
           currentMember() &&
           planById(currentMember().plan).includes.includes(selectedService),
         );
-      const completedMonth = () =>
-        [...history, ...appointments].filter((a) => a.status === 'Concluído');
-      const visitsOf = (id) =>
-        completedMonth().filter(
-          (a) => a.memberId === id && a.paymentKind === 'plano',
-        );
+      const completedMonth = () => ledger().completed;
+      const visitsOf = (id) => ledger().byMember.get(id) || [];
       const fixedRate = (id) =>
         settings[['', 'cabelo', 'barba', 'completo', 'sobrancelha'][id]];
       const consumables = (id) =>
@@ -2122,6 +2331,448 @@
             'insumoSobrancelha',
           ][id]
         ] + settings.cafe;
+      const referenceDate = '2026-10-28';
+      const daySlots = [
+        '09:00',
+        '10:00',
+        '11:00',
+        '14:00',
+        '15:00',
+        '16:00',
+        '17:00',
+        '18:00',
+        '19:00',
+        '20:00',
+      ];
+      const defaultPlanConfig = Object.fromEntries(
+        plans.map((p) => [p.id, { quantity: 100, overdue: 10, price: 120 }]),
+      );
+      let planConfig = structuredClone(defaultPlanConfig),
+        derivedCache = null,
+        subscriberQuery = '',
+        subscriberState = 'todos',
+        subscriberPage = 0;
+      const displayDate = (value) => value.split('-').reverse().join('/');
+      const memberCurrent = (m) => Boolean(m && m.paidThrough >= referenceDate);
+      const eligibleForDate = (m, day) =>
+        memberCurrent(m) &&
+        m.paidThrough >= `2026-10-${String(day).padStart(2, '0')}`;
+      const salaryOf = (id) =>
+        settings.payMode === 'base-comissao' ? settings[`base${id}`] : 0;
+      const salaryTotal = () => staff.reduce((v, p) => v + salaryOf(p.id), 0);
+      function ledger() {
+        if (derivedCache) return derivedCache;
+        const completed = [...history, ...appointments].filter(
+            (a) => a.status === 'Concluído',
+          ),
+          byMember = new Map();
+        for (const a of completed) {
+          if (a.paymentKind !== 'plano') continue;
+          const items = byMember.get(a.memberId) || [];
+          items.push(a);
+          byMember.set(a.memberId, items);
+        }
+        return (derivedCache = { completed, byMember });
+      }
+      function rebuildScenario() {
+        const first = [
+            'Eduardo',
+            'Renato',
+            'Paulo',
+            'Alexandre',
+            'Ricardo',
+            'Fábio',
+            'Leandro',
+            'Vitor',
+            'Samuel',
+            'Roberto',
+          ],
+          last = [
+            'Silva',
+            'Moura',
+            'Teixeira',
+            'Reis',
+            'Leal',
+            'Barros',
+            'Melo',
+            'Araújo',
+            'Lima',
+            'Braga',
+          ];
+        members = plans.flatMap((p, pi) => {
+          const config = planConfig[p.id];
+          p.price = config.price;
+          return Array.from({ length: config.quantity }, (_, i) => {
+            const id =
+              p.id === 'cabelo' && i === 0
+                ? 'joao'
+                : p.id === 'cabelo' && i === 1
+                  ? 'antonio'
+                  : p.id === 'completo' && i === 0
+                    ? 'carlos'
+                    : p.id === 'barba' && i === 0
+                      ? 'm4'
+                      : p.id === 'cabelo' &&
+                          i === config.quantity - 1 &&
+                          config.overdue > 0
+                        ? 'vencido'
+                        : `${p.id}-${i}`;
+            return {
+              id,
+              name:
+                id === 'joao'
+                  ? 'João Oliveira'
+                  : id === 'antonio'
+                    ? 'Antônio Mendes'
+                    : id === 'carlos'
+                      ? 'Carlos Ribeiro'
+                      : id === 'm4'
+                        ? 'Renato Moura'
+                        : id === 'vencido'
+                          ? 'Hugo Figueiredo'
+                          : `${first[i % 10]} ${last[(Math.floor(i / 10) + pi) % 10]} ${i + 1}`,
+              plan: p.id,
+              paidThrough:
+                i < config.quantity - config.overdue
+                  ? '2026-10-31'
+                  : '2026-09-30',
+              visits: id === 'joao' ? 2 : id === 'antonio' ? 4 : 2 + (i % 3),
+            };
+          });
+        });
+        const paid = members.filter(memberCurrent),
+          days = Array.from({ length: 27 }, (_, i) => i + 1).filter(
+            (day) => new Date(Date.UTC(2026, 9, day)).getUTCDay() !== 0,
+          );
+        const capacity = days.length * staff.length * daySlots.length;
+        history = [];
+        let index = 0;
+        for (let visit = 0; visit < 4; visit++) {
+          for (const m of paid) {
+            if (visit >= m.visits || index >= capacity) continue;
+            const person = staff[index % staff.length],
+              time =
+                daySlots[Math.floor(index / staff.length) % daySlots.length],
+              day = days[Math.floor(index / (staff.length * daySlots.length))];
+            history.push({
+              id: `historico-${index}`,
+              memberId: m.id,
+              client: m.name,
+              paymentKind: 'plano',
+              service: planById(m.plan).service,
+              staff: person.id,
+              day,
+              time,
+              status: 'Concluído',
+            });
+            index++;
+          }
+        }
+        seed = staff.flatMap((p, pi) =>
+          daySlots.map((time, i) => {
+            const m =
+                p.id === 1 && i === 2
+                  ? paid.find((m) => m.id === 'joao') || paid[0]
+                  : paid[(pi * 10 + i + 10) % Math.max(paid.length, 1)],
+              isPlan = Boolean(m) && i % 3 !== 0;
+            return {
+              id: p.id * 100 + i,
+              staff: p.id,
+              client:
+                p.id === 1 && i === 2
+                  ? 'João Oliveira'
+                  : isPlan
+                    ? m.name
+                    : [
+                        'André Ferreira',
+                        'Pedro Mendes',
+                        'Felipe Souza',
+                        'Gustavo Nunes',
+                        'Thiago Martins',
+                      ][pi],
+              service: isPlan ? planById(m.plan).service : 1 + ((pi + i) % 3),
+              memberId: isPlan ? m.id : null,
+              paymentKind: isPlan ? 'plano' : 'avulso',
+              time,
+              day: 28,
+              status:
+                i < 2
+                  ? 'Concluído'
+                  : p.id === 4 && i === 2
+                    ? 'Em atendimento'
+                    : 'Confirmado',
+            };
+          }),
+        );
+        appointments = structuredClone(seed);
+        myBooking = null;
+        selectedTime = '';
+        clientMemberId = '';
+        derivedCache = null;
+      }
+      const glossary = {
+        Aluguel:
+          'Valor mensal do ponto comercial. É descontado uma vez no mês, independentemente de quantos clientes vieram.',
+        Energia:
+          'Orçamento mensal de energia. Aqui é tratado como fixo; na operação real pode variar com o consumo.',
+        Água: 'Orçamento mensal de água. Ajuste ao valor da conta da barbearia.',
+        Internet: 'Mensalidade de internet da empresa.',
+        Software: 'Custo mensal das ferramentas usadas pela empresa.',
+        'Maquinário / depreciação':
+          'Reserva mensal estimada para desgaste e reposição de máquinas e equipamentos. Não é uma nova compra todo mês.',
+        'Pró-labore do proprietário':
+          'Remuneração do dono pelo trabalho. Já é um custo antes do resultado estimado.',
+        'Outros custos fixos':
+          'Despesas mensais que não foram incluídas nas outras categorias. Evite lançar a mesma despesa duas vezes.',
+        'Insumos de cabelo':
+          'Produto e material consumidos em um atendimento de cabelo. O sistema multiplica esse valor pelos serviços concluídos.',
+        'Insumos de barba':
+          'Materiais consumidos em um atendimento de barba, como lâmina e produtos.',
+        'Insumos do combo':
+          'Custo total dos materiais de um combo. Não soma os insumos separados de cabelo e barba novamente.',
+        'Insumos de sobrancelha':
+          'Materiais consumidos em um atendimento de sobrancelha.',
+        'Café / descartáveis':
+          'Custo médio por visita, somado uma vez por atendimento concluído.',
+        'Taxas de recebimento':
+          'Porcentagem da receita recebida usada como estimativa de taxas do meio de pagamento. Não é aplicada às mensalidades vencidas.',
+        'Tributos estimados':
+          'Porcentagem ilustrativa aplicada à receita recebida. Não é orientação contábil ou tributária.',
+        'Fração da mensalidade':
+          'Parte da mensalidade recebida destinada aos profissionais. É dividida pelos usos concluídos do cliente no modelo percentual.',
+        'Comissão de avulsos':
+          'Parte do preço de um serviço avulso concluído que vai para o profissional.',
+        'Receita do mês':
+          'Dinheiro considerado recebido: assinaturas em dia mais serviços avulsos concluídos. Mensalidades vencidas não entram.',
+        'Repasses estimados':
+          'Soma das comissões geradas pelos atendimentos concluídos. Salário base fica em uma linha separada.',
+        'Custo operacional':
+          'Insumos, café, taxas, tributos, despesas fixas e salários base. Comissões são mostradas separadamente.',
+        'Resultado estimado':
+          'O que resta da receita recebida depois de todos os custos e comissões listados. Não é saldo bancário nem lucro contábil.',
+        'Prejuízo estimado':
+          'Os custos e as comissões listados ultrapassaram a receita recebida nesse cenário.',
+        'Mensalidades recebidas':
+          'Soma das mensalidades em dia. Cada assinatura é contada uma única vez, independentemente do número de cortes.',
+        'Avulsos concluídos':
+          'Soma dos preços dos serviços avulsos já concluídos. Reservas confirmadas ainda não entram.',
+        'Receita total':
+          'Mensalidades em dia mais avulsos concluídos. Valores vencidos são mostrados à parte.',
+        '− Repasses aos profissionais':
+          'Comissões por atendimento. Não inclui os salários base.',
+        '− Insumos e café':
+          'Materiais por serviço e café por visita, somados somente nos atendimentos concluídos.',
+        '− Taxas e tributos estimados':
+          'Percentuais configurados sobre a receita recebida, sem cobrar taxa sobre mensalidade não recebida.',
+        '− Custos fixos e pró-labore':
+          'Despesas mensais da empresa e remuneração do dono. Não inclui salários dos barbeiros.',
+        '− Salários base da equipe':
+          'Soma dos salários base dos cinco profissionais no modo salário + comissão. Entra uma única vez como custo mensal.',
+        'Receita esperada':
+          'Quantidade cadastrada em cada plano multiplicada pelo seu preço. É potencial de receita, não dinheiro já recebido.',
+        'Mensalidades em atraso':
+          'Valor dos planos vencidos que não foi contado como recebido. Não existe cobrança automática nesta demo.',
+        'Em dia':
+          'Assinatura válida até a data indicada. Permite agendar dentro da validade na simulação.',
+        Vencidas:
+          'Validade anterior à data de referência. O perfil vencido não consegue confirmar novos agendamentos.',
+        'Remuneração estimada':
+          'Salário base mensal, quando habilitado, somado às comissões dos atendimentos concluídos pelo profissional.',
+        'Avulsos previstos':
+          'Soma dos serviços avulsos reservados para o dia. Ainda é previsão; só atendimentos concluídos entram no financeiro recebido.',
+        'Clientes cadastrados':
+          'Total de contratos fictícios nos três planos, incluindo em dia e vencidos. Você pode editar a quantidade por plano.',
+        Agendamentos:
+          'Quantidade de reservas no dia selecionado. A jornada tem dez sessões por profissional e duas horas de almoço.',
+        'Mensalidade por plano':
+          'Valor médio mensal por cliente deste plano. O total esperado é preço multiplicado pelo número de clientes; a parte vencida não é tratada como recebida.',
+        'Quantidade de assinaturas':
+          'Clientes cadastrados neste plano, incluindo os vencidos. O número pode ser alterado para testar o porte da operação.',
+        'Custos por assinatura':
+          'Contribuição antes dos custos fixos e salários = receita recebida desta assinatura menos comissões, insumos e taxas. Depois aplica-se rateio proporcional dos fixos e salários.',
+        'Média por atendimento':
+          'Comissão média por atendimento concluído. O salário base não é repartido aqui para não parecer uma comissão extra por corte.',
+      };
+      function helpButton(label) {
+        return `<button type="button" class="info-button" data-help="${escapeText(label)}" aria-label="Entender: ${escapeText(label)}"><span aria-hidden="true">?</span></button>`;
+      }
+      function helpDescription(label) {
+        return (
+          glossary[label] ||
+          (label.startsWith('Salário base')
+            ? 'Valor mensal garantido ao profissional no modo salário + comissão. É somado uma vez ao custo da empresa e aos ganhos estimados.'
+            : label.startsWith('Repasse por')
+              ? 'Valor pago ao profissional por serviço de plano concluído quando a regra é fixa. Não se soma esse valor à regra percentual.'
+              : 'Indicador calculado apenas com os dados fictícios desta demonstração. Mensalidades em dia são receitas; vencidas ficam fora. Custos e comissões são descontados conforme as regras configuradas.')
+        );
+      }
+      function bindHelp() {
+        const pop = document.getElementById('help-popover');
+        let timer;
+        const close = () => {
+          if (pop.matches(':popover-open')) pop.hidePopover();
+        };
+        const show = (b) => {
+          clearTimeout(timer);
+          document.getElementById('help-title').textContent = b.dataset.help;
+          document.getElementById('help-description').textContent =
+            helpDescription(b.dataset.help);
+          if (!pop.matches(':popover-open')) pop.showPopover();
+          const rect = b.getBoundingClientRect();
+          pop.style.left =
+            Math.max(10, Math.min(rect.left, innerWidth - 330)) + 'px';
+          pop.style.top =
+            Math.max(
+              10,
+              Math.min(rect.bottom + 8, innerHeight - pop.offsetHeight - 10),
+            ) + 'px';
+        };
+        document.querySelectorAll('[data-help]').forEach((b) => {
+          b.onmouseenter = () => show(b);
+          b.onfocus = () => show(b);
+          b.onmouseleave = () => {
+            timer = setTimeout(close, 200);
+          };
+          b.onblur = close;
+          b.onclick = () => show(b);
+        });
+        pop.onmouseenter = () => clearTimeout(timer);
+        pop.onmouseleave = close;
+      }
+      function payrollFields() {
+        return `<section class="payroll-section"><h3>04 · Salário base + comissão</h3><p class="fine">O salário é mensal; a comissão vem dos serviços concluídos. Sem duplicar o salário no repasse por atendimento.</p><label class="field" style="margin:15px 0">Modelo de remuneração<select name="payMode"><option value="comissao" ${settings.payMode === 'comissao' ? 'selected' : ''}>Somente comissão</option><option value="base-comissao" ${settings.payMode === 'base-comissao' ? 'selected' : ''}>Salário base + comissão</option></select></label><div class="cost-fields">${staff.map((p) => inputField(`base${p.id}`, `Salário base · ${p.name}`)).join('')}</div></section>`;
+      }
+      function subscriptionRows() {
+        const list = members.filter(
+            (m) =>
+              (subscriberState === 'todos' ||
+                (subscriberState === 'em-dia'
+                  ? memberCurrent(m)
+                  : !memberCurrent(m))) &&
+              m.name
+                .toLocaleLowerCase('pt-BR')
+                .includes(subscriberQuery.toLocaleLowerCase('pt-BR')),
+          ),
+          pages = Math.max(1, Math.ceil(list.length / 25));
+        subscriberPage = Math.min(subscriberPage, pages - 1);
+        return `<div class="subscription-pagination"><span>${list.length} assinaturas · Página ${subscriberPage + 1} de ${pages}</span><button type="button" class="btn small" data-page="-1" ${subscriberPage === 0 ? 'disabled' : ''}>Anterior</button><button type="button" class="btn small" data-page="1" ${subscriberPage >= pages - 1 ? 'disabled' : ''}>Próxima</button></div><div class="table-scroll"><table><thead><tr><th>Cliente / plano</th><th>Situação${helpButton('Em dia')}</th><th>Recebido</th><th>Usos</th><th>Média / uso</th><th>Comissão</th><th>Antes dos fixos${helpButton('Custos por assinatura')}</th><th>Após fixos e salários</th><th>Simulação</th></tr></thead><tbody>${
+          list
+            .slice(subscriberPage * 25, (subscriberPage + 1) * 25)
+            .map(memberRow)
+            .join('') ||
+          '<tr><td colspan="9">Nenhuma assinatura encontrada.</td></tr>'
+        }</tbody></table></div>`;
+      }
+      function subscriptionsPage() {
+        const paid = members.filter(memberCurrent),
+          expired = members.filter((m) => !memberCurrent(m)),
+          t = financialTotals(),
+          expected = members.reduce((v, m) => v + planById(m.plan).price, 0);
+        return (
+          heading(
+            'Assinaturas · Referência: 28/10/2026',
+            'Sua base de clientes, sem mistério.',
+            'Altere preço e quantidade por plano. Vencidos não podem agendar na demonstração.',
+          ) +
+          `<div class="stats">${stat('Clientes cadastrados', members.length, '100 por plano no cenário inicial', 'users')}${stat('Em dia', paid.length, 'Permitem novos agendamentos válidos', 'check')}${stat('Vencidas', expired.length, 'Agendamento bloqueado', 'clock')}${stat('Mensalidades em atraso', money(t.overdue), 'Não incluídas no recebido', 'money')}</div><div class="subscription-totals"><span>Receita esperada ${helpButton('Receita esperada')}<strong>${money(expected)}</strong></span><span>Recebido em mensalidades ${helpButton('Mensalidades recebidas')}<strong>${money(t.recurring)}</strong></span><span>Ticket médio cadastrado<strong>${money(members.length ? expected / members.length : 0)}</strong></span></div><form id="subscription-form" class="card"><div class="card-head"><h2>Monte o cenário da barbearia</h2></div><div class="plan-grid card-body">${plans.map((p) => `<section class="subscription-plan"><h3>${p.name}${helpButton('Mensalidade por plano')}</h3><label class="field">Clientes · ${p.name}<input name="${p.id}-quantity" type="number" min="0" max="1000" step="1" value="${planConfig[p.id].quantity}" required></label><label class="field">Vencidas · ${p.name}<input name="${p.id}-overdue" type="number" min="0" max="1000" step="1" value="${members.filter((m) => m.plan === p.id && !memberCurrent(m)).length}" required></label><label class="field">Mensalidade · ${p.name} (R$)<input name="${p.id}-price" type="number" min="1" max="10000" step="0.01" value="${p.price}" required></label></section>`).join('')}</div><div class="card-body" style="padding-top:0"><p class="fine">Aplicar gera novamente os clientes e a agenda fictícia. Reservas e regularizações manuais anteriores desta aba serão reiniciadas. Até 1.000 clientes por plano; histórico limitado à capacidade física do mês.</p><button type="submit" class="btn primary" style="margin-top:12px">Aplicar cenário de assinaturas</button><p id="subscription-error" role="alert" class="negative"></p></div></form><section class="card" style="margin-top:22px"><div class="card-head"><h2>Quem está em dia e quem venceu?</h2></div><div class="toolbar"><input class="control" id="subscriber-search" type="search" aria-label="Buscar assinante" placeholder="Buscar pelo nome…" value="${escapeText(subscriberQuery)}"><select class="control" id="subscriber-state" aria-label="Situação da assinatura"><option value="todos">Todas as situações</option><option value="em-dia" ${subscriberState === 'em-dia' ? 'selected' : ''}>Em dia</option><option value="vencida" ${subscriberState === 'vencida' ? 'selected' : ''}>Vencidas</option></select></div><div id="subscription-table">${subscriptionRows()}</div></section><div class="callout">Referência fixa: 28/10/2026. Em dia = válido até 31/10; vencido = válido até 30/09. Regularizar aqui é apenas uma simulação, sem processar pagamentos. No produto, confirmação de pagamento e autorização serão verificadas no servidor.</div>`
+        );
+      }
+      function bindV3() {
+        document.querySelectorAll('[data-gains-page]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              gainsPage += Number(b.dataset.gainsPage);
+              render();
+            }),
+        );
+        const el = (id) => document.getElementById(id);
+        if (el('subscription-form'))
+          el('subscription-form').onsubmit = (e) => {
+            e.preventDefault();
+            const form = e.target;
+            if (!form.checkValidity()) {
+              form.reportValidity();
+              return;
+            }
+            const data = new FormData(form),
+              next = {};
+            for (const p of plans) {
+              const quantity = Number(data.get(`${p.id}-quantity`)),
+                overdue = Number(data.get(`${p.id}-overdue`)),
+                price = Number(data.get(`${p.id}-price`));
+              if (
+                !Number.isInteger(quantity) ||
+                !Number.isInteger(overdue) ||
+                quantity < 0 ||
+                quantity > 1000 ||
+                overdue < 0 ||
+                overdue > quantity ||
+                !Number.isFinite(price) ||
+                price < 1 ||
+                price > 10000
+              ) {
+                el('subscription-error').textContent =
+                  'A quantidade vencida deve ficar entre zero e o total de clientes do plano. Use valores válidos.';
+                return;
+              }
+              next[p.id] = { quantity, overdue, price };
+            }
+            planConfig = next;
+            subscriberQuery = '';
+            subscriberState = 'todos';
+            subscriberPage = 0;
+            rebuildScenario();
+            render();
+            toast(
+              'Novo cenário gerado. Preços, clientes e finanças atualizados.',
+            );
+          };
+        const update = () => {
+          el('subscription-table').innerHTML = subscriptionRows();
+          bindSubscriberRows();
+          bindHelp();
+        };
+        if (el('subscriber-search'))
+          el('subscriber-search').oninput = (e) => {
+            subscriberQuery = e.target.value;
+            subscriberPage = 0;
+            update();
+          };
+        if (el('subscriber-state'))
+          el('subscriber-state').onchange = (e) => {
+            subscriberState = e.target.value;
+            subscriberPage = 0;
+            update();
+          };
+        bindSubscriberRows();
+      }
+      function bindSubscriberRows() {
+        document.querySelectorAll('[data-page]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              subscriberPage += Number(b.dataset.page);
+              document.getElementById('subscription-table').innerHTML =
+                subscriptionRows();
+              bindSubscriberRows();
+              bindHelp();
+            }),
+        );
+        document.querySelectorAll('[data-toggle-paid]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              const m = members.find((m) => m.id === b.dataset.togglePaid);
+              m.paidThrough = memberCurrent(m) ? '2026-09-30' : '2026-10-31';
+              planConfig[m.plan].overdue = members.filter(
+                (x) => x.plan === m.plan && !memberCurrent(x),
+              ).length;
+              render();
+              toast(
+                'Situação alterada apenas na demonstração. Nenhum pagamento processado.',
+              );
+            }),
+        );
+      }
+
       function commission(a, projected = false) {
         if (a.paymentKind !== 'plano')
           return (service(a.service).price * settings.avulsoPercent) / 100;
@@ -2155,39 +2806,55 @@
         };
       }
       function financialTotals() {
-        const completed = completedMonth(),
-          recurring = members.reduce((v, m) => v + planById(m.plan).price, 0),
+        const d = ledger();
+        if (d.totals) return d.totals;
+        const completed = d.completed,
+          recurring = members
+            .filter((m) => memberCurrent(m))
+            .reduce((v, m) => v + planById(m.plan).price, 0),
+          overdue = members
+            .filter((m) => !memberCurrent(m))
+            .reduce((v, m) => v + planById(m.plan).price, 0),
           avulso = completed
             .filter((a) => a.paymentKind !== 'plano')
             .reduce((v, a) => v + service(a.service).price, 0),
           revenue = recurring + avulso,
           payout = completed.reduce((v, a) => v + commission(a), 0),
           variable = completed.reduce((v, a) => v + consumables(a.service), 0),
-          fees = (revenue * (settings.fee + settings.tax)) / 100;
-        return {
+          fees = (revenue * (settings.fee + settings.tax)) / 100,
+          salary = salaryTotal();
+        return (d.totals = {
           completed,
           recurring,
+          overdue,
           avulso,
           revenue,
           payout,
           variable,
           fees,
+          salary,
           fixed: fixedTotal(),
-          result: revenue - payout - variable - fees - fixedTotal(),
-        };
+          result: revenue - payout - variable - fees - fixedTotal() - salary,
+        });
       }
+
       function teamRail() {
         return `<section class="team-rail" aria-label="Equipe da Vértice"><span>Os rostos por trás do cuidado · Retratos fictícios por IA</span>${staff.map((p) => `<div class="person">${avatar(p)}${p.short}</div>`).join('')}</section>`;
       }
       function memberSelector() {
-        return `<section class="member-banner"><div><strong>${currentMember() ? 'Seu plano está ativo na simulação' : 'Um cuidado avulso ou uma rotina de cuidado?'}</strong><p>${currentMember() ? `${currentMember().name} · ${planById(currentMember().plan).name} · ${money(planById(currentMember().plan).price)}/mês, pago ficticiamente` : 'Experimente o agendamento como visitante ou assinante fictício.'}</p></div><label class="field">Perfil de demonstração<select id="member-select" class="control"><option value="">Visitante · Avulso</option>${members
-          .filter((_, i) => [0, 1, 2, 4].includes(i))
+        const m = currentMember(),
+          ok = m && memberCurrent(m);
+        return `<section class="member-banner ${m && !ok ? 'expired-banner' : ''}"><div><strong>${m ? (ok ? 'Assinatura em dia' : 'Assinatura vencida · Agendamento bloqueado') : 'Avulso ou assinante? Escolha um exemplo.'}</strong><p>${m ? `${m.name} · ${planById(m.plan).name} · ${money(planById(m.plan).price)}/mês · Validade: ${displayDate(m.paidThrough)}` : 'Nenhum login ou pagamento real. Experimente também o perfil com assinatura vencida.'}</p></div><label class="field">Perfil de demonstração<select id="member-select" class="control"><option value="">Visitante · Avulso</option>${members
+          .filter((m) =>
+            ['joao', 'antonio', 'carlos', 'm4', 'vencido'].includes(m.id),
+          )
           .map(
             (m) =>
-              `<option value="${m.id}" ${m.id === clientMemberId ? 'selected' : ''}>${m.name} · ${planById(m.plan).name}</option>`,
+              `<option value="${m.id}" ${m.id === clientMemberId ? 'selected' : ''}>${m.name} · ${memberCurrent(m) ? planById(m.plan).name : 'VENCIDO'}</option>`,
           )
           .join('')}</select></label></section>`;
       }
+
       function plansPage() {
         return (
           heading(
@@ -2195,19 +2862,24 @@
             'Seu estilo não tira férias.',
             'Três planos ilustrativos. Valores mensais; nenhum pagamento real será solicitado.',
           ) +
-          `<div class="plan-grid">${plans.map((p) => `<article class="card plan-card ${p.id === 'completo' ? 'featured' : ''}"><span class="badge ${p.id === 'completo' ? 'amber' : 'green'}">${p.id === 'completo' ? 'A experiência completa' : 'Plano mensal'}</span><h2>${p.name}</h2><p>${p.tag}</p><div class="plan-price">${money(p.price)}<small> / mês</small></div><ul><li>${p.includes.length > 1 ? 'Corte + barba incluídos' : 'Serviço de ' + service(p.service).name.toLowerCase()}</li><li>Escolha entre nossos cinco barbeiros</li><li>Sem adicional no serviço coberto</li><li>Uso sem limite neste cenário fictício</li></ul><button type="button" class="btn ${p.id === 'completo' ? 'lime' : 'primary'} full" data-try-plan="${p.id}">Experimentar plano ${p.name}</button><p class="fine" style="margin-top:15px">Não é uma oferta comercial. Mensalidade simulada como já paga; sem contratação ou renovação real.</p></article>`).join('')}</div><aside class="callout">O plano completo soma cabelo (${money(plans[0].price)}) + barba (${money(plans[1].price)}). Sobrancelha fica fora dos planos. Frequência e limites deverão ser definidos por cada barbearia antes da implementação real.</aside>`
+          `<div class="plan-grid">${plans.map((p) => `<article class="card plan-card ${p.id === 'completo' ? 'featured' : ''}"><span class="badge ${p.id === 'completo' ? 'amber' : 'green'}">${p.id === 'completo' ? 'A experiência completa' : 'Plano mensal'}</span><h2>${p.name}</h2><p>${p.tag}</p><div class="plan-price">${money(p.price)}<small> / mês</small></div><ul><li>${p.includes.length > 1 ? 'Corte + barba incluídos' : 'Serviço de ' + service(p.service).name.toLowerCase()}</li><li>Escolha entre nossos cinco barbeiros</li><li>Sem adicional no serviço coberto</li><li>Uso sem limite neste cenário fictício</li></ul><button type="button" class="btn ${p.id === 'completo' ? 'lime' : 'primary'} full" data-try-plan="${p.id}">Experimentar plano ${p.name}</button><p class="fine" style="margin-top:15px">Não é uma oferta comercial. Mensalidade simulada como já paga; sem contratação ou renovação real.</p></article>`).join('')}</div><aside class="callout">Os três planos começam em R$ 120 neste cenário. O empresário pode alterar cada mensalidade; o combo não soma preços automaticamente. Sobrancelha fica fora dos planos. Frequência e limites deverão ser definidos por cada barbearia antes da implementação real.</aside>`
         );
       }
       function memberRow(m) {
         const p = planById(m.plan),
           visits = visitsOf(m.id),
-          sc = scenario(p.price, visits.length, p.service),
+          income = memberCurrent(m) ? p.price : 0,
           payout = visits.reduce((v, a) => v + commission(a), 0),
-          variable = visits.reduce((v, a) => v + consumables(a.service), 0),
-          contribution = p.price - payout - variable - sc.fees,
-          allocation = (fixedTotal() * p.price) / financialTotals().revenue;
-        return `<tr data-member="${m.id}"><td><strong>${m.name}</strong><small>${p.name}</small></td><td>${money(p.price)}<small>Mensalidade paga (fictícia)</small></td><td>${visits.length}</td><td>${visits.length ? money(p.price / visits.length) : 'Sem uso'}</td><td>${money(payout)}</td><td>${money(variable + sc.fees)}<small>Insumos, café, taxas e tributos</small></td><td>${money(contribution)}<small>Antes de custos fixos</small></td><td class="${contribution - allocation < 0 ? 'negative' : 'positive'}">${money(contribution - allocation)}<small>Após rateio de ${money(allocation)}</small></td></tr>`;
+          variable =
+            visits.reduce((v, a) => v + consumables(a.service), 0) +
+            (income * (settings.fee + settings.tax)) / 100,
+          contribution = income - payout - variable,
+          allocation =
+            ((fixedTotal() + salaryTotal()) * income) /
+            (financialTotals().revenue || 1);
+        return `<tr data-member="${m.id}"><td><strong>${m.name}</strong><small>${p.name}</small></td><td>${memberCurrent(m) ? '<span class="badge green">Em dia</span>' : '<span class="badge red">Vencida</span>'}<small>${displayDate(m.paidThrough)}</small></td><td>${money(income)}<small>Preço: ${money(p.price)}/mês</small></td><td>${visits.length}</td><td>${visits.length ? money(income / visits.length) : 'Sem uso'}</td><td>${money(payout)}</td><td>${money(contribution)}</td><td class="${contribution - allocation < 0 ? 'negative' : 'positive'}">${money(contribution - allocation)}</td><td><button type="button" class="btn small" data-toggle-paid="${m.id}">${memberCurrent(m) ? 'Simular vencimento' : 'Simular regularização'}</button></td></tr>`;
       }
+
       function financialPage() {
         const t = financialTotals();
         const subnav = `<nav class="subnav" aria-label="Seções financeiras">${[
@@ -2239,11 +2911,11 @@
         if (view === 'assinantes')
           return (
             intro +
-            `<div class="stats">${stat('Assinantes ativos', members.length, 'Mensalidades fictícias pagas', 'users')}${stat('Receita de planos', money(t.recurring), 'Recebida uma vez por assinante', 'money')}${stat('Atendimentos do plano', t.completed.filter((a) => a.paymentKind === 'plano').length, 'Somente concluídos no mês', 'scissors')}${stat('Regra de repasse', settings.model === 'fixo' ? 'Por serviço' : settings.planPercent + '%', 'Altere em Custos e repasses', 'grid')}</div><section class="card"><div class="card-head"><h2>Uso, custo e resultado por assinatura</h2></div><div class="table-scroll"><table><thead><tr><th>Assinante / plano</th><th>Mensalidade</th><th>Usos</th><th>Receita média / uso</th><th>Repasse</th><th>Outros variáveis</th><th>Contribuição</th><th>Resultado estimado</th></tr></thead><tbody>${members.map(memberRow).join('')}</tbody></table></div></section><div class="callout">João paga R$ 150 e usa 2 vezes: R$ 75 por atendimento. Antônio paga R$ 150 e usa 4 vezes: R$ 37,50. Isso é receita média, não lucro. A tabela considera apenas usos cobertos pelo plano; extras avulsos entram no consolidado. O resultado depende do repasse, dos insumos, das taxas e dos custos fixos. Rateio dos fixos proporcional à receita de cada assinante; é uma estimativa gerencial, não um custo individual observado.</div>`
+            `<div class="stats">${stat('Assinantes ativos', members.length, 'Mensalidades fictícias pagas', 'users')}${stat('Receita de planos', money(t.recurring), 'Recebida uma vez por assinante', 'money')}${stat('Atendimentos do plano', t.completed.filter((a) => a.paymentKind === 'plano').length, 'Somente concluídos no mês', 'scissors')}${stat('Regra de repasse', settings.model === 'fixo' ? 'Por serviço' : settings.planPercent + '%', 'Altere em Custos e repasses', 'grid')}</div><section class="card"><div class="card-head"><h2>Uso, custo e resultado por assinatura</h2></div><div class="table-scroll"><table><thead><tr><th>Assinante / plano</th><th>Mensalidade</th><th>Usos</th><th>Receita média / uso</th><th>Repasse</th><th>Outros variáveis</th><th>Contribuição</th><th>Resultado estimado</th></tr></thead><tbody>${members.map(memberRow).join('')}</tbody></table></div></section><div class="callout">João paga R$ 150 e usa 2 vezes: R$ 75 por atendimento. Antônio paga R$ 150 e usa 4 vezes: R$ 37,50. Isso é receita média, não lucro. A tabela considera apenas usos cobertos pelo plano; extras avulsos entram no consolidado. O resultado depende do repasse, dos insumos, das taxas e dos custos fixos. Rateio dos fixos e salários proporcional à receita de cada assinante; é uma estimativa gerencial, não um custo individual observado.</div>`
           );
         return (
           intro +
-          `<div class="stats">${stat('Receita do mês', money(t.revenue), 'Planos pagos + avulsos concluídos', 'money')}${stat('Repasses estimados', money(t.payout), 'Trabalho concluído · Ainda não pago', 'users')}${stat('Custo operacional', money(t.variable + t.fees + t.fixed), 'Insumos + taxas/tributos + fixos', 'grid')}${stat(t.result >= 0 ? 'Resultado estimado' : 'Prejuízo estimado', money(t.result), 'Receita menos todos os custos listados', 'money')}</div><div class="financial-grid"><section class="card"><div class="card-head"><h2>Da receita ao resultado</h2><span class="badge green">Outubro / 2026</span></div><div class="card-body">${[
+          `<div class="stats">${stat('Receita do mês', money(t.revenue), 'Só valores recebidos; vencidos ficam fora', 'money')}${stat('Repasses estimados', money(t.payout), 'Trabalho concluído · Ainda não pago', 'users')}${stat('Custo operacional', money(t.variable + t.fees + t.fixed + t.salary), 'Insumos + taxas + fixos + salários', 'grid')}${stat(t.result >= 0 ? 'Resultado estimado' : 'Prejuízo estimado', money(t.result), 'Receita menos todos os custos listados', 'money')}</div><div class="financial-grid"><section class="card"><div class="card-head"><h2>Da receita ao resultado</h2><span class="badge green">Outubro / 2026</span></div><div class="card-body">${[
             ['Mensalidades recebidas', t.recurring],
             ['Avulsos concluídos', t.avulso],
             ['Receita total', t.revenue],
@@ -2251,19 +2923,21 @@
             ['− Insumos e café', -t.variable],
             ['− Taxas e tributos estimados', -t.fees],
             ['− Custos fixos e pró-labore', -t.fixed],
+            ['− Salários base da equipe', -t.salary],
           ]
             .map(
               ([name, value]) =>
-                `<div class="ledger-line"><span>${name}</span><strong>${money(value)}</strong></div>`,
+                `<div class="ledger-line"><span>${name}${helpButton(name)}</span><strong>${money(value)}</strong></div>`,
             )
             .join(
               '',
-            )}<div class="ledger-line total-line"><span>Resultado operacional</span><strong class="${t.result < 0 ? 'negative' : 'positive'}" data-testid="net-result">${money(t.result)}</strong></div><p class="fine" style="margin-top:16px">Margem: ${((t.result / t.revenue) * 100).toFixed(1).replace('.', ',')}%. Resultado gerencial estimado; não representa lucro contábil, saldo bancário ou dinheiro disponível para retirada.</p></div></section><aside class="stack"><section class="card card-body"><h2>O que está entrando na conta?</h2><div class="equation">${members.length} mensalidades pagas<br>${t.completed.length} atendimentos concluídos<br>Modelo de plano: <strong>${settings.model === 'fixo' ? 'valor fixo por serviço' : settings.planPercent + '% da mensalidade / usos concluídos'}</strong><br>Avulsos: ${settings.avulsoPercent}% do preço do serviço</div><p class="fine">Não se soma o preço de tabela a uma mensalidade já recebida. Agendamento incluído no plano não é nova receita. Taxas/tributos aplicados à receita bruta. Todos os parâmetros são fictícios e editáveis.</p><div class="spacer"></div><button type="button" class="btn primary full" data-view="custos">Ajustar custos e regras</button></section><section class="card card-body"><h2>A equipe e seus repasses</h2>${staff.map((p) => `<div class="team-line"><div class="person">${avatar(p)}<strong>${p.short}</strong></div><strong style="font-size:12px">${money(t.completed.filter((a) => a.staff === p.id).reduce((v, a) => v + commission(a), 0))}</strong></div>`).join('')}<p class="fine">Estimativas a liquidar, não pagamentos efetuados.</p></section></aside></div>`
+            )}<div class="ledger-line total-line"><span>Resultado operacional</span><strong class="${t.result < 0 ? 'negative' : 'positive'}" data-testid="net-result">${money(t.result)}</strong></div><p class="fine" style="margin-top:16px">Margem: ${((t.revenue ? t.result / t.revenue : 0) * 100).toFixed(1).replace('.', ',')}%. Resultado gerencial estimado; não representa lucro contábil, saldo bancário ou dinheiro disponível para retirada.</p></div></section><aside class="stack"><section class="card card-body"><h2>O que está entrando na conta?</h2><div class="equation">${members.filter((m) => memberCurrent(m)).length} mensalidades em dia<br>${members.filter((m) => !memberCurrent(m)).length} vencidas · ${money(t.overdue)} não recebidos<br>${t.completed.length} atendimentos concluídos<br>Modelo de plano: <strong>${settings.model === 'fixo' ? 'valor fixo por serviço' : settings.planPercent + '% da mensalidade / usos concluídos'}</strong><br>Avulsos: ${settings.avulsoPercent}% do preço do serviço</div><p class="fine">Não se soma o preço de tabela a uma mensalidade já recebida. Agendamento incluído no plano não é nova receita. Taxas/tributos aplicados à receita bruta. Todos os parâmetros são fictícios e editáveis.</p><div class="spacer"></div><button type="button" class="btn primary full" data-view="custos">Ajustar custos e regras</button></section><section class="card card-body"><h2>A equipe e seus repasses</h2>${staff.map((p) => `<div class="team-line"><div class="person">${avatar(p)}<strong>${p.short}</strong></div><strong style="font-size:12px">${money(t.completed.filter((a) => a.staff === p.id).reduce((v, a) => v + commission(a), 0))}</strong></div>`).join('')}<p class="fine">Estimativas a liquidar, não pagamentos efetuados.</p></section></aside></div>`
         );
       }
       function inputField(key, label, suffix = 'R$') {
-        return `<label class="field">${label} (${suffix})<input type="number" name="${key}" min="0" ${suffix === '%' ? 'max="100"' : ''} step="0.01" value="${settings[key]}" required></label>`;
+        return `<div class="field-wrap"><label class="field">${label} (${suffix})<input type="number" name="${key}" min="0" ${suffix === '%' ? 'max="100"' : ''} step="0.01" value="${settings[key]}" required></label>${helpButton(label)}</div>`;
       }
+
       function costsForm() {
         return `<form id="cost-form"><div class="financial-grid"><div class="stack"><section class="card"><div class="card-head"><h2>01 · Custos fixos mensais</h2></div><div class="card-body cost-fields">${fixedKeys.map((k, i) => inputField(k, fixedNames[i])).join('')}</div></section><section class="card"><div class="card-head"><h2>02 · Variáveis por atendimento</h2></div><div class="card-body cost-fields">${[
           ['insumoCabelo', 'Insumos de cabelo'],
@@ -2288,26 +2962,27 @@
           .map(([k, label, suffix]) => inputField(k, label, suffix || 'R$'))
           .join(
             '',
-          )}</div><div class="equation">Fixo: cada serviço concluído gera o valor configurado.<br>Percentual: uma fração da mensalidade é dividida igualmente entre seus atendimentos concluídos e atribuída a quem os realizou. Sem uso, sem repasse.<br>Avulsos usam sua própria porcentagem.</div><p class="fine">Na demo a regra é única para a equipe e recalcula o mês inteiro. No produto real, acordos por profissional e vigência precisam ser registrados sem alterar fechamentos anteriores. No modelo percentual, o valor por uso é provisório até fechar o mês.</p><div class="spacer"></div><button type="submit" class="btn primary full">Aplicar regras na simulação</button><p id="cost-error" role="alert" class="negative"></p></div></section></div></form>`;
+          )}</div>${payrollFields()}<div class="equation">Fixo: cada serviço concluído gera o valor configurado.<br>Percentual: uma fração da mensalidade é dividida igualmente entre seus atendimentos concluídos e atribuída a quem os realizou. Sem uso, sem repasse.<br>Avulsos usam sua própria porcentagem.</div><p class="fine">Na demo a regra é única para a equipe e recalcula o mês inteiro. No produto real, acordos por profissional e vigência precisam ser registrados sem alterar fechamentos anteriores. No modelo percentual, o valor por uso é provisório até fechar o mês.</p><div class="spacer"></div><button type="submit" class="btn primary full">Aplicar regras na simulação</button><p id="cost-error" role="alert" class="negative"></p></div></section></div></form>`;
       }
       function simulator() {
-        return `<section class="card"><div class="card-head"><h2>Mesmo plano. Frequências diferentes.</h2><span class="badge green">Cabelo · R$ 150 / mês</span></div><div class="card-body"><label class="field">Visitas no cenário personalizado<input id="sim-visits" type="range" min="0" max="12" step="1" value="${simVisits}"></label><div id="sim-output">${simulatorOutput()}</div></div></section><div class="callout">Cada uso adicional aumenta o repasse total no modelo fixo. No percentual, o montante total reservado ao profissional permanece constante após o primeiro uso; o valor unitário diminui e pode ser redistribuído entre profissionais. Insumos aumentam em ambos. O gráfico financeiro é uma simulação, sem alterar a agenda ou os assinantes.</div>`;
+        return `<section class="card"><div class="card-head"><h2>Mesmo plano. Frequências diferentes.</h2><span class="badge green">Cabelo · ${money(planById('cabelo').price)} / mês</span></div><div class="card-body"><label class="field">Visitas no cenário personalizado<input id="sim-visits" type="range" min="0" max="12" step="1" value="${simVisits}"></label><div id="sim-output">${simulatorOutput()}</div></div></section><div class="callout">Cada uso adicional aumenta o repasse total no modelo fixo. No percentual, o montante total reservado ao profissional permanece constante após o primeiro uso; o valor unitário diminui e pode ser redistribuído entre profissionais. Insumos aumentam em ambos. O gráfico financeiro é uma simulação, sem alterar a agenda ou os assinantes.</div>`;
       }
       function simulatorOutput() {
-        return `<p style="margin:15px 0">Cenário personalizado: <strong>${simVisits} visitas</strong>. Receita média: <strong>${simVisits ? money(150 / simVisits) : 'Sem uso'}</strong>.</p><div class="table-scroll"><table><thead><tr><th>Cenário</th><th>Receita / uso</th><th>Repasse fixo total</th><th>Contribuição fixa</th><th>Repasse percentual total</th><th>Contribuição percentual</th></tr></thead><tbody>${[
+        return `<p style="margin:15px 0">Cenário personalizado: <strong>${simVisits} visitas</strong>. Receita média: <strong>${simVisits ? money(planById('cabelo').price / simVisits) : 'Sem uso'}</strong>.</p><div class="table-scroll"><table><thead><tr><th>Cenário</th><th>Receita / uso</th><th>Repasse fixo total</th><th>Contribuição fixa</th><th>Repasse percentual total</th><th>Contribuição percentual</th></tr></thead><tbody>${[
           ['João · 2 visitas', 2],
           ['Antônio · 4 visitas', 4],
           ['Personalizado', simVisits],
         ]
           .map(([label, n]) => {
-            const f = scenario(150, n, 1, 'fixo'),
-              p = scenario(150, n, 1, 'percentual');
-            return `<tr><td>${label}</td><td>${n ? money(150 / n) : 'Sem uso'}</td><td>${money(f.payout)}</td><td>${money(f.contribution)}</td><td>${money(p.payout)}</td><td>${money(p.contribution)}</td></tr>`;
+            const f = scenario(planById('cabelo').price, n, 1, 'fixo'),
+              p = scenario(planById('cabelo').price, n, 1, 'percentual');
+            return `<tr><td>${label}</td><td>${n ? money(planById('cabelo').price / n) : 'Sem uso'}</td><td>${money(f.payout)}</td><td>${money(f.contribution)}</td><td>${money(p.payout)}</td><td>${money(p.contribution)}</td></tr>`;
           })
           .join(
             '',
-          )}</tbody></table></div><div class="equation">Contribuição = mensalidade − repasses − insumos/café − taxas/tributos. Os custos fixos ainda serão deduzidos. Fixo por corte: ${money(settings.cabelo)}. Percentual da mensalidade: ${settings.planPercent}%. Visitas do cenário não representam reservas futuras.</div>`;
+          )}</tbody></table></div><div class="equation">Contribuição = mensalidade − repasses − insumos/café − taxas/tributos. Os custos fixos e os salários base ainda serão deduzidos. Fixo por corte: ${money(settings.cabelo)}. Percentual da mensalidade: ${settings.planPercent}%. Visitas do cenário não representam reservas futuras.</div>`;
       }
+      let gainsPage = 0;
       function earningsPage() {
         const p = employee(barberId),
           done = completedMonth().filter((a) => a.staff === barberId),
@@ -2320,7 +2995,15 @@
             'Somente seus repasses estimados. Sem acesso aos custos ou ao resultado da barbearia.',
             `<div class="staff-overview">${avatar(p)}<label class="field">Simular outro profissional<select id="barber-select">${staff.map((p) => `<option value="${p.id}" ${p.id === barberId ? 'selected' : ''}>${p.name}</option>`).join('')}</select></label></div>`,
           ) +
-          `<div class="stats">${stat('Seus repasses', money(total), 'A liquidar · Pagamento não realizado', 'money')}${stat('Atendimentos no mês', done.length, 'Somente concluídos por você', 'scissors')}${stat('Média por atendimento', done.length ? money(total / done.length) : money(0), 'Repasse médio, não preço ao cliente', 'grid')}${stat('Serviços de plano', planDone.length, 'Incluídos na mensalidade', 'star')}</div><section class="banner"><div><div class="eyebrow">Como você recebe</div><h2>${settings.model === 'fixo' ? 'Cada atendimento conta.' : 'Uma fração do plano, dividida pelos usos.'}</h2><p>${settings.model === 'fixo' ? `Corte: ${money(settings.cabelo)} · Barba: ${money(settings.barba)} · Combo: ${money(settings.completo)} por atendimento concluído de plano.` : `${settings.planPercent}% da mensalidade dividido pelos usos concluídos do cliente, atribuído a quem atendeu. Valores provisórios até o fechamento.`}</p><p>Avulsos: ${settings.avulsoPercent}% do preço do serviço. Você vê apenas sua remuneração.</p></div>${avatar(p)}</section><section class="card"><div class="card-head"><h2>Seu extrato de atendimentos</h2><span class="badge amber">Valores estimados</span></div><div class="table-scroll"><table><thead><tr><th>Dia</th><th>Cliente</th><th>Serviço</th><th>Origem</th><th>Seu repasse</th></tr></thead><tbody>${done.map((a) => `<tr><td>${a.day} out</td><td>${escapeText(a.client)}</td><td>${service(a.service).name}</td><td>${a.paymentKind === 'plano' ? 'Plano mensal' : 'Avulso'}</td><td>${money(commission(a))}</td></tr>`).join('')}</tbody></table></div></section><p class="fine" style="margin-top:15px">Com valor fixo, um corte adicional de plano concluído soma ${money(settings.cabelo)} ao seu repasse; um combo soma ${money(settings.completo)}. Com percentual, mais usos alteram o valor unitário e a distribuição; não há promessa de ganho adicional fixo.</p>`
+          `<div class="stats">${stat('Remuneração estimada', money(total + salaryOf(barberId)), 'Salário base + comissão · Não pago', 'money')}${stat('Atendimentos no mês', done.length, 'Somente concluídos por você', 'scissors')}${stat('Média por atendimento', done.length ? money(total / done.length) : money(0), 'Repasse médio, não preço ao cliente', 'grid')}${stat('Serviços de plano', planDone.length, 'Incluídos na mensalidade', 'star')}</div><section class="banner"><div><div class="eyebrow">Como você recebe</div><div class="pay-breakdown"><span>Salário base: <strong>${money(salaryOf(barberId))}</strong></span><span>Comissões: <strong>${money(total)}</strong></span><span>Total estimado: <strong>${money(total + salaryOf(barberId))}</strong></span></div><h2>${settings.model === 'fixo' ? 'Cada atendimento conta.' : 'Uma fração do plano, dividida pelos usos.'}</h2><p>${settings.model === 'fixo' ? `Corte: ${money(settings.cabelo)} · Barba: ${money(settings.barba)} · Combo: ${money(settings.completo)} por atendimento concluído de plano.` : `${settings.planPercent}% da mensalidade dividido pelos usos concluídos do cliente, atribuído a quem atendeu. Valores provisórios até o fechamento.`}</p><p>Avulsos: ${settings.avulsoPercent}% do preço do serviço. Você vê apenas sua remuneração.</p></div>${avatar(p)}</section><section class="card"><div class="card-head"><h2>Seu extrato de atendimentos</h2><span class="badge amber">Valores estimados</span></div><div class="subscription-pagination"><span>${done.length} atendimentos · Página ${gainsPage + 1} de ${Math.max(1, Math.ceil(done.length / 20))}</span><button type="button" class="btn small" data-gains-page="-1" aria-label="Página anterior de atendimentos" ${gainsPage === 0 ? 'disabled' : ''}>Anterior</button><button type="button" class="btn small" data-gains-page="1" aria-label="Próxima página de atendimentos" ${gainsPage >= Math.ceil(done.length / 20) - 1 ? 'disabled' : ''}>Próxima</button></div><div class="table-scroll"><table><thead><tr><th>Dia</th><th>Cliente</th><th>Serviço</th><th>Origem</th><th>Seu repasse</th></tr></thead><tbody>${done
+            .slice(gainsPage * 20, (gainsPage + 1) * 20)
+            .map(
+              (a) =>
+                `<tr><td>${a.day} out</td><td>${escapeText(a.client)}</td><td>${service(a.service).name}</td><td>${a.paymentKind === 'plano' ? 'Plano mensal' : 'Avulso'}</td><td>${money(commission(a))}</td></tr>`,
+            )
+            .join(
+              '',
+            )}</tbody></table></div></section><p class="fine" style="margin-top:15px">Com valor fixo, um corte adicional de plano concluído soma ${money(settings.cabelo)} ao seu repasse; um combo soma ${money(settings.completo)}. Com percentual, mais usos alteram o valor unitário e a distribuição; não há promessa de ganho adicional fixo.</p>`
         );
       }
       function bindFinance() {
@@ -2335,13 +3018,21 @@
           (b) =>
             (b.onclick = () => {
               const m = members.find((m) => m.plan === b.dataset.tryPlan);
+              if (!m) {
+                toast(
+                  'Não há clientes neste plano. Cadastre um cenário no painel do empresário.',
+                );
+                return;
+              }
               clientMemberId = m.id;
               selectedService = planById(m.plan).service;
               view = 'agendar';
               selectedTime = '';
               render();
               toast(
-                'Perfil fictício com mensalidade já paga. Nenhuma contratação real.',
+                memberCurrent(m)
+                  ? 'Perfil fictício em dia. Nenhuma contratação real.'
+                  : 'Perfil fictício vencido: regularize para agendar.',
               );
             }),
         );
@@ -2361,8 +3052,16 @@
             const data = new FormData(form),
               next = { ...settings };
             for (const key of Object.keys(defaultSettings)) {
-              if (key === 'model') {
-                next.model = data.get(key);
+              if (['model', 'payMode'].includes(key)) {
+                const value = data.get(key);
+                if (
+                  (key === 'model' &&
+                    !['fixo', 'percentual'].includes(value)) ||
+                  (key === 'payMode' &&
+                    !['comissao', 'base-comissao'].includes(value))
+                )
+                  return;
+                next[key] = value;
                 continue;
               }
               const v = Number(data.get(key));
@@ -2417,12 +3116,13 @@
         return `<div class="heading"><div><div class="eyebrow">${eyebrow}</div><h1>${title}</h1><p>${description}</p></div>${action}</div>`;
       }
       function stat(label, value, note, symbol) {
-        return `<article class="card stat"><div class="stat-top">${label}<span class="stat-icon">${icon(symbol)}</span></div><div class="stat-value">${value}</div><small>${note}</small></article>`;
+        return `<article class="card stat"><div class="stat-top">${label}${helpButton(label)}<span class="stat-icon">${icon(symbol)}</span></div><div class="stat-value">${value}</div><small>${note}</small></article>`;
       }
       function footer() {
         return '<footer class="footer"><span>Vértice Barbearia · Uma experiência AgendaFlex</span><span>Protótipo visual · Outubro de 2026 · Dados fictícios</span></footer>';
       }
       function render() {
+        derivedCache = null;
         document
           .querySelectorAll('[data-role]')
           .forEach((b) =>
@@ -2473,26 +3173,28 @@
         document.getElementById('breadcrumb').textContent =
           `Vértice / ${menus.find((m) => m[0] === view)?.[1] || 'Demonstração'}`;
         const html =
-          view === 'planos'
-            ? plansPage()
-            : role === 'dono' &&
-                ['assinantes', 'financeiro', 'custos', 'simulador'].includes(
-                  view,
-                )
-              ? financialPage()
-              : role === 'barbeiro' && view === 'ganhos'
-                ? earningsPage()
-                : view === 'equipe'
-                  ? teamPage()
-                  : view === 'servicos'
-                    ? servicesPage()
-                    : role === 'cliente'
-                      ? view === 'meu'
-                        ? myBookingPage()
-                        : bookingPage()
-                      : role === 'dono'
-                        ? ownerPage()
-                        : barberPage();
+          view === 'assinantes' && role === 'dono'
+            ? subscriptionsPage()
+            : view === 'planos'
+              ? plansPage()
+              : role === 'dono' &&
+                  ['assinantes', 'financeiro', 'custos', 'simulador'].includes(
+                    view,
+                  )
+                ? financialPage()
+                : role === 'barbeiro' && view === 'ganhos'
+                  ? earningsPage()
+                  : view === 'equipe'
+                    ? teamPage()
+                    : view === 'servicos'
+                      ? servicesPage()
+                      : role === 'cliente'
+                        ? view === 'meu'
+                          ? myBookingPage()
+                          : bookingPage()
+                        : role === 'dono'
+                          ? ownerPage()
+                          : barberPage();
         const main = document.getElementById('main');
         main.innerHTML = html + teamRail() + footer();
         main.classList.remove('enter');
@@ -2500,6 +3202,8 @@
         main.classList.add('enter');
         bind();
         bindFinance();
+        bindV3();
+        bindHelp();
       }
       function bookingPage() {
         const s = service(selectedService),
@@ -2512,21 +3216,12 @@
               a.status !== 'Cancelado',
           )
           .map((a) => a.time);
-        const times = [
-          '09:00',
-          '10:30',
-          '11:00',
-          '13:00',
-          '14:00',
-          '15:00',
-          '16:00',
-          '17:00',
-        ];
-        return `${memberSelector()}<div class="hero"><div class="hero-copy"><div class="eyebrow">Bem-vindo à Vértice · Desde 2018</div><h1>Seu estilo.<br>Seu melhor momento.</h1><p>Um bom corte muda o dia. Escolha seu cuidado e reserve um tempo para você.</p><div class="tags"><span>${icon('star', 13)} 4,9 · avaliação fictícia</span><span>${icon('clock', 13)} Seg–sáb, 09h às 19h</span></div></div><div class="hero-art" aria-hidden="true"><div class="shop-logo"><svg aria-hidden="true" viewBox="0 0 48 48" fill="none"><path d="M24 3 44 14v20L24 45 4 34V14Z" stroke="currentColor" stroke-width="1.5"/><path d="m14 15 10 20 10-20M17 26h14" stroke="currentColor" stroke-width="2.4"/><circle cx="24" cy="11" r="1.5" fill="currentColor"/></svg></div><div class="seal">ESTILO<br>& CUIDADO<br>VÉRTICE</div></div></div>
+        const times = daySlots;
+        return `${memberSelector()}<div class="hero"><div class="hero-copy"><div class="eyebrow">Bem-vindo à Vértice · Desde 2018</div><h1>Seu estilo.<br>Seu melhor momento.</h1><p>Um bom corte muda o dia. Escolha seu cuidado e reserve um tempo para você.</p><div class="tags"><span>${icon('star', 13)} 4,9 · avaliação fictícia</span><span>${icon('clock', 13)} Seg–sáb, 09h às 21h</span></div></div><div class="hero-art" aria-hidden="true"><div class="shop-logo"><svg aria-hidden="true" viewBox="0 0 48 48" fill="none"><path d="M24 3 44 14v20L24 45 4 34V14Z" stroke="currentColor" stroke-width="1.5"/><path d="m14 15 10 20 10-20M17 26h14" stroke="currentColor" stroke-width="2.4"/><circle cx="24" cy="11" r="1.5" fill="currentColor"/></svg></div><div class="seal">ESTILO<br>& CUIDADO<br>VÉRTICE</div></div></div>
  <div class="booking-columns"><section class="card"><div class="card-body"><div class="steps"><div class="step active"><span>1</span>Seu cuidado</div><div class="step active"><span>2</span>Profissional</div><div class="step ${selectedTime ? 'active' : ''}"><span>3</span>Seu horário</div></div><div class="section-title"><h2>O que vamos fazer hoje?</h2><span>01 / 03</span></div><div class="service-grid">${services.map((item) => `<button type="button" class="choice" data-service="${item.id}" aria-pressed="${item.id === selectedService}"><span class="service-icon">${icon('scissors')}</span><strong>${item.name}</strong><small>${item.duration} min</small><span class="price">${money(item.price)}</span></button>`).join('')}</div>
  <div class="spacer"></div><div class="section-title"><h2>Escolha seu barbeiro</h2><span>02 / 03</span></div><div class="staff-choices">${staff.map((p) => `<button type="button" class="choice staff-choice" data-staff="${p.id}" aria-pressed="${p.id === selectedStaff}">${avatar(p)}<strong>${p.short}</strong><small>${p.specialty}</small></button>`).join('')}</div>
- <div class="spacer"></div><div class="section-title"><h2>Um tempo só seu</h2><span>Outubro 2026 · 03 / 03</span></div><div class="dates">${['Qua', 'Qui', 'Sex', 'Sáb'].map((day, i) => `<button type="button" class="choice date-choice" data-day="${28 + i}" aria-pressed="${selectedDay === 28 + i}"><small>${day}</small><strong>${28 + i}</strong><small>OUT</small></button>`).join('')}</div><div class="spacer"></div><div class="times">${times.map((time) => `<button type="button" class="choice time" data-time="${time}" aria-pressed="${selectedTime === time}" ${occupied.includes(time) ? 'disabled title="Ocupado nesta demonstração"' : ''}>${time}${occupied.includes(time) ? '<span class="hidden"> ocupado</span>' : ''}</button>`).join('')}</div><p class="footnote" style="margin-top:13px">Horários ilustrativos. Esta simulação não calcula disponibilidade real.</p></div></section>
- <aside class="card summary"><div class="card-head"><h2>Seu próximo cuidado</h2>${icon('calendar')}</div><div class="card-body"><div class="row" style="margin-bottom:15px">${avatar(p)}<div><h3>${p.name}</h3><p style="font-size:11px">Vértice Barbearia</p></div></div><div class="summary-item"><span>Serviço</span><strong>${s.name}</strong></div><div class="summary-item"><span>Duração</span><strong>${s.duration} minutos</strong></div><div class="summary-item"><span>Data</span><strong>${selectedDay} de outubro, 2026</strong></div><div class="summary-item"><span>Horário</span><strong>${selectedTime || 'Escolha um horário'}</strong></div><div class="total"><span>Total estimado</span><strong>${money(coveredService() ? 0 : s.price)}</strong></div><p class="footnote">${coveredService() ? 'Incluído no plano. Mensalidade já paga; sem cobrança adicional neste atendimento.' : 'Atendimento avulso. Serviço fora do plano será cobrado à parte.'}</p><button type="button" id="book" class="btn primary full" ${!selectedTime ? 'disabled' : ''}>Simular agendamento ${icon('arrow', 15)}</button><p class="footnote">Sem cobrança e sem cadastro.<br>Você verá o resultado na agenda do empresário.</p></div></aside></div>`;
+ <div class="spacer"></div><div class="section-title"><h2>Um tempo só seu</h2><span>Outubro 2026 · 03 / 03</span></div><div class="dates">${['Qua', 'Qui', 'Sex', 'Sáb'].map((day, i) => `<button type="button" class="choice date-choice" data-day="${28 + i}" aria-pressed="${selectedDay === 28 + i}"><small>${day}</small><strong>${28 + i}</strong><small>OUT</small></button>`).join('')}</div><div class="spacer"></div><div class="times">${times.map((time) => `<button type="button" class="choice time" data-time="${time}" aria-pressed="${selectedTime === time}" ${occupied.includes(time) ? 'disabled title="Ocupado nesta demonstração"' : ''}>${time}${occupied.includes(time) ? '<span class="hidden"> ocupado</span>' : ''}</button>`).join('')}</div><p class="footnote" style="margin-top:13px">Sessões de 1 hora. Almoço 12h–14h; último início às 20h. O dia 28 está cheio: escolha 29, 30 ou 31 para testar. Simulação local, sem reserva real.</p></div></section>
+ <aside class="card summary"><div class="card-head"><h2>Seu próximo cuidado</h2>${icon('calendar')}</div><div class="card-body"><div class="row" style="margin-bottom:15px">${avatar(p)}<div><h3>${p.name}</h3><p style="font-size:11px">Vértice Barbearia</p></div></div><div class="summary-item"><span>Serviço</span><strong>${s.name}</strong></div><div class="summary-item"><span>Duração</span><strong>${s.duration} minutos</strong></div><div class="summary-item"><span>Data</span><strong>${selectedDay} de outubro, 2026</strong></div><div class="summary-item"><span>Horário</span><strong>${selectedTime || 'Escolha um horário'}</strong></div><div class="total"><span>Total estimado</span><strong>${money(coveredService() ? 0 : s.price)}</strong></div><p class="footnote">${currentMember() && !memberCurrent(currentMember()) ? 'Assinatura vencida. Regularize para liberar o agendamento.' : coveredService() ? 'Incluído no plano. Mensalidade já paga; sem cobrança adicional neste atendimento.' : 'Atendimento avulso. Serviço fora do plano será cobrado à parte.'}</p><button type="button" id="book" class="btn primary full" ${!selectedTime || (currentMember() && !eligibleForDate(currentMember(), selectedDay)) ? 'disabled' : ''}>Simular agendamento ${icon('arrow', 15)}</button><p class="footnote">${currentMember() && !eligibleForDate(currentMember(), selectedDay) ? 'Assinatura vencida: regularize para agendar.' : 'Sem cobrança real. Veja a reserva na agenda do empresário.'}</p></div></aside></div>`;
       }
       function myBookingPage() {
         const a = appointments.find((item) => item.id === myBooking);
@@ -2559,7 +3254,7 @@
               : 'Seu estilo, em boas mãos.',
             'Cinco profissionais fictícios, cada um com a sua especialidade.',
           ) +
-          `<div class="team-grid">${staff.map((p) => `<article class="card staff-card">${avatar(p)}<h2>${p.name}</h2><p>${p.specialty}</p><p>${p.bio}</p><div class="availability">Atende de segunda a sábado</div><div class="spacer"></div>${role === 'cliente' ? `<button type="button" class="btn primary full" data-choose-staff="${p.id}">Agendar com ${p.short}</button>` : `<div class="row spread"><span class="badge green">Profissional ativo</span><button type="button" class="btn small" data-team-agenda="${p.id}">Ver agenda</button></div>`}</article>`).join('')}</div>`
+          `<div class="team-grid">${staff.map((p) => `<article class="card staff-card">${avatar(p)}<h2>${p.name}</h2><p>${p.specialty}</p><p>${p.bio}</p><div class="availability">Seg–sáb · 09h–21h · Almoço 12h–14h</div><div class="spacer"></div>${role === 'cliente' ? `<button type="button" class="btn primary full" data-choose-staff="${p.id}">Agendar com ${p.short}</button>` : `<div class="row spread"><span class="badge green">Profissional ativo</span><button type="button" class="btn small" data-team-agenda="${p.id}">Ver agenda</button></div>`}</article>`).join('')}</div>`
         );
       }
       function servicesPage() {
@@ -2626,7 +3321,7 @@
             'Quarta-feira, 28 de outubro de 2026 · Sua agenda pessoal de demonstração.',
             choose,
           ) +
-          `<div class="stats">${stat('Seus atendimentos', items.length, 'Agendados para hoje', 'calendar')}${stat('Já concluídos', completed.length, 'Bom trabalho até aqui', 'check')}${stat('A atender', items.length - completed.length, 'Inclui atendimento em andamento', 'clock')}${stat('Seu repasse no dia', money(completed.reduce((v, a) => v + commission(a), 0)), 'Estimativa da regra vigente · Não pago', 'money')}</div>${next ? `<section class="banner"><div><div class="eyebrow">${next.status === 'Em atendimento' ? 'Em atendimento' : 'Próximo da sua agenda'}</div><h2>${next.time} · ${escapeText(next.client)}</h2><p>${service(next.service).name} · ${service(next.service).duration} min · ${money(service(next.service).price)}</p></div><span class="badge ${next.status === 'Em atendimento' ? 'blue' : 'green'}">${next.status}</span></section>` : ''}<div class="columns"><section class="card"><div class="card-head"><h2>${view === 'resumo' ? 'Atendimentos e resultados' : 'Sua agenda de hoje'}</h2><small>28 de outubro</small></div><div class="timeline">${items.map((a) => `<article class="appointment"><time>${a.time}</time><div><h3>${escapeText(a.client)}</h3>${badge(a.status)}<p>${service(a.service).name} · ${service(a.service).duration} min</p><div class="payout-cell">${a.paymentKind === 'plano' ? 'Plano mensal' : 'Avulso'} · Repasse estimado ${money(commission(a, true))}</div></div><div class="actions">${a.status === 'Confirmado' ? `<button type="button" class="btn small primary" data-start="${a.id}">Iniciar atendimento</button>` : a.status === 'Em atendimento' ? `<button type="button" class="btn small primary" data-finish="${a.id}">Concluir atendimento</button>` : `<span class="footnote">${icon('check', 14)} Finalizado</span>`}</div></article>`).join('') || '<div class="empty">Sua agenda está livre neste dia.</div>'}</div></section><aside class="stack"><section class="card"><div class="card-head"><h2>Seu espaço</h2></div><div class="card-body"><div class="row">${avatar(p)}<div><h3>${p.name}</h3><p style="font-size:11px">${p.specialty}</p></div></div><div class="spacer"></div><div class="info-grid"><div class="info-box"><small>Início do dia</small><strong>09:00</strong></div><div class="info-box"><small>Fim do dia</small><strong>19:00</strong></div></div><p class="footnote" style="margin-top:17px">Almoço ilustrativo: 12h às 13h.<br>O barbeiro acompanha somente sua própria lista nesta visão de demonstração.</p></div></section><section class="card card-body"><h3>Um cuidado de cada vez.</h3><p style="font-size:12px;margin-top:10px">Experimente iniciar e concluir um atendimento. A visão do empresário acompanha a alteração nesta mesma página.</p></section></aside></div>`
+          `<div class="stats">${stat('Seus atendimentos', items.length, 'Agendados para hoje', 'calendar')}${stat('Já concluídos', completed.length, 'Bom trabalho até aqui', 'check')}${stat('A atender', items.length - completed.length, 'Inclui atendimento em andamento', 'clock')}${stat('Seu repasse no dia', money(completed.reduce((v, a) => v + commission(a), 0)), 'Estimativa da regra vigente · Não pago', 'money')}</div>${next ? `<section class="banner"><div><div class="eyebrow">${next.status === 'Em atendimento' ? 'Em atendimento' : 'Próximo da sua agenda'}</div><h2>${next.time} · ${escapeText(next.client)}</h2><p>${service(next.service).name} · ${service(next.service).duration} min · ${money(service(next.service).price)}</p></div><span class="badge ${next.status === 'Em atendimento' ? 'blue' : 'green'}">${next.status}</span></section>` : ''}<div class="columns"><section class="card"><div class="card-head"><h2>${view === 'resumo' ? 'Atendimentos e resultados' : 'Sua agenda de hoje'}</h2><small>28 de outubro</small></div><div class="timeline">${items.map((a) => `<article class="appointment"><time>${a.time}</time><div><h3>${escapeText(a.client)}</h3>${badge(a.status)}<p>${service(a.service).name} · ${service(a.service).duration} min</p><div class="payout-cell">${a.paymentKind === 'plano' ? 'Plano mensal' : 'Avulso'} · Repasse estimado ${money(commission(a, true))}</div></div><div class="actions">${a.status === 'Confirmado' ? `<button type="button" class="btn small primary" data-start="${a.id}">Iniciar atendimento</button>` : a.status === 'Em atendimento' ? `<button type="button" class="btn small primary" data-finish="${a.id}">Concluir atendimento</button>` : `<span class="footnote">${icon('check', 14)} Finalizado</span>`}</div></article>`).join('') || '<div class="empty">Sua agenda está livre neste dia.</div>'}</div></section><aside class="stack"><section class="card"><div class="card-head"><h2>Seu espaço</h2></div><div class="card-body"><div class="row">${avatar(p)}<div><h3>${p.name}</h3><p style="font-size:11px">${p.specialty}</p></div></div><div class="spacer"></div><div class="info-grid"><div class="info-box"><small>Início do dia</small><strong>09:00</strong></div><div class="info-box"><small>Fim do dia</small><strong>21:00</strong></div></div><p class="footnote" style="margin-top:17px">Almoço: 12h às 14h · 10 sessões de 1h por dia.<br>O barbeiro acompanha somente sua própria lista nesta visão de demonstração.</p></div></section><section class="card card-body"><h3>Um cuidado de cada vez.</h3><p style="font-size:12px;margin-top:10px">Experimente iniciar e concluir um atendimento. A visão do empresário acompanha a alteração nesta mesma página.</p></section></aside></div>`
         );
       }
       function bind() {
@@ -2691,6 +3386,14 @@
           if (el) el.addEventListener(event, fn);
         };
         on('book', 'click', () => {
+          if (
+            currentMember() &&
+            !eligibleForDate(currentMember(), selectedDay)
+          ) {
+            toast('Assinatura vencida. Regularize antes de agendar.');
+            return;
+          }
+          if (!daySlots.includes(selectedTime)) return;
           if (!selectedTime) return;
           const existing = appointments.find(
             (a) =>
@@ -2772,6 +3475,7 @@
         });
         on('barber-select', 'change', (e) => {
           barberId = Number(e.target.value);
+          gainsPage = 0;
           render();
         });
         document.querySelectorAll('[data-start]').forEach(
@@ -2809,10 +3513,16 @@
         .querySelectorAll('[data-role]')
         .forEach((b) => (b.onclick = () => setRole(b.dataset.role)));
       document.getElementById('reset').onclick = () => {
+        planConfig = structuredClone(defaultPlanConfig);
+        subscriberQuery = '';
+        subscriberState = 'todos';
+        subscriberPage = 0;
+        rebuildScenario();
         appointments = structuredClone(seed);
         settings = structuredClone(defaultSettings);
         clientMemberId = '';
         simVisits = 2;
+        gainsPage = 0;
         myBooking = null;
         selectedTime = '';
         selectedStaff = 1;
@@ -2825,6 +3535,14 @@
         setRole('cliente');
         toast('Demonstração reiniciada com os dados originais.');
       };
+      document.getElementById('theme-toggle').onclick = () => {
+        const dark = document.documentElement.dataset.theme !== 'dark';
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        const b = document.getElementById('theme-toggle');
+        b.setAttribute('aria-pressed', String(dark));
+        b.textContent = dark ? '☀ Modo claro' : '☾ Modo escuro';
+      };
+      rebuildScenario();
       render();
     </script>
   </body>
