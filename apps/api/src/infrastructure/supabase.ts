@@ -15,3 +15,36 @@ export function createUserSupabaseClient(
     },
   });
 }
+
+import { accountResponseSchema } from '@agendaflex/shared';
+import type { IdentityGateway } from '../application/identity.js';
+export function createIdentityGateway(
+  url: string,
+  key: string,
+): IdentityGateway {
+  return {
+    async accountForToken(token) {
+      const client = createUserSupabaseClient(url, key, token);
+      // getUser validates the token with Auth; user metadata never grants roles.
+      const { data, error } = await client.auth.getUser(token);
+      if (error || !data.user?.email) return null;
+      const result = await client
+        .from('memberships')
+        .select('tenant_id, role, tenants(name)')
+        .eq('user_id', data.user.id);
+      if (result.error) throw new Error('Membership lookup unavailable');
+      return accountResponseSchema.parse({
+        user: { id: data.user.id, email: data.user.email },
+        memberships: (result.data || []).map((row) => {
+          const tenant = row.tenants as unknown as { name: string } | null;
+          if (!tenant) throw new Error('Tenant unavailable');
+          return {
+            tenantId: row.tenant_id,
+            tenantName: tenant.name,
+            role: row.role,
+          };
+        }),
+      });
+    },
+  };
+}

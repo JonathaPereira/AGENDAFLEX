@@ -1,6 +1,12 @@
 # AgendaFlex · Ross Barbearia
 
-Monorepo da fundação do AgendaFlex e demonstração interativa da Ross Barbearia. A marca de referência é real; **profissionais, clientes, preços, salários e históricos são fictícios**. Não há pagamentos, autenticação ou reservas reais nesta demonstração.
+Monorepo da fundação do AgendaFlex e demonstração interativa da Ross Barbearia. A marca de referência é real; **profissionais, clientes, preços, salários e históricos são fictícios**. Não há pagamentos, autenticação ou reservas reais no HTML de demonstração. O projeto React agora tem uma etapa separada de login via Supabase, pendente de conexão e validação com seu projeto.
+
+## Etapa em andamento: login Supabase
+
+Acesse `/login` no React para a tela Ross com entrada, criação de conta e recuperação de senha. Sem projeto configurado, os botões ficam desabilitados. `/conta` verifica a sessão pela API; `/painel` exige vínculo retornado pelo servidor e `/saas` ainda não possui liberação. Criar conta não concede administração.
+
+Siga [o passo a passo do Supabase](docs/supabase-setup.md). O SQL inicial para um projeto de desenvolvimento vazio está em `database/supabase/setup-dev.sql`; `link-owner.sql` atribui o primeiro proprietário após confirmação de e-mail. Nenhum script foi aplicado no seu projeto automaticamente.
 
 ## Abrir a demonstração sem instalação
 
@@ -50,4 +56,4 @@ Quando houver Chromium instalado no sistema, os E2E podem usar `PLAYWRIGHT_CHROM
 
 Documentação: [desenvolvimento](docs/development.md), [arquitetura](docs/architecture.md), [autenticação e isolamento](docs/auth-and-tenancy.md) e [banco/migrações](database/README.md).
 
-O produto real ainda exige Supabase Auth, autorização/RLS, persistência, integração de pagamentos, notificações e controle de concorrência. Os seletores de visão/perfil do HTML servem para apresentação e não protegem dados reais.
+O produto real ainda exige conectar e validar Supabase Auth/RLS no projeto, migrar os módulos operacionais para persistência, integrar pagamentos, notificações e controle de concorrência. Os seletores de visão/perfil do HTML servem para apresentação e não protegem dados reais.

@@ -26,7 +26,7 @@ O Vite e o processo da API leem `.env` na raiz; variáveis do processo têm prec
 | `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY` | Configuração pública usada por futuros adaptadores da API; configurar em conjunto |
 | `DATABASE_URL`                             | Conexão PostgreSQL apenas no servidor e ferramentas Drizzle                       |
 
-Qualquer variável `VITE_*` é exposta no bundle. Não adicione tokens privados, senha de banco, JWT signing secrets ou chaves service-role. `.env` é ignorado pelo Git. As fábricas Supabase são preguiçosas: nenhum cliente é criado nem sessão falsa é autenticada ao abrir as telas.
+Qualquer variável `VITE_*` é exposta no bundle. Não adicione tokens privados, senha de banco, JWT signing secrets ou chaves service-role. `.env` é ignorado pelo Git. Sem URL/chave pública configuradas, o cliente Auth não é criado e o login fica desabilitado. Com configuração válida, o SDK restaura a sessão e a API verifica o usuário e seus vínculos; não há sessão fictícia no React. O HTML demo continua separado.
 
 ## Comandos e verificações
 
@@ -44,7 +44,7 @@ Para um teste E2E isolado, encerre serviços antigos nas portas 3001 e 5173. For
 
 O fluxo desta fase funciona sem Docker. Para testar persistência futuramente, instale a CLI oficial do Supabase e Docker, inicialize um projeto local fora deste checkout (`supabase init` e `supabase start`) e preencha `.env` com a URL, chave pública e conexão PostgreSQL fornecidas pela instância local. Não use produção para validar migrações. Não há serviço pago necessário.
 
-`pnpm db:generate` gera migrações sem banco. `pnpm db:migrate` aplica as migrações e exige `DATABASE_URL`. As tabelas começam com RLS habilitada e sem políticas, negando acesso por usuários comuns. Veja database/README.md antes de conectar dados.
+`pnpm db:generate` gera migrações sem banco. `pnpm db:migrate` aplica as migrações e exige `DATABASE_URL`. A migração inicial habilita RLS; a migração 0001 permite leitura dos vínculos próprios e tenants associados, sem escrita pelo navegador. Ela exige Supabase local ou de desenvolvimento. Veja database/README.md antes de conectar dados.
 
 ## Solução de problemas
 
@@ -55,3 +55,5 @@ O fluxo desta fase funciona sem Docker. Para testar persistência futuramente, i
 - Em produção, configure o host HTTP para encaminhar rotas SPA para `index.html`; não há configuração de deploy nesta fase.
 
 Se um Chromium já estiver instalado, é possível usar `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/caminho/para/chromium pnpm test:e2e`. O CI usa o navegador instalado pelo Playwright. A variável é apenas de ferramentas, nunca do frontend.
+
+Para conectar o login real, siga [Supabase passo a passo](supabase-setup.md). `pnpm test:e2e:auth` usa serviços de Auth/API simulados em um servidor separado; não comprova login ou e-mail reais.

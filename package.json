@@ -18,7 +18,9 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "db:generate": "pnpm --filter @agendaflex/database generate",
-    "db:migrate": "pnpm --filter @agendaflex/database migrate"
+    "db:migrate": "pnpm --filter @agendaflex/database migrate",
+    "db:setup-sql": "node database/scripts/export-supabase-setup.mjs",
+    "test:e2e:auth": "playwright test --config playwright.auth.config.ts"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.1",

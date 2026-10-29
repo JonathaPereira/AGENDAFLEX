@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { publicSupabaseKeySchema } from '@agendaflex/shared';
 const optionalUrl = z.preprocess(
   (v) => (v === '' ? undefined : v),
   z.string().url().optional(),
@@ -10,7 +11,7 @@ export const apiEnvSchema = z.object({
   SUPABASE_URL: optionalUrl,
   SUPABASE_PUBLISHABLE_KEY: z.preprocess(
     (v) => (v === '' ? undefined : v),
-    z.string().min(1).optional(),
+    publicSupabaseKeySchema.optional(),
   ),
 });
 export function parseApiEnv(input: Record<string, unknown>) {

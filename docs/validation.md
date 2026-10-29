@@ -113,3 +113,19 @@ Build, typecheck, lint e sete testes Vitest passaram. Houve inspeção por captu
 Continuam fora do escopo: autenticação real, mensagens/e-mails, senhas reais, persistência, gateway, estorno e documento fiscal. Os documentos e telefones dos perfis iniciais são sintéticos; o HTML não verifica identidade.
 
 Uma checagem adicional do perfil passou em duas execuções (desktop/mobile), incluindo completar e-mail e celular e preservar os dois atendimentos do histórico. `pnpm format:check` e `git diff --check` também passaram.
+
+## Etapa Supabase — implementação preparada, projeto ainda não conectado
+
+Foram implementados tela React Ross com logo, entrada por e-mail/senha, criação de conta, recuperação por PKCE, nova senha, saída, `/conta`, proteção do painel e API `/me`. A API usa `getUser(token)` antes de consultar vínculos, cliente request-scoped com JWT do usuário, respostas sem cache e redação de Authorization/cookies nos logs. Papéis não vêm de user_metadata, query, IDs ou e-mail enviados como autorização pelo cliente.
+
+Verificações executadas:
+
+- `pnpm typecheck`, `pnpm lint`, `pnpm test` (15 testes), `pnpm build`, `pnpm format:check` e `git diff --check` passaram.
+- A suíte principal Playwright passou em **84 testes**, incluindo a regressão da demo e novos cenários de tela sem projeto configurado, login desabilitado, rotas protegidas, cadastro/recuperação e links inválidos em desktop/mobile.
+- `pnpm test:e2e:auth` passou com **seis cenários desktop/mobile usando respostas controladas**, conferindo login, restauração, logout, senha incorreta, vínculo fornecido pela API e bloqueio do SaaS mesmo para owner. Esses testes NÃO usam Supabase real.
+- Dois testes de integração da infraestrutura simularam HTTP do Auth/PostgREST, verificando ordem de consulta, mesmo JWT e filtro pelo subject verificado. Eles não comprovam conectividade externa, JWT real ou RLS.
+- `pnpm db:generate` gerou a migração de políticas e índice de proprietário único. `pnpm db:setup-sql --check` confirmou que o setup de desenvolvimento corresponde às migrações/hashes. SQL não foi aplicado em banco.
+- Um build com chave secreta fictícia foi recusado na carga de configuração do Vite, antes de gerar o bundle. Chaves privilegiadas são rejeitadas também pela configuração da API. Nenhuma chave real foi usada.
+- O login foi servido temporariamente e inspecionado por capturas desktop 1440 px e mobile 390 px, sem conectar projeto ou criar conta.
+
+Limitações desta validação: o usuário ainda está criando o projeto Supabase. Não foram executados login real, cadastro/entrega de e-mail, recuperação real, migrações PostgreSQL, isolamento RLS real, bootstrap de proprietário ou deploy. A rede do ambiente de nuvem também precisará permitir o host exato do projeto quando ele for conhecido. Nenhum pagamento, app nativo ou upload de foto foi implementado nesta etapa. O roteiro de conexão e continuação está em `docs/supabase-setup.md`.

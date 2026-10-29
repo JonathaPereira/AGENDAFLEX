@@ -241,3 +241,144 @@ footer {
     letter-spacing: -1.8px;
   }
 }
+
+.ross-auth {
+  min-height: 100dvh;
+  padding: 36px 20px;
+  background: radial-gradient(ellipse at top, #302216, #100d0a 70%);
+  color: #eee7da;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  font-family: Inter, system-ui, sans-serif;
+  color-scheme: dark;
+}
+.ross-auth-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #b9a98f;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+.ross-auth-brand img {
+  object-fit: contain;
+  border-radius: 8px;
+}
+.ross-auth-card {
+  width: 100%;
+  max-width: 460px;
+  border: 1px solid #473524;
+  border-radius: 16px;
+  background: #201a14;
+  padding: clamp(22px, 5vw, 36px);
+  box-shadow: 0 24px 80px #0005;
+  overflow-wrap: anywhere;
+}
+.ross-auth-card h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(30px, 5vw, 38px);
+  line-height: 1.15;
+  letter-spacing: -1px;
+  margin: 12px 0 16px;
+}
+.ross-auth-card h2 {
+  font-size: 18px;
+  margin-top: 24px;
+}
+.ross-auth-card p,
+.ross-auth-card small {
+  color: #c0b09b;
+  line-height: 1.65;
+}
+.ross-auth-eyebrow {
+  color: #f89519;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.ross-auth-card form {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+.ross-auth-card label {
+  display: grid;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.ross-auth-card input {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  border: 1px solid #59432d;
+  border-radius: 8px;
+  background: #15110d;
+  color: #fff3df;
+  padding: 12px;
+  font: inherit;
+  font-size: 16px;
+}
+.ross-auth-card button {
+  font: inherit;
+  cursor: pointer;
+  min-height: 44px;
+  border-radius: 8px;
+}
+.ross-auth-card button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.ross-auth-card .auth-primary {
+  background: #f38b13;
+  color: #1a1006;
+  border: 0;
+  padding: 12px 16px;
+  font-weight: 700;
+}
+.ross-auth-card .auth-text-button {
+  background: transparent;
+  color: #ffaf4d;
+  border: 1px solid #59432d;
+  padding: 8px 12px;
+}
+.ross-auth .auth-error {
+  border-left: 3px solid #ff8f78;
+  padding: 12px;
+  background: #3c201b;
+  color: #ffc2b5;
+}
+.ross-auth .auth-notice {
+  border: 1px solid #665039;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 18px 0;
+  background: #2b2117;
+}
+.auth-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-top: 24px;
+}
+.auth-demo-link {
+  display: block;
+  margin-top: 24px;
+  font-size: 13px;
+}
+.ross-auth a {
+  color: #ffc074;
+}
+.ross-auth-footer {
+  color: #a79379;
+  font-size: 12px;
+}
+.ross-auth :focus-visible {
+  outline: 3px solid #ffa734;
+  outline-offset: 4px;
+}

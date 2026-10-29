@@ -1,6 +1,6 @@
 # Estratégia de autenticação e isolamento
 
-Esta é uma estratégia de implementação futura, não uma alegação de autenticação pronta. As telas atuais não exibem dados privados e a API não oferece endpoints de tenant.
+A etapa atual implementa a conexão de login por e-mail/senha com Supabase Auth e a API `/me`, pendente de teste real no projeto do usuário. As regras abaixo orientam a continuidade da implementação. A demonstração HTML permanece independente; os módulos operacionais ainda não foram conectados. Veja [configuração guiada](supabase-setup.md).
 
 ## Identidade
 
@@ -17,7 +17,7 @@ Todo recurso privado futuro terá `tenant_id` obrigatório. Consultas exigirão 
 
 ## Defesa no banco
 
-O schema inicial e a migração habilitam RLS nas duas tabelas. Não existem políticas de acesso nesta fase: acesso de papéis comuns permanece negado. Não há seeds de usuários/empresas. A associação não cria ainda uma FK para `auth.users`, permitindo gerar o schema em PostgreSQL independente; sua integridade e remoção devem ser tratadas antes do fluxo real de Auth.
+As migrações habilitam RLS nas duas tabelas. A migração 0001 permite leitura dos vínculos próprios e dos tenants associados para authenticated, sem escrita pelo navegador ou leitura anônima. Um índice parcial limita a um proprietário por tenant. O bootstrap de desenvolvimento cria somente schema/políticas; o primeiro proprietário é vinculado manualmente pelo administrador após confirmar sua conta. Não há seed automático de usuários/empresas. A associação não cria ainda uma FK para `auth.users`, permitindo gerar o schema em PostgreSQL independente; o bootstrap valida a existência e confirmação no Auth. A integridade de exclusão/cascata ainda precisa ser adicionada antes da gestão de usuários em produção.
 
 Para requisições privadas futuras, preferir Supabase com JWT do usuário, chave pública e políticas RLS baseadas em `auth.uid()` e associação verificada. A fábrica de cliente por requisição mantém a sessão separada e não persiste tokens. Implementar políticas com cuidado para evitar recursão em memberships e elevação de privilégios.
 

@@ -1,16 +1,30 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { publicSupabaseKeySchema } from '@agendaflex/shared';
 import { z } from 'zod';
 const configSchema = z.object({
   url: z.string().url(),
-  key: z.string().min(1),
+  key: publicSupabaseKeySchema,
 });
-// This module is intentionally lazy. No login or fake session is created in this phase.
+let instance: SupabaseClient | undefined;
+export function supabaseConfigured() {
+  return configSchema.safeParse({
+    url: import.meta.env.VITE_SUPABASE_URL,
+    key: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+  }).success;
+}
 export function createBrowserSupabaseClient() {
-  const result = configSchema.safeParse({
+  if (instance) return instance;
+  const config = configSchema.parse({
     url: import.meta.env.VITE_SUPABASE_URL,
     key: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
   });
-  if (!result.success)
-    throw new Error('Configure the public Supabase URL and publishable key');
-  return createClient(result.data.url, result.data.key);
+  instance = createClient(config.url, config.key, {
+    auth: {
+      flowType: 'pkce',
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: false,
+    },
+  });
+  return instance;
 }

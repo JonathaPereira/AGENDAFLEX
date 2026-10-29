@@ -3,6 +3,12 @@ import { NavLink, Outlet, Route, Routes, Link } from 'react-router-dom';
 import { Badge, Card, ThemeToggle } from '@agendaflex/ui';
 import { healthResponseSchema } from '@agendaflex/shared';
 
+import {
+  AuthPage,
+  CallbackPage,
+  AccountPage,
+  RequireManagement,
+} from './auth/AuthPages';
 function ApiStatus() {
   const [status, setStatus] = useState('Verificando API…');
   useEffect(() => {
@@ -44,6 +50,7 @@ function Layout({ area, panel = false }: { area: string; panel?: boolean }) {
         </NavLink>
         <NavLink to="/painel">Estabelecimento</NavLink>
         <NavLink to="/saas">Gestão SaaS</NavLink>
+        <NavLink to="/login">Entrar na Ross</NavLink>
         <a href="/demo.html">Ross Barbearia ↗</a>
       </nav>
       <main id="main" className="content" tabIndex={-1}>
@@ -127,9 +134,9 @@ function Panel({ central = false }: { central?: boolean }) {
         ))}
       </div>
       <aside className="notice">
-        <strong>Estrutura de interface, sem sessão ativa.</strong> A
-        autenticação e as permissões serão implementadas antes da
-        disponibilização de dados privados.
+        <strong>Sessão verificada; módulos em construção.</strong> Os serviços,
+        clientes e agendamentos da demonstração ainda não foram migrados para
+        este painel.
       </aside>
     </>
   );
@@ -137,13 +144,33 @@ function Panel({ central = false }: { central?: boolean }) {
 export function App() {
   return (
     <Routes>
+      <Route path="login" element={<AuthPage />} />
+      <Route path="criar-conta" element={<AuthPage mode="signup" />} />
+      <Route path="recuperar-senha" element={<AuthPage mode="forgot" />} />
+      <Route path="auth/callback" element={<CallbackPage />} />
+      <Route path="redefinir-senha" element={<CallbackPage recovery />} />
+      <Route path="conta" element={<AccountPage />} />
       <Route element={<Layout area="Portal público" />}>
         <Route index element={<Portal />} />
       </Route>
-      <Route path="painel" element={<Layout area="Estabelecimento" panel />}>
+      <Route
+        path="painel"
+        element={
+          <RequireManagement>
+            <Layout area="Estabelecimento" panel />
+          </RequireManagement>
+        }
+      >
         <Route index element={<Panel />} />
       </Route>
-      <Route path="saas" element={<Layout area="Gestão SaaS" panel />}>
+      <Route
+        path="saas"
+        element={
+          <RequireManagement central>
+            <Layout area="Gestão SaaS" panel />
+          </RequireManagement>
+        }
+      >
         <Route index element={<Panel central />} />
       </Route>
       <Route path="*" element={<Layout area="Página não encontrada" />}>
