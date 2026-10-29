@@ -53,7 +53,7 @@ test('owner and barber register clients, reject duplicates and show role-specifi
   await page
     .getByRole('button', { name: 'Sair do perfil de demonstração' })
     .click();
-  await login(page, 'barbeiro1@ross.example');
+  await login(page, 'barbeiro2@ross.example');
   await expect(page.locator('#barber-select')).toBeHidden();
   await expect(page.locator('#menu')).not.toContainText('Dashboard financeiro');
   await register(page, 'outro.cliente@example.com', '22222222222');
@@ -136,7 +136,7 @@ test('cash receipt requires confirmation, renews once and keeps next cycle separ
   page,
 }) => {
   await page.goto('/demo.html');
-  await login(page, 'barbeiro1@ross.example');
+  await login(page, 'barbeiro2@ross.example');
   await menu(page, 'Receber no salão');
   await page
     .getByLabel('E-mail do assinante')
@@ -160,7 +160,7 @@ test('cash receipt requires confirmation, renews once and keeps next cycle separ
   await expect(page.locator('.record-list article')).toHaveCount(1);
   await expect(page.locator('.record-list')).toContainText('Novembro/2026');
   await expect(page.locator('.record-list')).toContainText('Dinheiro');
-  await expect(page.locator('.record-list')).toContainText('Rafael Lima');
+  await expect(page.locator('.record-list')).toContainText('Bruno Alves');
   await page
     .getByRole('button', { name: 'Sair do perfil de demonstração' })
     .click();
@@ -173,7 +173,7 @@ test('a newly registered subscriber starts unpaid and a cash receipt releases th
   page,
 }) => {
   await page.goto('/demo.html');
-  await login(page, 'barbeiro1@ross.example');
+  await login(page, 'barbeiro2@ross.example');
   await register(page, 'plano.novo@example.com', '33333333333', 'first');
   await page
     .getByRole('button', { name: 'Sair do perfil de demonstração' })
@@ -190,7 +190,7 @@ test('a newly registered subscriber starts unpaid and a cash receipt releases th
   await page
     .getByRole('button', { name: 'Sair do perfil de demonstração' })
     .click();
-  await login(page, 'barbeiro1@ross.example');
+  await login(page, 'barbeiro2@ross.example');
   await menu(page, 'Receber no salão');
   await page.getByLabel('E-mail do assinante').fill('plano.novo@example.com');
   await page.getByRole('button', { name: 'Localizar assinatura' }).click();

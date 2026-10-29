@@ -3113,6 +3113,23 @@
       .who {
         overflow-wrap: anywhere;
       }
+      .owner-mode {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .owner-mode > div:first-child {
+        flex: 1 1 240px;
+      }
+      .owner-mode .field {
+        flex: 1 1 200px;
+        min-width: 0;
+      }
+      #walkin-form .field {
+        margin: 12px 0;
+      }
     </style>
   </head>
   <body>
@@ -3478,6 +3495,8 @@
       function rebuildScenario() {
         timeOff = [];
         receipts = [];
+        walkInSales = [];
+        walkInDraft = null;
         registeredClients = [];
         archivedStaff = [];
         activity = [];
@@ -3897,7 +3916,7 @@
 
       const defaultBusiness = {
         name: 'Ross Barbearia',
-        owner: 'Marcos',
+        owner: 'Rafael',
         city: 'Fortaleza, CE',
         palette: 'ross',
         open: '09:00',
@@ -4347,7 +4366,7 @@
           );
           if (ticketLabel) ticketLabel.textContent = business.name;
           const h1 = document.querySelector('#main>.heading h1');
-          if (h1 && h1.textContent === 'Bom dia, Marcos.')
+          if (h1 && h1.textContent === 'Bom dia, Rafael.')
             h1.textContent = `Bom dia, ${business.owner}.`;
         }
       }
@@ -4688,7 +4707,7 @@
             ...c,
             member: members.find((m) => m.id === c.id) || null,
           });
-        return [...map.values()];
+        return [...map.values()].map(demoCustomerDetails);
       }
       function clientAppointments(c) {
         return [...history, ...appointments].filter(
@@ -4714,7 +4733,7 @@
             'Histórico fictício de 2026, concentrado em outubro nesta demonstração.',
             `<button type="button" class="btn" data-view="clientes">Voltar aos clientes</button>`,
           ) +
-          `${c.email ? `<section class="card card-body"><h2>Dados cadastrais fictícios</h2><div class="billing-grid">${['email', 'phone', 'cpf', 'rg', 'address'].map((k) => `<div><span>${{ email: 'E-mail', phone: 'Celular', cpf: 'CPF', rg: 'RG', address: 'Endereço' }[k]}</span><strong>${escapeText(c[k])}</strong></div>`).join('')}</div></section>` : ''}<div class="stats">${stat('Realizados no ano', done.length, 'Somente concluídos', 'check')}${stat('Próximos horários', future.length, 'Confirmados ou em atendimento', 'calendar')}${stat('Modalidade', c.member ? escapeText(planById(c.member.plan).name) : 'Avulso', 'Cadastro fictício', 'users')}${stat('Repetições no mês', Math.max(0, done.length - 1), 'Visitas após a primeira', 'clock')}</div><div class="profile-columns"><section class="card"><div class="card-head"><h2>Próximos agendamentos</h2></div><div class="card-body record-list">${future.map((a) => `<article><strong>${shortDate(a.day)} · ${a.time}</strong><p>${escapeText(service(a.service).name)} · ${escapeText(employee(a.staff)?.name || 'Profissional arquivado')}</p>${badge(a.status)}${role === 'dono' ? `<button type="button" class="btn small" data-transfer="${a.id}">Transferir reserva</button>` : ''}</article>`).join('') || '<p>Nenhum agendamento futuro.</p>'}</div></section><section class="card"><div class="card-head"><h2>Atendimentos realizados em 2026</h2></div><div class="card-body record-list">${
+          `${customerDataCard(c)}${accessCard(c)}<div class="stats">${stat('Realizados no ano', done.length, 'Somente concluídos', 'check')}${stat('Próximos horários', future.length, 'Confirmados ou em atendimento', 'calendar')}${stat('Modalidade', c.member ? escapeText(planById(c.member.plan).name) : 'Avulso', 'Cadastro fictício', 'users')}${stat('Repetições no mês', Math.max(0, done.length - 1), 'Visitas após a primeira', 'clock')}</div><div class="profile-columns"><section class="card"><div class="card-head"><h2>Próximos agendamentos</h2></div><div class="card-body record-list">${future.map((a) => `<article><strong>${shortDate(a.day)} · ${a.time}</strong><p>${escapeText(service(a.service).name)} · ${escapeText(employee(a.staff)?.name || 'Profissional arquivado')}</p>${badge(a.status)}${role === 'dono' ? `<button type="button" class="btn small" data-transfer="${a.id}">Transferir reserva</button>` : ''}</article>`).join('') || '<p>Nenhum agendamento futuro.</p>'}</div></section><section class="card"><div class="card-head"><h2>Atendimentos realizados em 2026</h2></div><div class="card-body record-list">${
             done
               .slice()
               .sort((a, b) => b.day - a.day)
@@ -4825,6 +4844,390 @@
           );
       }
 
+      let ownerWorkMode = 'gestao',
+        ownerStaffId = 1,
+        walkInSales = [],
+        walkInDraft = null;
+      const ownerAttending = () =>
+        role === 'dono' && ownerWorkMode === 'atendimento';
+      const ownerProfessional = () =>
+        staff.find((p) => p.id === ownerStaffId) || staff[0];
+      const salePrice = (a) => a.chargedPrice ?? service(a.service).price;
+      function ownerModeControls() {
+        if (role !== 'dono') return '';
+        const p = ownerProfessional();
+        return `<section class="card card-body owner-mode"><div><strong>${escapeText(p.name)} · Empresário e barbeiro</strong><p class="fine">Uma conta, dois modos. Perfil de atendimento vinculado à equipe, sem duplicar custos.</p></div><div class="row wrap"><button type="button" class="btn ${!ownerAttending() ? 'primary' : ''}" data-owner-mode="gestao" aria-pressed="${!ownerAttending()}">Modo gestão</button><button type="button" class="btn ${ownerAttending() ? 'primary' : ''}" data-owner-mode="atendimento" aria-pressed="${ownerAttending()}">Modo barbeiro</button></div>${!ownerAttending() ? `<label class="field">Meu profissional na equipe<select id="owner-professional">${staff.map((p) => `<option value="${p.id}" ${p.id === ownerStaffId ? 'selected' : ''}>${escapeText(p.name)}</option>`).join('')}</select></label>` : ''}</section>`;
+      }
+      function demoCustomerDetails(c, index) {
+        const n = String(index + 1).padStart(3, '0');
+        return {
+          email: c.member
+            ? memberEmail(c.member)
+            : `avulso${n}@cliente.ross.example`,
+          phone: `(00) 90000-${String(index + 1).padStart(4, '0')}`,
+          cpf: '000.000.000-00',
+          rg: `DEMO-${n}`,
+          address: `Rua Fictícia, ${index + 1} · Bairro Exemplo · Fortaleza/CE`,
+          ...c,
+        };
+      }
+      function customerDataCard(c) {
+        return `<section class="card card-body"><h2>Dados cadastrais fictícios</h2><div class="billing-grid">${['email', 'phone', 'cpf', 'rg', 'address'].map((k) => `<div><span>${{ email: 'E-mail', phone: 'Celular', cpf: 'CPF', rg: 'RG', address: 'Endereço' }[k]}</span><strong>${escapeText(c[k] || 'Não informado')}</strong></div>`).join('')}</div><button type="button" class="btn" data-edit-customer="${escapeText(c.id)}">Completar cadastro</button></section>`;
+      }
+      function accessCard(c) {
+        return `<section class="card card-body"><h2>Acesso do cliente</h2><div class="billing-grid"><div><span>Login por e-mail</span><strong>${escapeText(c.email || 'Ainda não informado')}</strong></div><div><span>Senha</span><strong>Não consultável</strong></div></div><p class="fine">Prévia sem senha real. No produto, somente o cliente define sua senha pelo fluxo seguro de acesso.</p><button type="button" class="btn" data-reset-access="${escapeText(c.id)}" ${c.email ? '' : 'disabled'}>Simular redefinição de senha</button></section>`;
+      }
+      function walkInPage() {
+        const own = role === 'barbeiro' || ownerAttending(),
+          person = own ? employee(barberId) : ownerProfessional();
+        return (
+          heading(
+            'Balcão Ross',
+            'Atendimento avulso',
+            'Cadastre ou localize o cliente e registre o recebimento, sem sair desta tela.',
+          ) +
+          `<section class="card card-body"><form id="walkin-form"><h2>01 · Cliente</h2><label class="field">Buscar cliente avulso<input type="search" id="walkin-search" placeholder="Nome, celular ou e-mail"></label><label class="field">Cliente cadastrado<select name="customer" id="walkin-customer" aria-label="Cliente cadastrado"><option value="">Cadastrar novo cliente rápido</option>${customerRecords()
+            .map(
+              (c) =>
+                `<option value="${escapeText(c.id)}">${escapeText(c.name)} · ${escapeText(c.phone || c.email || 'Sem contato')}</option>`,
+            )
+            .join(
+              '',
+            )}</select></label><div id="walkin-new" class="wizard-fields"><label class="field">Nome do cliente<input name="name" maxlength="100" required></label><label class="field">Celular do cliente<input name="phone" type="tel" maxlength="20" required></label><label class="field">E-mail do cliente (opcional)<input name="email" type="email" maxlength="150"></label></div><p class="fine">Cadastro rápido usa nome e celular. Informe e-mail para a prévia de acesso; CPF, RG e endereço podem ser completados no cadastro completo. Use dados fictícios.</p><div class="spacer"></div><h2>02 · Serviço e recebimento</h2><div class="wizard-fields"><label class="field">Serviço avulso<select name="service" id="walkin-service">${services.map((s) => `<option value="${s.id}">${escapeText(s.name)} · ${money(s.price)} · ${s.duration} min</option>`).join('')}</select></label><label class="field">Profissional do atendimento<select name="staff" id="walkin-staff" ${own ? 'disabled' : ''}>${staff.map((p) => `<option value="${p.id}" ${p.id === person.id ? 'selected' : ''}>${escapeText(p.name)}</option>`).join('')}</select></label><label class="field">Data do atendimento<select name="day" id="walkin-day" aria-label="Data do atendimento">${horizon.map((d) => `<option value="${d}">${shortDate(d)}/2026</option>`).join('')}</select></label><label class="field">Horário do atendimento<select name="time" id="walkin-time"></select></label><label class="field">Pagamento recebido por<select name="method" aria-label="Pagamento recebido por">${methodOptions('dinheiro')}</select></label></div><p class="fine">O recebimento será lançado uma vez e o horário será reservado. O serviço só gera comissão e insumos quando concluído. Nenhuma cobrança real será feita.</p><p id="walkin-error" class="negative" role="alert"></p><button type="submit" class="btn primary" id="walkin-submit">Revisar cadastro e pagamento</button></form></section><section class="card card-body"><h2>Avulsos recebidos nesta sessão</h2><div class="record-list" id="walkin-sales">${
+            walkInSales
+              .filter((s) => !own || s.staff === person.id)
+              .map(
+                (s) =>
+                  `<article><strong>${escapeText(s.client)} · ${money(s.amount)}</strong><p>${escapeText(s.serviceName)} · ${paymentLabel(s.method)} · ${shortDate(s.day)} · ${s.time} · ${escapeText(employee(s.staff)?.name || 'Profissional arquivado')}</p><small>Pagamento confirmado · Atendimento ${escapeText(appointments.find((a) => a.id === s.appointmentId)?.status || 'arquivado')}</small></article>`,
+              )
+              .join('') || '<p>Nenhum recebimento avulso registrado.</p>'
+          }</div></section>`
+        );
+      }
+      function receiveExistingAvulso(a) {
+        if (
+          !a ||
+          !['dono', 'barbeiro'].includes(role) ||
+          (role === 'barbeiro' && a.staff !== barberId) ||
+          a.paymentKind !== 'avulso' ||
+          a.saleId ||
+          ['Cancelado', 'Não compareceu'].includes(a.status)
+        )
+          return;
+        const c = customerRecords().find(
+          (c) => c.id === a.memberId || (!a.memberId && c.name === a.client),
+        );
+        if (!c) return;
+        const amount = salePrice(a),
+          token = crypto.randomUUID();
+        openDialog(
+          'Receber atendimento avulso',
+          `<p><strong>${escapeText(c.name)}</strong></p><p>${escapeText(service(a.service).name)} · ${shortDate(a.day)} · ${a.time} · ${money(amount)}</p><label class="field">Recebido por<select id="existing-method" aria-label="Recebido por">${methodOptions('dinheiro')}</select></label><p class="fine">O recebimento será vinculado ao atendimento existente. Não cria outra reserva nem duplica receita de serviço já concluído.</p><div class="dialog-actions"><button type="button" class="btn" data-close-dialog>Voltar sem lançar</button><button type="button" class="btn primary" id="existing-confirm">Confirmar pagamento do atendimento</button></div>`,
+        );
+        bindDialogClose();
+        document.getElementById('existing-confirm').onclick = () => {
+          if (a.saleId || ['Cancelado', 'Não compareceu'].includes(a.status))
+            return;
+          const method = document.getElementById('existing-method').value;
+          if (!methodNames[method]) return;
+          walkInSales.push({
+            id: token,
+            customerId: c.id,
+            client: c.name,
+            staff: a.staff,
+            service: a.service,
+            serviceName: service(a.service).name,
+            day: a.day,
+            time: a.time,
+            amount,
+            method,
+            appointmentId: a.id,
+            actor: role === 'dono' ? 'Empresário' : employee(barberId).name,
+          });
+          a.saleId = token;
+          a.chargedPrice = amount;
+          a.memberId = c.id;
+          document.getElementById('ross-dialog').close();
+          render();
+          toast('Pagamento registrado no atendimento existente.');
+        };
+      }
+      function bindDualAndWalkIn() {
+        document
+          .querySelectorAll('[data-receive-avulso]')
+          .forEach(
+            (b) =>
+              (b.onclick = () =>
+                receiveExistingAvulso(
+                  appointments.find(
+                    (a) => a.id === Number(b.dataset.receiveAvulso),
+                  ),
+                )),
+          );
+        document.querySelectorAll('[data-owner-mode]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              if (role !== 'dono') return;
+              ownerWorkMode = b.dataset.ownerMode;
+              barberId = ownerProfessional().id;
+              view = ownerAttending() ? 'minha-agenda' : 'visao';
+              render();
+            }),
+        );
+        const link = document.getElementById('owner-professional');
+        if (link)
+          link.onchange = () => {
+            ownerStaffId = Number(link.value);
+            barberId = ownerProfessional().id;
+            render();
+          };
+        if (ownerAttending())
+          document
+            .getElementById('barber-select')
+            ?.closest('label')
+            .setAttribute('hidden', '');
+        document.querySelectorAll('[data-edit-customer]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              if (role !== 'dono') return;
+              const c = customerRecords().find(
+                (c) => c.id === b.dataset.editCustomer,
+              );
+              if (!c) return;
+              openDialog(
+                'Completar cadastro',
+                `<form id="complete-customer"><div class="wizard-fields">${[
+                  ['email', 'E-mail', 'email'],
+                  ['phone', 'Celular', 'tel'],
+                  ['cpf', 'CPF', 'text'],
+                  ['rg', 'RG', 'text'],
+                  ['address', 'Endereço', 'text'],
+                ]
+                  .map(
+                    ([key, label, type]) =>
+                      `<label class="field">${label}<input name="${key}" type="${type}" value="${escapeText(c[key] || '')}" maxlength="200" ${['email', 'phone'].includes(key) ? 'required' : ''}></label>`,
+                  )
+                  .join(
+                    '',
+                  )}</div><p id="complete-error" role="alert" class="negative"></p><div class="dialog-actions"><button type="button" class="btn" data-close-dialog>Voltar sem alterar</button><button type="submit" class="btn primary">Salvar dados do cliente</button></div></form>`,
+              );
+              bindDialogClose();
+              document.getElementById('complete-customer').onsubmit = (e) => {
+                e.preventDefault();
+                if (!e.target.reportValidity()) return;
+                const f = new FormData(e.target),
+                  data = Object.fromEntries(
+                    ['email', 'phone', 'cpf', 'rg', 'address'].map((k) => [
+                      k,
+                      String(f.get(k)).trim(),
+                    ]),
+                  );
+                data.email = data.email.toLowerCase();
+                if (
+                  ![10, 11].includes(data.phone.replace(/\D/g, '').length) ||
+                  (data.cpf && data.cpf.replace(/\D/g, '').length !== 11) ||
+                  loginAccounts().some(
+                    (a) =>
+                      a.id !== c.id && a.email.toLowerCase() === data.email,
+                  )
+                ) {
+                  document.getElementById('complete-error').textContent =
+                    'Confira celular, CPF e e-mail único.';
+                  return;
+                }
+                if (c.id.startsWith('avulso-'))
+                  [...history, ...appointments]
+                    .filter((a) => !a.memberId && a.client === c.name)
+                    .forEach((a) => (a.memberId = c.id));
+                const existing = registeredClients.find((x) => x.id === c.id);
+                if (existing) Object.assign(existing, data);
+                else
+                  registeredClients.push({ id: c.id, name: c.name, ...data });
+                document.getElementById('ross-dialog').close();
+                render();
+                toast('Cadastro atualizado somente na demonstração.');
+              };
+            }),
+        );
+        document.querySelectorAll('[data-reset-access]').forEach(
+          (b) =>
+            (b.onclick = () => {
+              if (role !== 'dono') return;
+              const c = customerRecords().find(
+                (c) => c.id === b.dataset.resetAccess,
+              );
+              if (!c?.email) return;
+              openDialog(
+                'Redefinir acesso',
+                `<p>Uma redefinição seria solicitada para <strong>${escapeText(c.email)}</strong>.</p><p class="fine">Demonstração: nenhum e-mail foi enviado. Nenhuma senha é exibida ou alterada.</p><button type="button" class="btn primary" data-close-dialog>Entendi</button>`,
+              );
+              bindDialogClose();
+            }),
+        );
+        const form = document.getElementById('walkin-form');
+        if (!form) return;
+        const customer = form.elements.customer;
+        document.getElementById('walkin-search').oninput = (e) => {
+          const query = e.target.value.toLocaleLowerCase('pt-BR'),
+            selected = customer.value;
+          customer.innerHTML =
+            '<option value="">Cadastrar novo cliente rápido</option>' +
+            customerRecords()
+              .filter((c) =>
+                [c.name, c.phone, c.email].some((v) =>
+                  (v || '').toLocaleLowerCase('pt-BR').includes(query),
+                ),
+              )
+              .map(
+                (c) =>
+                  `<option value="${escapeText(c.id)}">${escapeText(c.name)} · ${escapeText(c.phone || c.email || 'Sem contato')}</option>`,
+              )
+              .join('');
+          if ([...customer.options].some((o) => o.value === selected))
+            customer.value = selected;
+          customer.onchange();
+        };
+        customer.onchange = () => {
+          const fresh = !customer.value;
+          document.getElementById('walkin-new').hidden = !fresh;
+          for (const k of ['name', 'phone']) form.elements[k].required = fresh;
+        };
+        const updateSlots = () => {
+          const own = role === 'barbeiro' || ownerAttending(),
+            id = own ? barberId : Number(form.elements.staff.value),
+            s = service(Number(form.elements.service.value));
+          const times = daySlots.filter((t) =>
+            isAvailable(id, Number(form.elements.day.value), t, s.duration),
+          );
+          document.getElementById('walkin-time').innerHTML =
+            times.map((t) => `<option value="${t}">${t}</option>`).join('') ||
+            '<option value="">Sem vagas nesta data · escolha outro dia</option>';
+          document.getElementById('walkin-submit').disabled = !times.length;
+        };
+        document.getElementById('walkin-day').onchange = updateSlots;
+        document.getElementById('walkin-service').onchange = updateSlots;
+        document.getElementById('walkin-staff').onchange = updateSlots;
+        updateSlots();
+        form.onsubmit = (e) => {
+          e.preventDefault();
+          if (!form.reportValidity()) return;
+          const f = new FormData(form),
+            own = role === 'barbeiro' || ownerAttending(),
+            person = employee(own ? barberId : Number(f.get('staff'))),
+            s = service(Number(f.get('service'))),
+            time = String(f.get('time')),
+            day = Number(f.get('day')),
+            method = String(f.get('method')),
+            error = document.getElementById('walkin-error');
+          let c = customerRecords().find((c) => c.id === f.get('customer')),
+            fresh = !c;
+          if (fresh) {
+            c = {
+              id: `client-${crypto.randomUUID()}`,
+              name: String(f.get('name')).trim(),
+              phone: String(f.get('phone')).trim(),
+              email: String(f.get('email')).trim().toLowerCase(),
+              cpf: '',
+              rg: '',
+              address: '',
+            };
+            if (
+              !c.name ||
+              ![10, 11].includes(c.phone.replace(/\D/g, '').length)
+            ) {
+              error.textContent = 'Informe nome e celular com DDD.';
+              return;
+            }
+            if (
+              (c.email &&
+                loginAccounts().some(
+                  (a) => a.email.toLowerCase() === c.email,
+                )) ||
+              customerRecords().some(
+                (x) =>
+                  x.phone.replace(/\D/g, '') === c.phone.replace(/\D/g, ''),
+              )
+            ) {
+              error.textContent =
+                'Cliente já cadastrado. Selecione o cadastro existente.';
+              return;
+            }
+          }
+          if (
+            !methodNames[method] ||
+            !person ||
+            !isAvailable(person.id, day, time, s.duration)
+          ) {
+            error.textContent = 'Horário indisponível. Escolha outra opção.';
+            updateSlots();
+            return;
+          }
+          walkInDraft = {
+            id: crypto.randomUUID(),
+            customer: c,
+            fresh,
+            staff: person.id,
+            service: s.id,
+            serviceName: s.name,
+            duration: s.duration,
+            day,
+            amount: s.price,
+            time,
+            method,
+          };
+          const draft = walkInDraft;
+          openDialog(
+            'Confirmar atendimento avulso',
+            `<p><strong>${escapeText(c.name)}</strong> · ${escapeText(c.phone)}</p><p>${escapeText(s.name)} · ${shortDate(day)} · ${time} · ${escapeText(person.name)}</p><p><strong>${money(s.price)} · ${paymentLabel(method)}</strong></p><p class="fine">Confirme somente após receber. O atendimento ficará confirmado na agenda; a conclusão será feita separadamente.</p><div class="dialog-actions"><button type="button" class="btn" data-close-dialog>Voltar sem lançar</button><button type="button" class="btn primary" id="walkin-confirm">Confirmar recebimento avulso</button></div>`,
+          );
+          bindDialogClose();
+          document.getElementById('walkin-confirm').onclick = () => {
+            if (walkInSales.some((x) => x.id === draft.id)) return;
+            if (
+              !isAvailable(draft.staff, draft.day, draft.time, draft.duration)
+            ) {
+              document.getElementById('ross-dialog').close();
+              updateSlots();
+              error.textContent = 'Horário ocupado. Revise antes de confirmar.';
+              return;
+            }
+            if (draft.fresh) registeredClients.push(draft.customer);
+            const id =
+              Math.max(
+                Date.now(),
+                ...appointments.map((a) => Number(a.id) || 0),
+              ) + 1;
+            appointments.push({
+              id,
+              staff: draft.staff,
+              service: draft.service,
+              duration: draft.duration,
+              day: draft.day,
+              time: draft.time,
+              client: draft.customer.name,
+              memberId: draft.customer.id,
+              paymentKind: 'avulso',
+              status: 'Confirmado',
+              chargedPrice: draft.amount,
+              saleId: draft.id,
+            });
+            walkInSales.push({
+              ...draft,
+              client: draft.customer.name,
+              customerId: draft.customer.id,
+              appointmentId: id,
+              actor: role === 'dono' ? 'Empresário' : employee(barberId).name,
+            });
+            walkInDraft = null;
+            document.getElementById('ross-dialog').close();
+            render();
+            toast(
+              'Cliente e recebimento registrados. Atendimento na agenda, sem duplicar receita.',
+            );
+          };
+        };
+      }
+
       let registeredClients = [],
         receipts = [],
         demoSession = null;
@@ -4838,7 +5241,10 @@
       const memberEmail = (m) =>
         registeredClients.find((c) => c.id === m.id)?.email ||
         `${m.id}@cliente.ross.example`;
-      const staffEmail = (p) => p.email || `barbeiro${p.id}@ross.example`;
+      const staffEmail = (p) =>
+        p.id === ownerProfessional().id
+          ? 'proprietario@ross.example'
+          : p.email || `barbeiro${p.id}@ross.example`;
       const paymentMethod = (m) =>
         m.paymentMethod ||
         ['credito', 'debito', 'pix', 'dinheiro'][
@@ -4922,8 +5328,8 @@
             role === 'dono' ? 'Recebimentos e renovações' : 'Receber no salão',
             'Simule um recebimento confirmado. Não informe número de cartão, CVV ou dados bancários.',
           ) +
-          (role === 'dono' ? paymentSummary() : '') +
-          `<section class="card card-body"><form id="receipt-find" class="inline-form"><label class="field">E-mail do assinante<input type="email" name="email" placeholder="joao@cliente.ross.example" required></label><button type="submit" class="btn primary">Localizar assinatura</button></form><p class="fine">Exemplo: joao@cliente.ross.example. Para um novo cliente, use o e-mail cadastrado.</p><p id="receipt-error" role="alert" class="negative"></p></section>${role === 'dono' ? `<section class="card card-body"><h2>Baixas registradas nesta sessão</h2><div class="record-list">${receipts.map((r) => `<article><strong>${escapeText(r.name)} · ${money(r.amount)}</strong><p>${paymentLabel(r.method)} · Ciclo ${r.cycle === '2026-10' ? 'Outubro' : 'Novembro'}/2026 · ${r.actor} · Confirmado em 28/10/2026</p></article>`).join('') || '<p>Nenhuma baixa manual. Os recebidos iniciais são fictícios.</p>'}</div></section>` : ''}`
+          (role === 'dono' && !ownerAttending() ? paymentSummary() : '') +
+          `<section class="card card-body"><form id="receipt-find" class="inline-form"><label class="field">E-mail do assinante<input type="email" name="email" placeholder="joao@cliente.ross.example" required></label><button type="submit" class="btn primary">Localizar assinatura</button></form><p class="fine">Exemplo: joao@cliente.ross.example. Para um novo cliente, use o e-mail cadastrado.</p><p id="receipt-error" role="alert" class="negative"></p></section>${role === 'dono' && !ownerAttending() ? `<section class="card card-body"><h2>Baixas registradas nesta sessão</h2><div class="record-list">${receipts.map((r) => `<article><strong>${escapeText(r.name)} · ${money(r.amount)}</strong><p>${paymentLabel(r.method)} · Ciclo ${r.cycle === '2026-10' ? 'Outubro' : 'Novembro'}/2026 · ${escapeText(r.actor)} · Confirmado em 28/10/2026</p></article>`).join('') || '<p>Nenhuma baixa manual. Os recebidos iniciais são fictícios.</p>'}</div></section>` : ''}`
         );
       }
       function loginAccounts() {
@@ -4932,22 +5338,24 @@
             id: 'owner',
             email: 'proprietario@ross.example',
             role: 'dono',
-            name: 'Empresário',
+            name: ownerProfessional().name,
           },
-          ...staff.map((p) => ({
-            id: p.id,
-            email: staffEmail(p),
-            role: 'barbeiro',
-            name: p.name,
-          })),
+          ...staff
+            .filter((p) => p.id !== ownerProfessional().id)
+            .map((p) => ({
+              id: p.id,
+              email: staffEmail(p),
+              role: 'barbeiro',
+              name: p.name,
+            })),
           ...members.map((m) => ({
             id: m.id,
             email: memberEmail(m),
             role: 'cliente',
             name: m.name,
           })),
-          ...registeredClients
-            .filter((c) => !members.some((m) => m.id === c.id))
+          ...customerRecords()
+            .filter((c) => !c.member && c.email)
             .map((c) => ({ ...c, role: 'cliente' })),
         ];
       }
@@ -4959,7 +5367,7 @@
         }
         openDialog(
           'Prévia de login por e-mail',
-          `<p>Sem senha e sem autenticação real. Este seletor serve apenas para conferir a tela de cada perfil com dados fictícios.</p><p class="fine">Empresário: proprietario@ross.example<br>Barbeiro: barbeiro1@ross.example<br>Cliente: joao@cliente.ross.example</p><form id="preview-login"><label class="field">E-mail do perfil<input type="email" name="email" required></label><p id="login-error" role="alert" class="negative"></p><div class="dialog-actions"><button type="button" class="btn" data-close-dialog>Voltar</button><button type="submit" class="btn primary">Abrir perfil de demonstração</button></div></form>`,
+          `<p>Sem senha e sem autenticação real. Este seletor serve apenas para conferir a tela de cada perfil com dados fictícios.</p><p class="fine">Empresário: proprietario@ross.example<br>Barbeiro: ${staffEmail(staff.find((p) => p.id !== ownerProfessional().id) || staff[0])}<br>Cliente: joao@cliente.ross.example</p><form id="preview-login"><label class="field">E-mail do perfil<input type="email" name="email" required></label><p id="login-error" role="alert" class="negative"></p><div class="dialog-actions"><button type="button" class="btn" data-close-dialog>Voltar</button><button type="submit" class="btn primary">Abrir perfil de demonstração</button></div></form>`,
         );
         bindDialogClose();
         document.getElementById('preview-login').onsubmit = (e) => {
@@ -5247,6 +5655,12 @@
                   `<p>Este barbeiro possui reservas ativas. Transfira ou cancele esses atendimentos antes de removê-lo da equipe.</p><button type="button" class="btn primary" data-close-dialog>Entendi</button>`,
                 );
                 bindDialogClose();
+                return;
+              }
+              if (id === ownerProfessional().id) {
+                toast(
+                  'Vincule seu perfil a outro profissional antes de remover este cadastro.',
+                );
                 return;
               }
               const p = employee(id);
@@ -5761,7 +6175,7 @@
             `${fullDate(barberDay)} · Somente seus atendimentos.`,
             `<label class="field">Simular outro profissional<select id="barber-select">${staff.map((p) => `<option value="${p.id}" ${p.id === barberId ? 'selected' : ''}>${escapeText(p.name)}</option>`).join('')}</select></label>`,
           ) +
-          `<div class="stats">${stat('Seus atendimentos', items.length, 'Neste dia', 'calendar')}${stat('Já concluídos', done.length, 'Atendimentos realizados', 'check')}${stat('A atender', pending.length, 'Confirmados ou em andamento', 'clock')}${stat('Seu repasse no dia', money(done.reduce((v, a) => v + commission(a), 0)), 'Sem repetir o salário mensal', 'money')}</div><div class="profile-columns"><section class="card"><div class="card-head"><h2>Sua agenda de hoje</h2>${dateSelect('barber-day', 'Consultar dia', barberDay)}</div><div class="timeline">${items.map((a) => `<article class="appointment"><time>${a.time}</time><div><h3>${escapeText(a.client)}</h3>${badge(a.status)}${a.renewalPending ? '<span class="badge amber">Renovação pendente</span>' : ''}<p>${escapeText(service(a.service).name)} · ${durationOf(a)} min</p><div class="payout-cell">${a.paymentKind === 'plano' ? 'Plano' : 'Avulso'} · Repasse estimado ${money(activeAppointment(a) || a.status === 'Concluído' ? commission(a, true) : 0)}</div>${isOnLeave(a.staff, a.day) && activeAppointment(a) ? '<p class="inline-warning">Reserva em dia de folga. Transfira ou resolva com o empresário.</p>' : ''}</div><div class="actions">${a.status === 'Confirmado' ? `<button type="button" class="btn small primary" data-start="${a.id}" ${a.day === 28 && !isOnLeave(a.staff, a.day) ? '' : 'disabled'}>Iniciar atendimento</button>` : a.status === 'Em atendimento' ? `<button type="button" class="btn small primary" data-finish="${a.id}">Concluir atendimento</button>` : ''}${activeAppointment(a) ? `<button type="button" class="btn small" data-no-show="${a.id}">Cliente não vem/veio</button><button type="button" class="btn small" data-transfer="${a.id}">Transferir</button>` : ''}</div></article>`).join('') || '<div class="empty">Nenhum atendimento neste dia.</div>'}</div></section><aside class="stack"><section class="card card-body"><div class="person">${avatar(p)}<h2>${escapeText(p.name)}</h2></div><div class="info-grid" style="margin-top:20px"><div class="info-box"><small>Início do dia</small><strong>${business.open}</strong></div><div class="info-box"><small>Fim do dia</small><strong>${business.close}</strong></div></div><p class="fine">${business.hasLunch ? `Almoço ${business.lunchStart}–${business.lunchEnd}.` : ''} Relógio da simulação: 28/10, 11h. Não é possível iniciar atendimentos de dias futuros.</p></section></aside></div>`
+          `<div class="stats">${stat('Seus atendimentos', items.length, 'Neste dia', 'calendar')}${stat('Já concluídos', done.length, 'Atendimentos realizados', 'check')}${stat('A atender', pending.length, 'Confirmados ou em andamento', 'clock')}${stat('Seu repasse no dia', money(done.reduce((v, a) => v + commission(a), 0)), 'Sem repetir o salário mensal', 'money')}</div><div class="profile-columns"><section class="card"><div class="card-head"><h2>Sua agenda de hoje</h2>${dateSelect('barber-day', 'Consultar dia', barberDay)}</div><div class="timeline">${items.map((a) => `<article class="appointment"><time>${a.time}</time><div><h3>${escapeText(a.client)}</h3>${badge(a.status)}${a.renewalPending ? '<span class="badge amber">Renovação pendente</span>' : ''}<p>${escapeText(service(a.service).name)} · ${durationOf(a)} min</p><div class="payout-cell">${a.paymentKind === 'plano' ? 'Plano' : 'Avulso'} · Repasse estimado ${money(activeAppointment(a) || a.status === 'Concluído' ? commission(a, true) : 0)}</div>${isOnLeave(a.staff, a.day) && activeAppointment(a) ? '<p class="inline-warning">Reserva em dia de folga. Transfira ou resolva com o empresário.</p>' : ''}</div><div class="actions">${a.paymentKind === 'avulso' && !a.saleId && !['Cancelado', 'Não compareceu'].includes(a.status) ? `<button type="button" class="btn small" data-receive-avulso="${a.id}">Receber avulso</button>` : ''}${a.saleId ? '<span class="badge green">Pagamento confirmado</span>' : ''}${a.status === 'Confirmado' ? `<button type="button" class="btn small primary" data-start="${a.id}" ${a.day === 28 && !isOnLeave(a.staff, a.day) ? '' : 'disabled'}>Iniciar atendimento</button>` : a.status === 'Em atendimento' ? `<button type="button" class="btn small primary" data-finish="${a.id}">Concluir atendimento</button>` : ''}${activeAppointment(a) ? `<button type="button" class="btn small" data-no-show="${a.id}">Cliente não vem/veio</button><button type="button" class="btn small" data-transfer="${a.id}">Transferir</button>` : ''}</div></article>`).join('') || '<div class="empty">Nenhum atendimento neste dia.</div>'}</div></section><aside class="stack"><section class="card card-body"><div class="person">${avatar(p)}<h2>${escapeText(p.name)}</h2></div><div class="info-grid" style="margin-top:20px"><div class="info-box"><small>Início do dia</small><strong>${business.open}</strong></div><div class="info-box"><small>Fim do dia</small><strong>${business.close}</strong></div></div><p class="fine">${business.hasLunch ? `Almoço ${business.lunchStart}–${business.lunchEnd}.` : ''} Relógio da simulação: 28/10, 11h. Não é possível iniciar atendimentos de dias futuros.</p></section></aside></div>`
         );
       }
       function rossOwnerTable() {
@@ -5787,7 +6201,7 @@
       }
       function commission(a, projected = false) {
         if (a.paymentKind !== 'plano')
-          return (service(a.service).price * settings.avulsoPercent) / 100;
+          return (salePrice(a) * settings.avulsoPercent) / 100;
         if (settings.model === 'fixo') return fixedRate(a.service);
         const m = members.find((m) => m.id === a.memberId);
         if (!m) return 0;
@@ -5827,9 +6241,11 @@
           overdue = members
             .filter((m) => !memberCurrent(m))
             .reduce((v, m) => v + planById(m.plan).price, 0),
-          avulso = completed
-            .filter((a) => a.paymentKind !== 'plano')
-            .reduce((v, a) => v + service(a.service).price, 0),
+          avulso =
+            completed
+              .filter((a) => a.paymentKind !== 'plano')
+              .reduce((v, a) => v + (a.saleId ? 0 : salePrice(a)), 0) +
+            walkInSales.reduce((v, s) => v + s.amount, 0),
           revenue = recurring + avulso,
           payout = completed.reduce((v, a) => v + commission(a), 0),
           variable = completed.reduce((v, a) => v + consumables(a.service), 0),
@@ -5933,7 +6349,7 @@
           intro +
           `<div class="stats">${stat('Receita do mês', money(t.revenue), 'Só valores recebidos; vencidos ficam fora', 'money')}${stat('Repasses estimados', money(t.payout), 'Trabalho concluído · Ainda não pago', 'users')}${stat('Custo operacional', money(t.variable + t.fees + t.fixed + t.salary), 'Insumos + taxas + fixos + salários', 'grid')}${stat(t.result >= 0 ? 'Resultado estimado' : 'Prejuízo estimado', money(t.result), 'Receita menos todos os custos listados', 'money')}</div><div class="financial-grid"><section class="card"><div class="card-head"><h2>Da receita ao resultado</h2><span class="badge green">Outubro / 2026</span></div><div class="card-body">${[
             ['Mensalidades recebidas', t.recurring],
-            ['Avulsos concluídos', t.avulso],
+            ['Avulsos e recebimentos de balcão', t.avulso],
             ['Receita total', t.revenue],
             ['− Repasses aos profissionais', -t.payout],
             ['− Insumos e café', -t.variable],
@@ -6131,6 +6547,7 @@
       function setRole(next) {
         if (demoSession && demoSession.role !== next) return;
         role = next;
+        if (next === 'dono') ownerWorkMode = 'gestao';
         view =
           next === 'cliente'
             ? 'agendar'
@@ -6164,7 +6581,7 @@
                 ['meu', 'Meu agendamento', 'clock', ''],
                 ['equipe', 'Conheça a equipe', 'users', 'A barbearia'],
               ]
-            : role === 'dono'
+            : role === 'dono' && !ownerAttending()
               ? [
                   [
                     'configurar',
@@ -6178,6 +6595,7 @@
                   ['folgas', 'Folgas e transferências', 'calendar', ''],
                   ['clientes', 'Clientes e histórico', 'users', ''],
                   ['cadastro', 'Cadastrar cliente', 'users', ''],
+                  ['balcao', 'Atendimento avulso', 'money', ''],
                   ['recebimentos', 'Recebimentos e renovações', 'money', ''],
                   ['servicos', 'Serviços', 'scissors', ''],
                   [
@@ -6194,6 +6612,7 @@
                   ['minha-agenda', 'Minha agenda', 'calendar', 'Meu dia'],
                   ['resumo', 'Meu resumo', 'grid', ''],
                   ['cadastro', 'Cadastrar cliente', 'users', 'Clientes'],
+                  ['balcao', 'Atendimento avulso', 'money', ''],
                   ['recebimentos', 'Receber no salão', 'money', ''],
                   ['ganhos', 'Meus ganhos', 'money', 'Minha remuneração'],
                 ];
@@ -6207,52 +6626,58 @@
           role === 'cliente'
             ? '<span>Olá, visitante</span><span class="avatar">VC</span>'
             : role === 'dono'
-              ? '<span>Marcos · Proprietário fictício</span><span class="avatar">MV</span>'
+              ? `<span>${escapeText(ownerProfessional().name)} · Empresário e barbeiro</span>${avatar(ownerProfessional())}`
               : `<span>${escapeText(employee(barberId).name)} · Barbeiro fictício</span>${avatar(employee(barberId))}`;
         document.getElementById('identity').innerHTML = identity;
         document.getElementById('breadcrumb').textContent =
           `Ross / ${menus.find((m) => m[0] === view)?.[1] || 'Demonstração'}`;
         const html =
-          ['dono', 'barbeiro'].includes(role) && view === 'cadastro'
-            ? registrationPage()
-            : ['dono', 'barbeiro'].includes(role) && view === 'recebimentos'
-              ? receiptsPage()
-              : role === 'dono' && view === 'folgas'
-                ? leavesPage()
-                : role === 'dono' && view === 'clientes'
-                  ? peoplePage()
-                  : role === 'dono' && view === 'perfil-cliente'
-                    ? customerProfile()
-                    : view === 'configurar' && role === 'dono'
-                      ? wizardPage()
-                      : view === 'assinantes' && role === 'dono'
-                        ? subscriptionsPage()
-                        : view === 'planos'
-                          ? plansPage()
-                          : role === 'dono' &&
-                              [
-                                'assinantes',
-                                'financeiro',
-                                'custos',
-                                'simulador',
-                              ].includes(view)
-                            ? financialPage()
-                            : role === 'barbeiro' && view === 'ganhos'
-                              ? earningsPage()
-                              : view === 'equipe'
-                                ? teamPage()
-                                : view === 'servicos'
-                                  ? servicesPage()
-                                  : role === 'cliente'
-                                    ? view === 'meu'
-                                      ? myBookingPage()
-                                      : bookingPage()
-                                    : role === 'dono'
-                                      ? ownerPage()
-                                      : barberPage();
+          ['dono', 'barbeiro'].includes(role) && view === 'balcao'
+            ? walkInPage()
+            : ownerAttending() && ['minha-agenda', 'resumo'].includes(view)
+              ? barberPage()
+              : ['dono', 'barbeiro'].includes(role) && view === 'cadastro'
+                ? registrationPage()
+                : ['dono', 'barbeiro'].includes(role) && view === 'recebimentos'
+                  ? receiptsPage()
+                  : role === 'dono' && view === 'folgas'
+                    ? leavesPage()
+                    : role === 'dono' && view === 'clientes'
+                      ? peoplePage()
+                      : role === 'dono' && view === 'perfil-cliente'
+                        ? customerProfile()
+                        : view === 'configurar' && role === 'dono'
+                          ? wizardPage()
+                          : view === 'assinantes' && role === 'dono'
+                            ? subscriptionsPage()
+                            : view === 'planos'
+                              ? plansPage()
+                              : role === 'dono' &&
+                                  [
+                                    'assinantes',
+                                    'financeiro',
+                                    'custos',
+                                    'simulador',
+                                  ].includes(view)
+                                ? financialPage()
+                                : (role === 'barbeiro' || ownerAttending()) &&
+                                    view === 'ganhos'
+                                  ? earningsPage()
+                                  : view === 'equipe'
+                                    ? teamPage()
+                                    : view === 'servicos'
+                                      ? servicesPage()
+                                      : role === 'cliente'
+                                        ? view === 'meu'
+                                          ? myBookingPage()
+                                          : bookingPage()
+                                        : role === 'dono'
+                                          ? ownerPage()
+                                          : barberPage();
         const main = document.getElementById('main');
         main.innerHTML =
-          (role === 'dono' && view !== 'configurar'
+          ownerModeControls() +
+          (role === 'dono' && !ownerAttending() && view !== 'configurar'
             ? customizationSummary()
             : '') +
           (role === 'dono' && ['visao', 'financeiro'].includes(view)
@@ -6272,6 +6697,7 @@
         personalizeBrand();
         bindRoss();
         bindAccounts();
+        bindDualAndWalkIn();
       }
       function bookingPage() {
         return rossBooking();
@@ -6317,7 +6743,7 @@
         return (
           heading(
             'Seu negócio, em perspectiva',
-            view === 'agenda' ? 'Agenda da barbearia' : 'Bom dia, Marcos.',
+            view === 'agenda' ? 'Agenda da barbearia' : 'Bom dia, Rafael.',
             'Quarta-feira, 28 de outubro de 2026 · Uma boa experiência começa na organização.',
             `<div class="row wrap"><button type="button" class="btn" data-open-wizard>Personalizar meu negócio</button><button type="button" id="owner-new" class="btn primary">+ Simular novo agendamento</button></div>`,
           ) +
@@ -6342,6 +6768,10 @@
         registeredClients = [];
         receipts = [];
         demoSession = null;
+        ownerWorkMode = 'gestao';
+        ownerStaffId = 1;
+        walkInSales = [];
+        walkInDraft = null;
         resetCustomization();
         document.getElementById('ross-dialog').close();
         planConfig = structuredClone(defaultPlanConfig);

@@ -99,3 +99,17 @@ Build, typecheck, lint, verificação de formatação e sete testes Vitest (quat
 Esta validação cobre o protótipo. Login real, confirmação de e-mail, documentos reais, autorização por tenant, gateway, débito em cartão, Pix e armazenamento definitivo não foram implementados ou validados.
 
 Resultado final da suíte integrada: **66 testes E2E passaram** em Chromium desktop/mobile (54 cenários anteriores atualizados e doze execuções dos seis cenários novos). Comando: `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium pnpm test:e2e`.
+
+## Empresário barbeiro, contatos e balcão avulso
+
+A suíte integrada passou com **76 testes E2E em desktop/mobile Chromium**: os 66 anteriores e dez execuções de cinco novos cenários em `tests/e2e/counter.spec.ts`. A conta do empresário alterna gestão/atendimento sem outro login, funcionário ou alteração do resultado financeiro; os testes de funcionários foram ajustados para usar Bruno (`barbeiro2@ross.example`), pois Rafael agora usa a conta única do proprietário.
+
+Foram executados: perfil de João com contatos/documentos fictícios e redefinição sem envio de e-mail ou exposição de senha; cancelamento da revisão sem cadastrar/receber; cadastro rápido com recebimento em dinheiro e reserva confirmada; serviço concluído posteriormente mantendo a receita avulsa uma única vez; busca de cliente existente, seleção de data livre e profissional limitado à própria sessão; baixa Pix de serviço já concluído sem outra reserva nem alteração duplicada do resultado. O incremento de um avulso de R$ 55 foi R$ 51,70 no resultado antes da conclusão (6% de taxas/tributos estimados), com comissão/insumos reconhecidos ao concluir.
+
+Na primeira execução específica, seletores de nome do cliente e rótulo da lista precisaram ser corrigidos. O cenário de balcão também expôs a agenda inicial cheia: foi acrescentada seleção de data e recebimento direto de reserva existente, mantendo a proibição de encaixe sem disponibilidade. O teste de conclusão abre uma vaga por ausência confirmada antes de cadastrar o novo atendimento.
+
+Build, typecheck, lint e sete testes Vitest passaram. Houve inspeção por capturas do modo barbeiro do proprietário em 360 px, balcão em 360 px e contatos em desktop; nenhuma exceção JavaScript no percurso inspecionado e largura do documento de 360 px no viewport de 360 px. Os E2E cobriram o balcão também em 768 e 1440 px.
+
+Continuam fora do escopo: autenticação real, mensagens/e-mails, senhas reais, persistência, gateway, estorno e documento fiscal. Os documentos e telefones dos perfis iniciais são sintéticos; o HTML não verifica identidade.
+
+Uma checagem adicional do perfil passou em duas execuções (desktop/mobile), incluindo completar e-mail e celular e preservar os dois atendimentos do histórico. `pnpm format:check` e `git diff --check` também passaram.

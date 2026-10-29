@@ -14,7 +14,9 @@ Alterne no cabeçalho entre **Cliente**, **Empresário** e **Barbeiro**. As aç�
 
 Empresário e barbeiro podem cadastrar clientes e simular baixa de mensalidades no salão. Serviços existentes têm edição por lápis. Crédito, débito, Pix e dinheiro aparecem no faturamento; clientes em dia podem reservar o próximo ciclo com renovação pendente. A cobrança ilustrativa acontece no dia 28, antecipando o mês seguinte.
 
-**Simular login por e-mail** permite conferir os menus de `proprietario@ross.example`, `barbeiro1@ross.example` e `joao@cliente.ross.example`, além dos novos clientes cadastrados. É somente uma prévia, sem senha ou autenticação.
+**Simular login por e-mail** permite conferir os menus de `proprietario@ross.example`, `barbeiro2@ross.example` e `joao@cliente.ross.example`, além dos novos clientes cadastrados. É somente uma prévia, sem senha ou autenticação.
+
+O empresário também atende: **Modo gestão** e **Modo barbeiro** compartilham sua conta e seu profissional na equipe (Rafael no cenário inicial). **Atendimento avulso** reúne cadastro rápido, reserva e recebimento confirmado; na agenda, **Receber avulso** registra o pagamento de um atendimento existente. Os perfis dos clientes têm contatos fictícios e redefinição simulada de acesso, sem exibição de senha.
 
 O botão **Monte sua barbearia** abre o assistente de oito etapas, agora com navegação direta pelos tópicos. Gerar o dashboard aplica as respostas e substitui o cenário fictício. A recorrência é calculada dos atendimentos, sem pergunta manual de visitas estimadas.
 
