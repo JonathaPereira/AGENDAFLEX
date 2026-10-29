@@ -1,16 +1,22 @@
 # AgendaFlex · Ross Barbearia
 
-Monorepo da fundação do AgendaFlex e demonstração interativa da Ross Barbearia. A marca de referência é real; **profissionais, clientes, preços, salários e históricos são fictícios**. Não há pagamentos, autenticação ou reservas reais no HTML de demonstração. O projeto React agora tem uma etapa separada de login via Supabase, pendente de conexão e validação com seu projeto.
+Monorepo da fundação do AgendaFlex e demonstração interativa da Ross Barbearia. A marca de referência é real; **profissionais, clientes, preços, salários e históricos são fictícios**. Não há pagamentos, autenticação ou reservas reais no HTML de demonstração. O React tem login Supabase e uma operação conectada de faturamento e agendamentos em modo de teste. A conexão ao projeto remoto depende das migrações e contas confirmadas.
 
-## Etapa em andamento: login Supabase
+## Etapa em andamento: operação de teste
 
 Acesse `/login` no React para a tela Ross com entrada, criação de conta e recuperação de senha. Sem projeto configurado, os botões ficam desabilitados. `/conta` verifica a sessão pela API; `/painel` exige vínculo retornado pelo servidor e `/saas` ainda não possui liberação. Criar conta não concede administração.
 
 Siga [o passo a passo do Supabase](docs/supabase-setup.md). O SQL inicial para um projeto de desenvolvimento vazio está em `database/supabase/setup-dev.sql`; `link-owner.sql` atribui o primeiro proprietário após confirmação de e-mail. Nenhum script foi aplicado no seu projeto automaticamente.
 
+## Faturamento, pagamentos e reembolsos de teste
+
+A rota `/barbearia/ross-barbearia` permite testar mensalidade → aprovação Pix/crédito/débito → liberação de agendamento, com baixa de dinheiro e reembolso exclusivo do empresário. Não há transações reais nem dados de cartão. Mensagens de bloqueio de agendamento são discretas.
+
+Para o Supabase **já configurado**, aplique `database/supabase/billing-update.sql` no SQL Editor; não repita o setup inicial. As contas ainda precisam ser criadas/confirmadas e vinculadas. Siga [o roteiro de faturamento](docs/billing.md). O protótipo HTML e o APK de prévia continuam independentes desse módulo.
+
 ## Android e iOS — preparação
 
-Os projetos Capacitor estão em `apps/web/android` e `apps/web/ios`. `pnpm mobile:prepare` prepara uma **prévia sem contas reais**, com dados fictícios e Auth desativado. Na tela de login web, **Ver demonstração para celular** abre a mesma experiência visual. A documentação de [mobile](docs/mobile.md) explica Android Studio, Xcode, modo conectado e pendências. Nenhum APK/IPA ou publicação foi feito.
+Os projetos Capacitor estão em `apps/web/android` e `apps/web/ios`. `pnpm mobile:prepare` prepara uma **prévia sem contas reais**, com dados fictícios e Auth desativado. Na tela de login web, **Ver demonstração para celular** abre a mesma experiência visual. A documentação de [mobile](docs/mobile.md) explica Android Studio, Xcode, modo conectado e pendências. A prévia anterior foi compilada e aberta pelo usuário no Android. Nenhum IPA, compilação nativa desta nova operação ou publicação em loja foi executado neste ambiente.
 
 ## Abrir a demonstração sem instalação
 
@@ -60,4 +66,4 @@ Quando houver Chromium instalado no sistema, os E2E podem usar `PLAYWRIGHT_CHROM
 
 Documentação: [desenvolvimento](docs/development.md), [arquitetura](docs/architecture.md), [autenticação e isolamento](docs/auth-and-tenancy.md) e [banco/migrações](database/README.md).
 
-O produto real ainda exige conectar e validar Supabase Auth/RLS no projeto, migrar os módulos operacionais para persistência, integrar pagamentos, notificações e controle de concorrência. Os seletores de visão/perfil do HTML servem para apresentação e não protegem dados reais.
+O lançamento comercial ainda exige validar Supabase Auth/RLS no projeto remoto, migrar os módulos operacionais restantes, integrar pagamentos reais/notificações e concluir a validação nativa. Os seletores de visão/perfil do HTML servem para apresentação e não protegem dados reais.

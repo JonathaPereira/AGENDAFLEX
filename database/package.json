@@ -10,7 +10,8 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "generate": "drizzle-kit generate",
-    "migrate": "drizzle-kit migrate"
+    "migrate": "drizzle-kit migrate",
+    "test": "node --test tests/billing.test.mjs"
   },
   "dependencies": {
     "drizzle-orm": "^0.44.0",

@@ -314,7 +314,7 @@ test('owner edits counts and average price, and unpaid profiles cannot book unti
     page.getByRole('button', { name: 'Simular agendamento' }),
   ).toBeDisabled();
   await expect(page.locator('.member-banner')).toContainText(
-    'Assinatura vencida',
+    'Para agendar, entre em contato com a recepção.',
   );
   await page.getByRole('button', { name: 'Empresário', exact: true }).click();
   await page

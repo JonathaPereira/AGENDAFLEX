@@ -15,6 +15,20 @@
       "when": 1793293754037,
       "tag": "0001_legal_unicorn",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793300065702,
+      "tag": "0002_polite_yellowjacket",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793300079214,
+      "tag": "0003_billing-commands",
+      "breakpoints": true
     }
   ]
 }

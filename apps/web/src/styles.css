@@ -434,3 +434,334 @@ footer {
   min-height: 0;
   border: 0;
 }
+
+/* Connected Ross workspace. The financial simulation is always visibly identified. */
+.billing-shell {
+  min-height: 100dvh;
+  background: radial-gradient(ellipse at top, #302217 0, #120f0c 65%);
+  color: #f4eadb;
+  font-family: 'DM Sans', sans-serif;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+  overflow-wrap: anywhere;
+}
+.billing-shell *,
+.billing-dialog * {
+  box-sizing: border-box;
+  min-width: 0;
+}
+.billing-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px max(20px, calc((100vw - 1200px) / 2));
+  border-bottom: 1px solid #473524;
+  flex-wrap: wrap;
+}
+.billing-header div {
+  flex: 1;
+}
+.billing-header img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.billing-shell small {
+  display: block;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #c4b6a4;
+}
+.billing-header a {
+  color: #ffc074;
+}
+.billing-test-banner {
+  background: #372817;
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 13px;
+  color: #ffce91;
+}
+.billing-content {
+  max-width: 1240px;
+  padding: 20px;
+  margin: auto;
+  display: grid;
+  gap: 32px;
+}
+.billing-content section {
+  display: grid;
+  gap: 16px;
+}
+.billing-shell h2 {
+  font-size: clamp(22px, 4vw, 30px);
+  margin: 0;
+  font-weight: 600;
+}
+.billing-shell h3 {
+  font-size: 18px;
+  margin: 0;
+  font-weight: 600;
+}
+.billing-shell p {
+  line-height: 1.65;
+  margin: 0;
+  color: #d0c1b0;
+}
+.billing-shell button,
+.billing-dialog button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #775232;
+  background: #352518;
+  color: #ffe1bb;
+  cursor: pointer;
+  font: inherit;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease;
+}
+.billing-shell button:hover,
+.billing-dialog button:hover {
+  border-color: #ffad44;
+  background: #48301b;
+}
+.billing-shell button:disabled,
+.billing-dialog button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.billing-shell button[aria-pressed='true'] {
+  background: #e68b20;
+  color: #211405;
+  border-color: #e68b20;
+}
+.billing-tabs {
+  max-width: 1240px;
+  padding: 16px 20px;
+  margin: auto;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.billing-tabs small {
+  flex-basis: 100%;
+}
+.billing-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+  gap: 16px;
+  align-items: start;
+}
+.billing-card {
+  background: #211a14;
+  border: 1px solid #4a3726;
+  border-radius: 14px;
+  padding: 20px;
+  display: grid;
+  gap: 12px;
+  box-shadow: 0 8px 24px #0002;
+}
+.billing-card .billing-card {
+  box-shadow: none;
+}
+.billing-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+  gap: 12px;
+}
+.billing-metrics strong,
+.billing-amount {
+  font-size: 26px;
+  color: #ffb354;
+}
+.billing-shell label,
+.billing-dialog label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+}
+.billing-shell input,
+.billing-shell select,
+.billing-shell textarea,
+.billing-dialog textarea {
+  width: 100%;
+  max-width: 100%;
+  min-height: 44px;
+  background: #140f0b;
+  color: #f8eddf;
+  border: 1px solid #78583d;
+  border-radius: 8px;
+  padding: 10px;
+  font: inherit;
+  color-scheme: dark;
+}
+.billing-dialog textarea {
+  min-height: 100px;
+}
+.billing-shell input[type='checkbox'] {
+  width: 20px;
+  min-height: 20px;
+}
+.billing-checkbox {
+  display: flex !important;
+  align-items: center;
+}
+.billing-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.billing-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  gap: 16px;
+  align-items: end;
+}
+.billing-form-grid label {
+  align-self: start;
+}
+.billing-settings {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.billing-settings form {
+  position: sticky;
+  top: 20px;
+}
+.billing-status {
+  width: fit-content;
+  padding: 5px 10px;
+  border: 1px solid #79603c;
+  background: #352818;
+  color: #ffcf86;
+  border-radius: 6px;
+  font-size: 12px;
+}
+.billing-status.paid,
+.billing-status.confirmed {
+  background: #1a3325;
+  color: #b9e6c8;
+  border-color: #467558;
+}
+.billing-status.refunded,
+.billing-status.cancelled {
+  background: #302b27;
+  color: #cfc1b4;
+}
+.billing-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.billing-payment-test {
+  border-top: 1px solid #49382a;
+  padding-top: 16px;
+  display: grid;
+  gap: 12px;
+}
+.billing-danger {
+  background: #3c231b !important;
+  border-color: #a5654c !important;
+  color: #ffd5bf !important;
+}
+.billing-dialog {
+  border: 1px solid #997044;
+  border-radius: 16px;
+  background: #211a14;
+  color: #f8eddf;
+  padding: 24px;
+  width: min(92vw, 520px);
+  max-height: 85dvh;
+  overflow: auto;
+  margin: auto;
+}
+.billing-dialog::backdrop {
+  background: #000b;
+}
+.billing-dialog h2 {
+  font-size: 24px;
+  margin-top: 0;
+}
+.billing-dialog p {
+  line-height: 1.6;
+  color: #d0c1b0;
+}
+.billing-dialog form {
+  display: grid;
+  gap: 18px;
+}
+.billing-error {
+  border: 1px solid #bb8052;
+  padding: 16px;
+  border-radius: 10px;
+  background: #362417;
+  display: grid;
+  gap: 10px;
+}
+.billing-empty {
+  border: 1px dashed #70583e;
+  border-radius: 10px;
+  padding: 22px;
+  color: #c4b6a4;
+}
+.billing-shell summary {
+  cursor: pointer;
+  color: #ffcd8c;
+  font-size: 13px;
+  padding: 8px 0;
+}
+.billing-footer {
+  color: #b29d87;
+  padding: 32px 20px;
+  text-align: center;
+  font-size: 12px;
+}
+.billing-shell :focus-visible,
+.billing-dialog :focus-visible {
+  outline: 3px solid #ffad44;
+  outline-offset: 3px;
+}
+@media (max-width: 700px) {
+  .billing-header {
+    gap: 10px;
+    padding: 12px;
+  }
+  .billing-header img {
+    width: 48px;
+    height: 48px;
+  }
+  .billing-header > a:not(:first-child) {
+    font-size: 13px;
+  }
+  .billing-content {
+    padding: 16px;
+  }
+  .billing-tabs {
+    padding: 12px;
+  }
+  .billing-settings {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .billing-settings form {
+    position: static;
+  }
+  .billing-card {
+    padding: 16px;
+  }
+  .billing-section-heading label {
+    width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .billing-shell button {
+    transition: none;
+  }
+}

@@ -34,8 +34,35 @@ for (const entry of journal.entries) {
 chunks.push('\nCOMMIT;\n');
 const contents = chunks.join('\n'),
   target = new URL('supabase/setup-dev.sql', root);
+const prior = journal.entries.slice(0, 2);
+const delta = journal.entries.slice(2);
+const migrationHash = (entry) =>
+  createHash('sha256')
+    .update(readFileSync(new URL(`migrations/${entry.tag}.sql`, root)))
+    .digest('hex');
+const update = [
+  `-- Atualização incremental do faturamento de TESTE para o projeto já configurado.
+-- Não repita setup-dev.sql. Este arquivo preserva contas e vínculos existentes.
+-- Gerado por pnpm db:setup-sql. Execute inteiro no SQL Editor do projeto de desenvolvimento.
+BEGIN;
+DO $$ BEGIN
+  IF (SELECT count(*) FROM drizzle.__drizzle_migrations) <> ${prior.length}
+    OR NOT (${prior.map((entry) => `EXISTS (SELECT 1 FROM drizzle.__drizzle_migrations WHERE hash = '${migrationHash(entry)}' AND created_at = ${entry.when})`).join(' AND ')}) THEN
+    RAISE EXCEPTION 'Histórico diferente do esperado ou atualização já aplicada. Nenhuma alteração foi feita. Revise as migrações.';
+  END IF;
+END $$;`,
+  ...delta.map(
+    (entry) =>
+      `-- Migração ${entry.tag}\n${readFileSync(new URL(`migrations/${entry.tag}.sql`, root), 'utf8')}\nINSERT INTO drizzle.__drizzle_migrations(hash,created_at) VALUES ('${migrationHash(entry)}',${entry.when});`,
+  ),
+  "NOTIFY pgrst, 'reload schema';\nCOMMIT;\n",
+].join('\n');
+const updateTarget = new URL('supabase/billing-update.sql', root);
 if (process.argv.includes('--check')) {
-  if (readFileSync(target, 'utf8') !== contents) {
+  if (
+    readFileSync(target, 'utf8') !== contents ||
+    readFileSync(updateTarget, 'utf8') !== update
+  ) {
     process.stderr.write(
       'setup-dev.sql desatualizado. Execute pnpm db:setup-sql.\n',
     );
@@ -43,6 +70,7 @@ if (process.argv.includes('--check')) {
   }
 } else {
   writeFileSync(target, contents);
+  writeFileSync(updateTarget, update);
   process.stdout.write(
     'Criado database/supabase/setup-dev.sql (somente desenvolvimento vazio).\n',
   );

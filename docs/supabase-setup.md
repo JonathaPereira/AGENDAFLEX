@@ -83,3 +83,9 @@ Com o projeto conectado, verificar de verdade: criar/confirmar conta, entrar, re
 4. Selecionar/configurar provedor de pagamentos em sandbox. Confirmar suporte efetivo a Pix, crédito e débito online; débito presencial em maquininha não equivale a débito online no app. Recebimento real exigirá webhooks verificados, idempotência, conciliação e políticas de renovação. Nenhum provedor foi contratado ou habilitado.
 
 Não publicar a demo como painel de dados reais. A distribuição de produção deverá remover/separar o protótipo e passar pelas verificações de acesso, e-mail e banco antes do lançamento.
+
+## Atualização: faturamento e agendamentos de teste
+
+Para o projeto que já recebeu as duas migrações iniciais, execute somente `database/supabase/billing-update.sql`, inteiro, no SQL Editor. Ele verifica o histórico e preserva os vínculos anteriores; não repita `setup-dev.sql`. A atualização não cria contas, não atribui acesso de empresário e não ativa um provedor financeiro.
+
+Depois de criar/confirmar as contas e vincular o empresário, abra **Abrir operação de teste** em `/conta`. O empresário cadastra catálogo/equipe e também pode cadastrar a própria conta como barbeiro. O [roteiro de faturamento](billing.md) cobre mensalidades, testes de pagamento, reserva antecipada e reembolso exclusivo do empresário. Pagamentos reais, fotos, validação iOS e demais funcionalidades ainda exigem etapas posteriores.

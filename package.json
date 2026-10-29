@@ -25,9 +25,12 @@
     "mobile:prepare:connected": "pnpm --filter @agendaflex/web mobile:prepare:connected",
     "mobile:android": "pnpm --filter @agendaflex/web mobile:android",
     "mobile:ios": "pnpm --filter @agendaflex/web mobile:ios",
-    "test:e2e:mobile": "playwright test --config playwright.mobile.config.ts"
+    "test:e2e:mobile": "playwright test --config playwright.mobile.config.ts",
+    "test:db": "pnpm --filter @agendaflex/database test",
+    "test:e2e:billing": "playwright test --config playwright.billing.config.ts"
   },
   "devDependencies": {
+    "@agendaflex/shared": "workspace:*",
     "@eslint/js": "^9.25.1",
     "@playwright/test": "^1.51.1",
     "@types/node": "^22.15.0",
@@ -37,11 +40,12 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react-hooks": "^5.2.0",
     "globals": "^16.0.0",
+    "postgres": "^3.4.9",
     "prettier": "^3.5.3",
+    "tsx": "^4.23.15",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.31.0",
-    "vitest": "^3.1.2",
-    "@agendaflex/shared": "workspace:*"
+    "vitest": "^3.1.2"
   },
   "type": "module"
 }

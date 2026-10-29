@@ -1,4 +1,5 @@
 import { z } from 'zod';
+export * from './billing.js';
 export const healthResponseSchema = z.object({
   status: z.literal('ok'),
   service: z.literal('agendaflex-api'),
@@ -32,6 +33,7 @@ export const accountResponseSchema = z.object({
     z.object({
       tenantId: z.string().uuid(),
       tenantName: z.string(),
+      tenantSlug: z.string().optional(),
       role: tenantRoleSchema,
     }),
   ),

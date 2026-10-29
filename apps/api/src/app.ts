@@ -3,11 +3,14 @@ import cors from '@fastify/cors';
 import { healthResponseSchema } from '@agendaflex/shared';
 import type { IdentityGateway } from './application/identity.js';
 import { registerAccountRoute } from './routes/account.js';
+import { registerBillingRoutes } from './routes/billing.js';
+import type { BillingGateway } from './application/billing.js';
 export function buildApp(
   options: {
     logger?: boolean;
     webOrigin?: string;
     identity?: IdentityGateway;
+    billing?: BillingGateway;
   } = {},
 ) {
   const app = Fastify({
@@ -36,5 +39,6 @@ export function buildApp(
     }),
   );
   registerAccountRoute(app, options.identity);
+  registerBillingRoutes(app, options.identity, options.billing);
   return app;
 }

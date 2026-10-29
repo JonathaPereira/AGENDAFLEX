@@ -38,9 +38,15 @@ importers:
       globals:
         specifier: ^16.0.0
         version: 16.5.0
+      postgres:
+        specifier: ^3.4.9
+        version: 3.4.9
       prettier:
         specifier: ^3.5.3
         version: 3.9.10
+      tsx:
+        specifier: ^4.23.15
+        version: 4.23.15
       typescript:
         specifier: ~5.8.3
         version: 5.8.3

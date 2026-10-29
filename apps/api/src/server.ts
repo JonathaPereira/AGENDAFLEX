@@ -4,6 +4,7 @@ import { buildApp } from './app.js';
 import { parseApiEnv } from './config/env.js';
 config({ path: fileURLToPath(new URL('../../../.env', import.meta.url)) });
 import { createIdentityGateway } from './infrastructure/supabase.js';
+import { createBillingGateway } from './infrastructure/billing.js';
 const env = parseApiEnv(process.env);
 const app = buildApp({
   logger: true,
@@ -11,6 +12,10 @@ const app = buildApp({
   ...(env.SUPABASE_URL && env.SUPABASE_PUBLISHABLE_KEY
     ? {
         identity: createIdentityGateway(
+          env.SUPABASE_URL,
+          env.SUPABASE_PUBLISHABLE_KEY,
+        ),
+        billing: createBillingGateway(
           env.SUPABASE_URL,
           env.SUPABASE_PUBLISHABLE_KEY,
         ),

@@ -78,4 +78,12 @@ Verificações automatizadas: `pnpm test`, `pnpm test:e2e:auth` (serviços simul
 4. No Android Studio, aguardar o Gradle terminar. Selecionar um emulador ou o celular pessoal conectado por USB com depuração USB autorizada pelo próprio usuário.
 5. Usar o botão Run do Android Studio. O pacote inicia na prévia com dados fictícios, sem contas e sem cobranças. Para gerar um instalador de teste, usar a opção de gerar APK de desenvolvimento do Android Studio.
 
-Esse roteiro é a orientação para o próximo teste; a instalação/compilação no Windows e no celular do usuário ainda não foram executadas.
+O usuário informou ter seguido esse roteiro e aberto a prévia anterior no Xiaomi. A nova operação conectada ainda precisa de configuração e reinstalação.
+
+## Evolução: faturamento de teste e instalação confirmada pelo usuário
+
+O usuário relatou ter compilado e aberto a prévia anterior no Xiaomi usando Windows/Android Studio. Isso não é evidência de teste da nova operação conectada nem de iOS. Se o Android Studio mais novo oferecer JVM 21 ao importar, selecionar **Use JVM 21**, aguardar Gradle e então executar. No PowerShell, `pnpm.cmd` permite usar o inicializador Windows quando a política local bloqueia `pnpm.ps1`.
+
+O módulo `/barbearia/:slug` agora possui faturamento, reembolso e agenda conectados de teste. Ele depende de migração, contas confirmadas e API HTTPS; `pnpm mobile:prepare` continua gerando a prévia offline original. Para a versão conectada, seguir [faturamento](billing.md), preencher `VITE_MOBILE_API_URL` real e usar `pnpm mobile:prepare:connected`. Um app já instalado não recebe alterações de código automaticamente: recompilar e instalar novamente.
+
+Não é necessário possuir iPhone para desenvolver o frontend. Para compilar e validar iOS, usar um Mac com Xcode e simulador; o simulador não exige conta paga de publicação. Um teste posterior em aparelho real continua recomendado. Nesta máquina Linux não há Xcode, portanto não foi compilado IPA nem validado o comportamento específico do iOS. A emulação de tamanho de tela em Chromium não substitui Safari, teclado e WebView do iPhone.

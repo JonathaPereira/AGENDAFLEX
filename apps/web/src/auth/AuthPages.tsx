@@ -413,6 +413,12 @@ export function AccountPage() {
                           staff: 'Barbeiro',
                         }[m.role]
                       }
+                      {' · '}
+                      <Link
+                        to={`/barbearia/${m.tenantSlug || 'ross-barbearia'}`}
+                      >
+                        Abrir operação de teste
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -420,14 +426,20 @@ export function AccountPage() {
               </>
             ) : (
               <p className="auth-notice">
-                Sua conta está ativa. A vinculação à barbearia e os agendamentos
-                reais serão liberados na próxima etapa. Criar conta não concede
-                acesso à gestão.
+                Sua conta está ativa. Você pode completar seu cadastro na Ross e
+                testar planos e agendamentos. Criar conta não concede acesso à
+                gestão.
               </p>
             )}
+            {!auth.account.memberships.length && (
+              <Link to="/barbearia/ross-barbearia">
+                Acessar a Ross Barbearia
+              </Link>
+            )}
             <p>
-              Esta etapa valida o acesso. A agenda, fotos e pagamentos ainda
-              serão conectados.
+              Faturamento e reembolsos funcionam em modo de teste, sem
+              movimentar dinheiro. Fotos e pagamentos reais permanecem
+              pendentes.
             </p>
           </>
         )

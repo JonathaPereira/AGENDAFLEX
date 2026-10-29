@@ -1,6 +1,6 @@
 import { Capacitor } from '@capacitor/core';
 import { MobilePreview } from './mobile/MobilePreview';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import {
   NavLink,
   Outlet,
@@ -11,6 +11,11 @@ import {
 } from 'react-router-dom';
 import { Badge, Card, ThemeToggle } from '@agendaflex/ui';
 import { healthResponseSchema } from '@agendaflex/shared';
+const BillingConsole = lazy(() =>
+  import('./billing/BillingConsole').then((module) => ({
+    default: module.BillingConsole,
+  })),
+);
 
 import {
   AuthPage,
@@ -116,6 +121,9 @@ function Portal() {
         Os agendamentos estarão disponíveis em uma próxima etapa. Nenhum dado de
         cliente é coletado nesta versão.
       </aside>
+      <p>
+        <Link to="/conta">Abrir faturamento e agendamentos de teste</Link>
+      </p>
     </>
   );
 }
@@ -171,6 +179,16 @@ export function App() {
       <Route path="auth/callback" element={<CallbackPage />} />
       <Route path="redefinir-senha" element={<CallbackPage recovery />} />
       <Route path="conta" element={<AccountPage />} />
+      <Route
+        path="barbearia/:slug"
+        element={
+          <Suspense
+            fallback={<p role="status">Carregando seu espaço na Ross…</p>}
+          >
+            <BillingConsole />
+          </Suspense>
+        }
+      />
       <Route
         element={
           Capacitor.isNativePlatform() ? (

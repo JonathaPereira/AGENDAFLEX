@@ -145,3 +145,25 @@ Verificações executadas com sucesso:
 - Captura visual em 390 px da prévia e login. Java 21 existe; Android SDK não está configurado. `cap doctor` apontou versões Android coerentes e ausência de Xcode, retornando falha para iOS. Não foi executada compilação Gradle de APK nem compilação Xcode/IPA ou teste em dispositivo.
 
 O lint inicialmente alcançou bundles copiados pelo Capacitor; os diretórios nativos gerados foram excluídos do ESLint e os fontes web/API continuam verificados. O build web informou chunk acima de 500 kB (aproximadamente 164 kB gzip), sem falhar; otimização de carregamento permanece pendente. Contas de funcionários/proprietário foram adiadas pelo usuário. Nenhuma configuração do ambiente ou loja foi publicada, nenhum serviço pago foi ativado, e fotos/pagamentos reais continuam pendentes. Os ícones/splash nativos ainda são os do template, com a logo Ross usada dentro da interface.
+
+## Faturamento persistido de teste e reembolso exclusivo do empresário
+
+Foi implementado o fluxo conectado em `/barbearia/:slug`, com contratos Zod, API Fastify autenticada, RPC transacional e nove tabelas Drizzle com RLS. A integração financeira é uma simulação interna explicitamente identificada; não usa gateway ou transação real. O HTML de prévia também recebeu a mensagem discreta de bloqueio solicitada.
+
+Execuções realizadas:
+
+- `pnpm install --frozen-lockfile`: passou, Node 24 e pnpm 10.11.0.
+- `pnpm typecheck`, `pnpm lint`, `pnpm format:check`, `git diff --check` e `pnpm build`: passaram.
+- `pnpm db:generate`: conferiu 11 tabelas e não encontrou diferença adicional após gerar schema/migrações. `pnpm db:setup-sql --check`: confirmou os scripts gerados e hashes.
+- **22 testes Vitest**: contratos, autenticação obrigatória, validação estrita de pagamento/reembolso/reserva, sanitização de erros e propagação do mesmo JWT para a RPC.
+- **11 testes PostgreSQL 17 reais**, executados em container local descartável, com papéis `anon`/`authenticated` e fixture de `auth.uid()`. Aplicaram schema inicial e atualização incremental; cobriram pagamento pendente/não aprovado/aprovado, idempotência, valores congelados, reserva concorrente, almoço, reserva antecipada/renovação, mensagem discreta, reembolso somente owner, auditoria, cancelamento de reservas sem cobertura, dinheiro restrito ao profissional atribuído, check-in, virada de ciclo, isolamento e revogação de acesso direto. Reaplicar o SQL incremental foi recusado sem alterar o histórico.
+- **86 E2E principais**, desktop/mobile, passaram, incluindo regressão dos avisos discretos da prévia.
+- **6 E2E Auth**, desktop/mobile, passaram com Auth/API simulados.
+- **6 E2E financeiros**, desktop/mobile, passaram atravessando React → Fastify → PostgreSQL real local. Apenas Auth era fixture. Cobriram aprovação, painel do empresário, reembolso, saldo líquido zero após devolução integral, bloqueio discreto, não liberação por tentativa pendente, edição de serviço, navegação de tópicos, vínculo do próprio empresário como barbeiro e restrições do funcionário.
+- **2 E2E do build mobile de prévia** passaram, sem autenticação externa ou chamadas financeiras. Total das suítes de navegador: **100 execuções**, sem somar repetições.
+- `pnpm mobile:prepare`: build/cópia/sincronização dos assets Android/iOS passaram. A nova operação usa carregamento separado e o SDK Auth ficou em chunk próprio; o build deixou de emitir aviso de chunk acima de 500 kB.
+- Capturas desktop/mobile do cliente e reembolso foram inspecionadas. Ajustados contraste dos parágrafos no tema Ross e centralização do diálogo; o fluxo financeiro foi repetido após o ajuste. Documento e diálogo não causam rolagem horizontal no teste de tela pequena.
+
+Os scripts completos e incrementais estão em `database/supabase`; a atualização incremental foi verificada contra o histórico anterior no PostgreSQL local. **Não foi aplicada no Supabase remoto do usuário**, que exige o SQL Editor administrativo. Não foram criadas contas reais, migrados os dados fictícios do HTML, contratado serviço, configurado provedor ou publicado ambiente/hospedagem/loja.
+
+O usuário já relatou executar a prévia anterior no Android. Isso não comprova a nova compilação conectada. O ambiente Linux continua sem Android SDK/Xcode configurados: não foi compilado novo APK/IPA, nem testado iOS, Safari ou dispositivo nativo para esta alteração. A integração de pagamento de um provedor, sessão real com e-mail, API HTTPS pública e módulos operacionais restantes permanecem pendentes. Detalhes e roteiro em [faturamento](billing.md) e [mobile](mobile.md).

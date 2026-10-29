@@ -65,6 +65,11 @@ export default defineConfig(({ mode }) => {
         : []),
     ],
     envDir: fileURLToPath(new URL('../..', import.meta.url)),
+    build: {
+      rollupOptions: {
+        output: { manualChunks: { supabase: ['@supabase/supabase-js'] } },
+      },
+    },
     server: { port: 5173, strictPort: true },
   };
 });

@@ -180,7 +180,7 @@ test('a newly registered subscriber starts unpaid and a cash receipt releases th
     .click();
   await login(page, 'plano.novo@example.com');
   await expect(page.locator('.member-banner')).toContainText(
-    'Assinatura vencida',
+    'Para agendar, entre em contato com a recepção.',
   );
   await page.locator('[data-day="42"]').click();
   await page.getByRole('button', { name: '20:00', exact: true }).click();

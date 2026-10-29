@@ -30,17 +30,21 @@ export function createIdentityGateway(
       if (error || !data.user?.email) return null;
       const result = await client
         .from('memberships')
-        .select('tenant_id, role, tenants(name)')
+        .select('tenant_id, role, tenants(name,slug)')
         .eq('user_id', data.user.id);
       if (result.error) throw new Error('Membership lookup unavailable');
       return accountResponseSchema.parse({
         user: { id: data.user.id, email: data.user.email },
         memberships: (result.data || []).map((row) => {
-          const tenant = row.tenants as unknown as { name: string } | null;
+          const tenant = row.tenants as unknown as {
+            name: string;
+            slug?: string;
+          } | null;
           if (!tenant) throw new Error('Tenant unavailable');
           return {
             tenantId: row.tenant_id,
             tenantName: tenant.name,
+            ...(tenant.slug ? { tenantSlug: tenant.slug } : {}),
             role: row.role,
           };
         }),

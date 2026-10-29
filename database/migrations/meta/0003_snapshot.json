@@ -1,0 +1,1071 @@
+{
+  "id": "fc830a88-d62c-4313-bc64-859a4f45fe47",
+  "prevId": "685f9f3e-ac13-4bf7-ac9f-f171e4b01109",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.billing_appointments": {
+      "name": "billing_appointments",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "customer_id": {
+          "name": "customer_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "barber_id": {
+          "name": "barber_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "service_id": {
+          "name": "service_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "service_name": {
+          "name": "service_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "starts_at": {
+          "name": "starts_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ends_at": {
+          "name": "ends_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mode": {
+          "name": "mode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price_cents": {
+          "name": "price_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "service_category": {
+          "name": "service_category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "billing_appointments_tenant_id_tenants_id_fk": {
+          "name": "billing_appointments_tenant_id_tenants_id_fk",
+          "tableFrom": "billing_appointments",
+          "columnsFrom": ["tenant_id"],
+          "tableTo": "tenants",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        },
+        "billing_appointments_tenant_id_customer_id_billing_customers_tenant_id_id_fk": {
+          "name": "billing_appointments_tenant_id_customer_id_billing_customers_tenant_id_id_fk",
+          "tableFrom": "billing_appointments",
+          "columnsFrom": ["tenant_id", "customer_id"],
+          "tableTo": "billing_customers",
+          "columnsTo": ["tenant_id", "id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        },
+        "billing_appointments_tenant_id_barber_id_billing_barbers_tenant_id_id_fk": {
+          "name": "billing_appointments_tenant_id_barber_id_billing_barbers_tenant_id_id_fk",
+          "tableFrom": "billing_appointments",
+          "columnsFrom": ["tenant_id", "barber_id"],
+          "tableTo": "billing_barbers",
+          "columnsTo": ["tenant_id", "id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        },
+        "billing_appointments_tenant_id_service_id_billing_services_tenant_id_id_fk": {
+          "name": "billing_appointments_tenant_id_service_id_billing_services_tenant_id_id_fk",
+          "tableFrom": "billing_appointments",
+          "columnsFrom": ["tenant_id", "service_id"],
+          "tableTo": "billing_services",
+          "columnsTo": ["tenant_id", "id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "billing_appointments_customer_id_request_id_unique": {
+          "name": "billing_appointments_customer_id_request_id_unique",
+          "columns": ["customer_id", "request_id"],
+          "nullsNotDistinct": false
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "billing_appointment_dates": {
+          "name": "billing_appointment_dates",
+          "value": "\"billing_appointments\".\"ends_at\" > \"billing_appointments\".\"starts_at\""
+        },
+        "billing_appointment_mode": {
+          "name": "billing_appointment_mode",
+          "value": "\"billing_appointments\".\"mode\" in ('plan','one_off')"
+        },
+        "billing_appointment_status": {
+          "name": "billing_appointment_status",
+          "value": "\"billing_appointments\".\"status\" in ('confirmed','awaiting_renewal','in_service','cancelled')"
+        },
+        "billing_appointment_price": {
+          "name": "billing_appointment_price",
+          "value": "\"billing_appointments\".\"price_cents\" >= 0"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.billing_barbers": {
+      "name": "billing_barbers",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "active": {
+          "name": "active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "billing_barbers_tenant_id_tenants_id_fk": {
+          "name": "billing_barbers_tenant_id_tenants_id_fk",
+          "tableFrom": "billing_barbers",
+          "columnsFrom": ["tenant_id"],
+          "tableTo": "tenants",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        },
+        "billing_barbers_tenant_id_user_id_memberships_tenant_id_user_id_fk": {
+          "name": "billing_barbers_tenant_id_user_id_memberships_tenant_id_user_id_fk",
+          "tableFrom": "billing_barbers",
+          "columnsFrom": ["tenant_id", "user_id"],
+          "tableTo": "memberships",
+          "columnsTo": ["tenant_id", "user_id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "billing_barbers_tenant_id_id_unique": {
+          "name": "billing_barbers_tenant_id_id_unique",
+          "columns": ["tenant_id", "id"],
+          "nullsNotDistinct": false
+        },
+        "billing_barbers_tenant_id_user_id_unique": {
+          "name": "billing_barbers_tenant_id_user_id_unique",
+          "columns": ["tenant_id", "user_id"],
+          "nullsNotDistinct": false
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": true
+    },
+    "public.billing_customers": {
+      "name": "billing_customers",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "billing_customers_tenant_id_tenants_id_fk": {
+          "name": "billing_customers_tenant_id_tenants_id_fk",
+          "tableFrom": "billing_customers",
+          "columnsFrom": ["tenant_id"],
+          "tableTo": "tenants",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "billing_customers_tenant_id_id_unique": {
+          "name": "billing_customers_tenant_id_id_unique",
+          "columns": ["tenant_id", "id"],
+          "nullsNotDistinct": false
+        },
+        "billing_customers_tenant_id_user_id_unique": {
+          "name": "billing_customers_tenant_id_user_id_unique",
+          "columns": ["tenant_id", "user_id"],
+          "nullsNotDistinct": false
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": true
+    },
+    "public.billing_invoices": {
+      "name": "billing_invoices",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "subscription_id": {
+          "name": "subscription_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "customer_id": {
+          "name": "customer_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "plan_name": {
+          "name": "plan_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "coverage": {
+          "name": "coverage",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount_cents": {
+          "name": "amount_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "period_start": {
+          "name": "period_start",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "period_end": {
+          "name": "period_end",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "due_on": {
+          "name": "due_on",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pending'"
+        },
+        "paid_via": {
+          "name": "paid_via",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "environment": {
+          "name": "environment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'test'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "billing_invoices_tenant_id_tenants_id_fk": {
+          "name": "billing_invoices_tenant_id_tenants_id_fk",
+          "tableFrom": "billing_invoices",
+          "columnsFrom": ["tenant_id"],
+          "tableTo": "tenants",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        },
+        "billing_invoices_tenant_id_customer_id_billing_customers_tenant_id_id_fk": {
+          "name": "billing_invoices_tenant_id_customer_id_billing_customers_tenant_id_id_fk",
+          "tableFrom": "billing_invoices",
+          "columnsFrom": ["tenant_id", "customer_id"],
+          "tableTo": "billing_customers",
+          "columnsTo": ["tenant_id", "id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        },
+        "billing_invoices_tenant_id_subscription_id_billing_subscriptions_tenant_id_id_fk": {
+          "name": "billing_invoices_tenant_id_subscription_id_billing_subscriptions_tenant_id_id_fk",
+          "tableFrom": "billing_invoices",
+          "columnsFrom": ["tenant_id", "subscription_id"],
+          "tableTo": "billing_subscriptions",
+          "columnsTo": ["tenant_id", "id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "billing_invoices_tenant_id_id_unique": {
+          "name": "billing_invoices_tenant_id_id_unique",
+          "columns": ["tenant_id", "id"],
+          "nullsNotDistinct": false
+        },
+        "billing_invoices_subscription_id_period_start_unique": {
+          "name": "billing_invoices_subscription_id_period_start_unique",
+          "columns": ["subscription_id", "period_start"],
+          "nullsNotDistinct": false
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "billing_invoice_price": {
+          "name": "billing_invoice_price",
+          "value": "\"billing_invoices\".\"amount_cents\" between 1 and 100000000"
+        },
+        "billing_invoice_dates": {
+          "name": "billing_invoice_dates",
+          "value": "\"billing_invoices\".\"period_end\" > \"billing_invoices\".\"period_start\""
+        },
+        "billing_invoice_status": {
+          "name": "billing_invoice_status",
+          "value": "\"billing_invoices\".\"status\" in ('pending','paid','refunded')"
+        },
+        "billing_invoice_test_only": {
+          "name": "billing_invoice_test_only",
+          "value": "\"billing_invoices\".\"environment\" = 'test'"
+        },
+        "billing_invoice_method": {
+          "name": "billing_invoice_method",
+          "value": "\"billing_invoices\".\"paid_via\" in ('pix','credit','debit','cash')"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.billing_payments": {
+      "name": "billing_payments",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "invoice_id": {
+          "name": "invoice_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount_cents": {
+          "name": "amount_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "method": {
+          "name": "method",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reference": {
+          "name": "reference",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "received_at": {
+          "name": "received_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "actor_id": {
+          "name": "actor_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "one_approved_payment_per_invoice": {
+          "name": "one_approved_payment_per_invoice",
+          "columns": [
+            {
+              "expression": "invoice_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "with": {},
+          "method": "btree",
+          "where": "\"billing_payments\".\"status\" = 'approved'",
+          "concurrently": false
+        }
+      },
+      "foreignKeys": {
+        "billing_payments_tenant_id_tenants_id_fk": {
+          "name": "billing_payments_tenant_id_tenants_id_fk",
+          "tableFrom": "billing_payments",
+          "columnsFrom": ["tenant_id"],
+          "tableTo": "tenants",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        },
+        "billing_payments_tenant_id_invoice_id_billing_invoices_tenant_id_id_fk": {
+          "name": "billing_payments_tenant_id_invoice_id_billing_invoices_tenant_id_id_fk",
+          "tableFrom": "billing_payments",
+          "columnsFrom": ["tenant_id", "invoice_id"],
+          "tableTo": "billing_invoices",
+          "columnsTo": ["tenant_id", "id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "billing_payments_reference_unique": {
+          "name": "billing_payments_reference_unique",
+          "columns": ["reference"],
+          "nullsNotDistinct": false
+        },
+        "billing_payments_tenant_id_id_unique": {
+          "name": "billing_payments_tenant_id_id_unique",
+          "columns": ["tenant_id", "id"],
+          "nullsNotDistinct": false
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "billing_payment_price": {
+          "name": "billing_payment_price",
+          "value": "\"billing_payments\".\"amount_cents\" between 1 and 100000000"
+        },
+        "billing_payment_method": {
+          "name": "billing_payment_method",
+          "value": "\"billing_payments\".\"method\" in ('pix','credit','debit','cash')"
+        },
+        "billing_payment_status": {
+          "name": "billing_payment_status",
+          "value": "\"billing_payments\".\"status\" in ('approved','pending','declined')"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.billing_plans": {
+      "name": "billing_plans",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price_cents": {
+          "name": "price_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "coverage": {
+          "name": "coverage",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "active": {
+          "name": "active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "billing_plans_tenant_id_tenants_id_fk": {
+          "name": "billing_plans_tenant_id_tenants_id_fk",
+          "tableFrom": "billing_plans",
+          "columnsFrom": ["tenant_id"],
+          "tableTo": "tenants",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "billing_plans_tenant_id_id_unique": {
+          "name": "billing_plans_tenant_id_id_unique",
+          "columns": ["tenant_id", "id"],
+          "nullsNotDistinct": false
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "billing_plan_price": {
+          "name": "billing_plan_price",
+          "value": "\"billing_plans\".\"price_cents\" between 1 and 100000000"
+        },
+        "billing_plan_coverage": {
+          "name": "billing_plan_coverage",
+          "value": "\"billing_plans\".\"coverage\" in ('hair','beard','combo')"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.billing_refunds": {
+      "name": "billing_refunds",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "invoice_id": {
+          "name": "invoice_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "payment_id": {
+          "name": "payment_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount_cents": {
+          "name": "amount_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "reason": {
+          "name": "reason",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "actor_id": {
+          "name": "actor_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "refunded_at": {
+          "name": "refunded_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "billing_refunds_tenant_id_tenants_id_fk": {
+          "name": "billing_refunds_tenant_id_tenants_id_fk",
+          "tableFrom": "billing_refunds",
+          "columnsFrom": ["tenant_id"],
+          "tableTo": "tenants",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        },
+        "billing_refunds_tenant_id_invoice_id_billing_invoices_tenant_id_id_fk": {
+          "name": "billing_refunds_tenant_id_invoice_id_billing_invoices_tenant_id_id_fk",
+          "tableFrom": "billing_refunds",
+          "columnsFrom": ["tenant_id", "invoice_id"],
+          "tableTo": "billing_invoices",
+          "columnsTo": ["tenant_id", "id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        },
+        "billing_refunds_tenant_id_payment_id_billing_payments_tenant_id_id_fk": {
+          "name": "billing_refunds_tenant_id_payment_id_billing_payments_tenant_id_id_fk",
+          "tableFrom": "billing_refunds",
+          "columnsFrom": ["tenant_id", "payment_id"],
+          "tableTo": "billing_payments",
+          "columnsTo": ["tenant_id", "id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "billing_refunds_invoice_id_unique": {
+          "name": "billing_refunds_invoice_id_unique",
+          "columns": ["invoice_id"],
+          "nullsNotDistinct": false
+        },
+        "billing_refunds_payment_id_unique": {
+          "name": "billing_refunds_payment_id_unique",
+          "columns": ["payment_id"],
+          "nullsNotDistinct": false
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "billing_refund_price": {
+          "name": "billing_refund_price",
+          "value": "\"billing_refunds\".\"amount_cents\" between 1 and 100000000"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.billing_services": {
+      "name": "billing_services",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "price_cents": {
+          "name": "price_cents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "duration_minutes": {
+          "name": "duration_minutes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "active": {
+          "name": "active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "billing_services_tenant_id_tenants_id_fk": {
+          "name": "billing_services_tenant_id_tenants_id_fk",
+          "tableFrom": "billing_services",
+          "columnsFrom": ["tenant_id"],
+          "tableTo": "tenants",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "billing_services_tenant_id_id_unique": {
+          "name": "billing_services_tenant_id_id_unique",
+          "columns": ["tenant_id", "id"],
+          "nullsNotDistinct": false
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "billing_service_price": {
+          "name": "billing_service_price",
+          "value": "\"billing_services\".\"price_cents\" between 1 and 100000000"
+        },
+        "billing_service_category": {
+          "name": "billing_service_category",
+          "value": "\"billing_services\".\"category\" in ('hair','beard','combo','other')"
+        },
+        "billing_service_duration": {
+          "name": "billing_service_duration",
+          "value": "\"billing_services\".\"duration_minutes\" between 15 and 180 and \"billing_services\".\"duration_minutes\" % 15 = 0"
+        }
+      },
+      "isRLSEnabled": true
+    },
+    "public.billing_subscriptions": {
+      "name": "billing_subscriptions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "customer_id": {
+          "name": "customer_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "plan_id": {
+          "name": "plan_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "billing_subscriptions_tenant_id_tenants_id_fk": {
+          "name": "billing_subscriptions_tenant_id_tenants_id_fk",
+          "tableFrom": "billing_subscriptions",
+          "columnsFrom": ["tenant_id"],
+          "tableTo": "tenants",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        },
+        "billing_subscriptions_tenant_id_customer_id_billing_customers_tenant_id_id_fk": {
+          "name": "billing_subscriptions_tenant_id_customer_id_billing_customers_tenant_id_id_fk",
+          "tableFrom": "billing_subscriptions",
+          "columnsFrom": ["tenant_id", "customer_id"],
+          "tableTo": "billing_customers",
+          "columnsTo": ["tenant_id", "id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        },
+        "billing_subscriptions_tenant_id_plan_id_billing_plans_tenant_id_id_fk": {
+          "name": "billing_subscriptions_tenant_id_plan_id_billing_plans_tenant_id_id_fk",
+          "tableFrom": "billing_subscriptions",
+          "columnsFrom": ["tenant_id", "plan_id"],
+          "tableTo": "billing_plans",
+          "columnsTo": ["tenant_id", "id"],
+          "onUpdate": "no action",
+          "onDelete": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "billing_subscriptions_tenant_id_id_unique": {
+          "name": "billing_subscriptions_tenant_id_id_unique",
+          "columns": ["tenant_id", "id"],
+          "nullsNotDistinct": false
+        },
+        "billing_subscriptions_customer_id_unique": {
+          "name": "billing_subscriptions_customer_id_unique",
+          "columns": ["customer_id"],
+          "nullsNotDistinct": false
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": true
+    },
+    "public.memberships": {
+      "name": "memberships",
+      "schema": "",
+      "columns": {
+        "tenant_id": {
+          "name": "tenant_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "tenant_role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "one_owner_per_tenant": {
+          "name": "one_owner_per_tenant",
+          "columns": [
+            {
+              "expression": "tenant_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "with": {},
+          "method": "btree",
+          "where": "\"memberships\".\"role\" = 'owner'",
+          "concurrently": false
+        }
+      },
+      "foreignKeys": {
+        "memberships_tenant_id_tenants_id_fk": {
+          "name": "memberships_tenant_id_tenants_id_fk",
+          "tableFrom": "memberships",
+          "columnsFrom": ["tenant_id"],
+          "tableTo": "tenants",
+          "columnsTo": ["id"],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {
+        "memberships_tenant_id_user_id_pk": {
+          "name": "memberships_tenant_id_user_id_pk",
+          "columns": ["tenant_id", "user_id"]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {
+        "memberships_read_own": {
+          "name": "memberships_read_own",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "\"memberships\".\"user_id\" = (select auth.uid())"
+        }
+      },
+      "checkConstraints": {},
+      "isRLSEnabled": true
+    },
+    "public.tenants": {
+      "name": "tenants",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "tenants_slug_unique": {
+          "name": "tenants_slug_unique",
+          "columns": ["slug"],
+          "nullsNotDistinct": false
+        }
+      },
+      "policies": {
+        "tenants_read_member": {
+          "name": "tenants_read_member",
+          "as": "PERMISSIVE",
+          "for": "SELECT",
+          "to": ["authenticated"],
+          "using": "exists (select 1 from public.memberships m where m.tenant_id = tenants.id and m.user_id = (select auth.uid()))"
+        }
+      },
+      "checkConstraints": {},
+      "isRLSEnabled": true
+    }
+  },
+  "enums": {
+    "public.tenant_role": {
+      "name": "tenant_role",
+      "schema": "public",
+      "values": ["owner", "manager", "staff"]
+    }
+  },
+  "schemas": {},
+  "views": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
