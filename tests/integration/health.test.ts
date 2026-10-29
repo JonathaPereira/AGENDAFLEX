@@ -33,3 +33,21 @@ it('allows the configured web origin', async () => {
     await app.close();
   }
 });
+
+it('allows bundled mobile origins without treating CORS as an authenticated session', async () => {
+  const app = buildApp();
+  try {
+    for (const origin of ['capacitor://localhost', 'https://localhost']) {
+      const r = await app.inject({ url: '/me', headers: { origin } });
+      expect(r.headers['access-control-allow-origin']).toBe(origin);
+      expect(r.statusCode).toBe(401);
+    }
+    const other = await app.inject({
+      url: '/health',
+      headers: { origin: 'https://unrelated.example' },
+    });
+    expect(other.headers['access-control-allow-origin']).toBeUndefined();
+  } finally {
+    await app.close();
+  }
+});

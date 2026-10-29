@@ -6,11 +6,21 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "mobile:preview": "tsc --noEmit && vite build --mode mobile-preview",
+    "mobile:build": "tsc --noEmit && vite build --mode mobile",
+    "mobile:prepare": "pnpm mobile:preview && cap sync",
+    "mobile:prepare:connected": "pnpm mobile:build && cap sync",
+    "mobile:android": "cap open android",
+    "mobile:ios": "cap open ios"
   },
   "dependencies": {
     "@agendaflex/shared": "workspace:*",
     "@agendaflex/ui": "workspace:*",
+    "@capacitor/android": "8.6.0",
+    "@capacitor/app": "8.1.2",
+    "@capacitor/core": "8.6.0",
+    "@capacitor/ios": "8.6.0",
     "@supabase/supabase-js": "^2.49.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -18,6 +28,7 @@
     "zod": "^3.24.3"
   },
   "devDependencies": {
+    "@capacitor/cli": "8.6.0",
     "@tailwindcss/vite": "^4.1.4",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",

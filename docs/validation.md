@@ -129,3 +129,19 @@ Verificações executadas:
 - O login foi servido temporariamente e inspecionado por capturas desktop 1440 px e mobile 390 px, sem conectar projeto ou criar conta.
 
 Limitações desta validação: o usuário ainda está criando o projeto Supabase. Não foram executados login real, cadastro/entrega de e-mail, recuperação real, migrações PostgreSQL, isolamento RLS real, bootstrap de proprietário ou deploy. A rede do ambiente de nuvem também precisará permitir o host exato do projeto quando ele for conhecido. Nenhum pagamento, app nativo ou upload de foto foi implementado nesta etapa. O roteiro de conexão e continuação está em `docs/supabase-setup.md`.
+
+## Estrutura mobile Capacitor — Android/iOS
+
+Foram gerados os projetos Capacitor 8.6.0 com App plugin 8.1.2, sincronizados por `pnpm mobile:prepare`. O modo `mobile-preview` remove a configuração de Auth da compilação, mostra aviso e permite avaliar os três perfis fictícios em `/mobile`. A prévia tem retorno ao login e cabeçalho compacto em telas pequenas. O modo conectado requer API HTTPS e exclui `demo.html` do pacote. Foram preparados os esquemas nativos de callback/recuperação, validados por lista fechada de rotas no bridge.
+
+Verificações executadas com sucesso:
+
+- `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm lint`, `pnpm build`, `pnpm format:check` e `git diff --check`.
+- **17 testes Vitest**: contratos/API anteriores, CORS das origens nativas sem dispensar autenticação e validação dos destinos de deep link.
+- **86 testes E2E** da suíte principal em desktop/mobile, incluindo regressão da demo e navegação da prévia. A primeira tentativa reutilizou um servidor com Supabase real configurado e falhou nos testes que exigem configuração ausente; foi interrompida, os servidores anteriores foram encerrados e a execução isolada completa passou com as quatro variáveis Supabase vazias somente para o comando de teste.
+- **Seis testes E2E de sessão com Auth/API simulados**, sem contas reais.
+- **Dois testes do build da prévia** em desktop/mobile: três perfis, retorno ao login, largura do documento e iframe em 360/390/768 px, sem chamadas a Supabase ou API. Foram repetidos após compactar os cabeçalhos, com sucesso.
+- Build conectado sem API recusado como esperado. Build com URL HTTPS fictícia compilou e foi verificada ausência de `demo.html`; isso não testou uma API publicada. Ao terminar, a prévia foi reconstruída e sincronizada nas duas plataformas.
+- Captura visual em 390 px da prévia e login. Java 21 existe; Android SDK não está configurado. `cap doctor` apontou versões Android coerentes e ausência de Xcode, retornando falha para iOS. Não foi executada compilação Gradle de APK nem compilação Xcode/IPA ou teste em dispositivo.
+
+O lint inicialmente alcançou bundles copiados pelo Capacitor; os diretórios nativos gerados foram excluídos do ESLint e os fontes web/API continuam verificados. O build web informou chunk acima de 500 kB (aproximadamente 164 kB gzip), sem falhar; otimização de carregamento permanece pendente. Contas de funcionários/proprietário foram adiadas pelo usuário. Nenhuma configuração do ambiente ou loja foi publicada, nenhum serviço pago foi ativado, e fotos/pagamentos reais continuam pendentes. Os ícones/splash nativos ainda são os do template, com a logo Ross usada dentro da interface.

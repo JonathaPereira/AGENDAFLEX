@@ -1,3 +1,4 @@
+import { authRedirect } from '../mobile/redirect';
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
@@ -42,6 +43,11 @@ export function AuthFrame({ children }: { children: ReactNode }) {
         </Link>
         <span>Estilo, presença e tradição.</span>
       </div>
+      {import.meta.env.VITE_MOBILE_PREVIEW === 'true' && (
+        <p className="auth-preview-note">
+          Prévia mobile · Acesso real desativado nesta compilação
+        </p>
+      )}
       <section id="auth-content" className="ross-auth-card">
         {children}
       </section>
@@ -87,7 +93,7 @@ export function AuthPage({
       const client = createBrowserSupabaseClient();
       if (mode === 'forgot') {
         const { error } = await client.auth.resetPasswordForEmail(email.data, {
-          redirectTo: `${window.location.origin}/redefinir-senha`,
+          redirectTo: authRedirect('/redefinir-senha'),
         });
         if (error) throw error;
         setMessage(
@@ -98,7 +104,7 @@ export function AuthPage({
           email: email.data,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/auth/callback`,
+            emailRedirectTo: authRedirect('/auth/callback'),
           },
         });
         if (error) throw error;
@@ -142,8 +148,9 @@ export function AuthPage({
       </p>
       {!configured && (
         <div className="auth-notice" role="status">
-          Conexão com o Supabase pendente. O responsável pelo sistema precisa
-          concluir a configuração antes de liberar os acessos.
+          {import.meta.env.VITE_MOBILE_PREVIEW === 'true'
+            ? 'Esta prévia usa dados fictícios. Abra a demonstração abaixo para avaliar as telas.'
+            : 'Conexão com o Supabase pendente. O responsável pelo sistema precisa concluir a configuração antes de liberar os acessos.'}
         </div>
       )}
       <form onSubmit={(e) => void submit(e)}>
@@ -235,6 +242,11 @@ export function AuthPage({
           <Link to="/recuperar-senha">Esqueci minha senha</Link>
         )}
       </nav>
+      {import.meta.env.VITE_MOBILE_CONNECTED !== 'true' && (
+        <Link className="auth-demo-link" to="/mobile">
+          Ver demonstração para celular
+        </Link>
+      )}
       <Link className="auth-demo-link" to="/">
         Voltar ao portal
       </Link>

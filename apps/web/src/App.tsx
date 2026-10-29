@@ -1,5 +1,14 @@
+import { Capacitor } from '@capacitor/core';
+import { MobilePreview } from './mobile/MobilePreview';
 import { useEffect, useState } from 'react';
-import { NavLink, Outlet, Route, Routes, Link } from 'react-router-dom';
+import {
+  NavLink,
+  Outlet,
+  Route,
+  Routes,
+  Link,
+  Navigate,
+} from 'react-router-dom';
 import { Badge, Card, ThemeToggle } from '@agendaflex/ui';
 import { healthResponseSchema } from '@agendaflex/shared';
 
@@ -51,7 +60,9 @@ function Layout({ area, panel = false }: { area: string; panel?: boolean }) {
         <NavLink to="/painel">Estabelecimento</NavLink>
         <NavLink to="/saas">Gestão SaaS</NavLink>
         <NavLink to="/login">Entrar na Ross</NavLink>
-        <a href="/demo.html">Ross Barbearia ↗</a>
+        {import.meta.env.VITE_MOBILE_CONNECTED !== 'true' && (
+          <a href="/demo.html">Ross Barbearia ↗</a>
+        )}
       </nav>
       <main id="main" className="content" tabIndex={-1}>
         <div className="eyebrow">
@@ -144,14 +155,48 @@ function Panel({ central = false }: { central?: boolean }) {
 export function App() {
   return (
     <Routes>
+      <Route
+        path="mobile"
+        element={
+          import.meta.env.VITE_MOBILE_CONNECTED === 'true' ? (
+            <Navigate to="/login" replace />
+          ) : (
+            <MobilePreview />
+          )
+        }
+      />
       <Route path="login" element={<AuthPage />} />
       <Route path="criar-conta" element={<AuthPage mode="signup" />} />
       <Route path="recuperar-senha" element={<AuthPage mode="forgot" />} />
       <Route path="auth/callback" element={<CallbackPage />} />
       <Route path="redefinir-senha" element={<CallbackPage recovery />} />
       <Route path="conta" element={<AccountPage />} />
-      <Route element={<Layout area="Portal público" />}>
-        <Route index element={<Portal />} />
+      <Route
+        element={
+          Capacitor.isNativePlatform() ? (
+            <Outlet />
+          ) : (
+            <Layout area="Portal público" />
+          )
+        }
+      >
+        <Route
+          index
+          element={
+            Capacitor.isNativePlatform() ? (
+              <Navigate
+                to={
+                  import.meta.env.VITE_MOBILE_PREVIEW === 'true'
+                    ? '/mobile'
+                    : '/login'
+                }
+                replace
+              />
+            ) : (
+              <Portal />
+            )
+          }
+        />
       </Route>
       <Route
         path="painel"

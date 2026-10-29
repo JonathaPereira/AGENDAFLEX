@@ -21,7 +21,13 @@ export function buildApp(
         }
       : false,
   });
-  app.register(cors, { origin: options.webOrigin ?? 'http://localhost:5173' });
+  app.register(cors, {
+    origin: [
+      options.webOrigin ?? 'http://localhost:5173',
+      'capacitor://localhost',
+      'https://localhost',
+    ],
+  });
   app.get('/health', async () =>
     healthResponseSchema.parse({
       status: 'ok',

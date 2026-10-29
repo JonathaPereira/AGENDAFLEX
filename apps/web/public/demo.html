@@ -3130,6 +3130,51 @@
       #walkin-form .field {
         margin: 12px 0;
       }
+      @media (max-width: 760px) {
+        html[data-mobile-preview] .demo-bar {
+          padding: 6px 12px;
+          gap: 8px;
+        }
+        html[data-mobile-preview] .demo-bar > div {
+          display: none;
+        }
+        html[data-mobile-preview] .role-bar {
+          display: flex;
+          flex-wrap: wrap;
+          padding: 10px;
+          gap: 8px;
+        }
+        html[data-mobile-preview] .role-bar .af-brand,
+        html[data-mobile-preview] .role-bar .wizard-launch,
+        html[data-mobile-preview] .sidebar .shop-brand {
+          display: none;
+        }
+        html[data-mobile-preview] .role-switch {
+          flex: 1;
+          min-width: 0;
+          order: 0;
+        }
+        html[data-mobile-preview] .role-switch button {
+          padding: 8px;
+          font-size: 10px;
+        }
+        html[data-mobile-preview] .theme-button {
+          order: 1;
+          padding: 8px;
+          font-size: 10px;
+          min-height: 38px;
+        }
+        html[data-mobile-preview] .page-top {
+          padding: 8px 15px;
+          min-height: 40px;
+        }
+        html[data-mobile-preview] .page-top #breadcrumb {
+          display: none;
+        }
+        html[data-mobile-preview] .page {
+          padding-top: 20px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -3215,6 +3260,8 @@
     </dialog>
     <script>
       'use strict';
+      if (new URLSearchParams(location.search).get('mobile') === '1')
+        document.documentElement.dataset.mobilePreview = 'true';
       const icons = {
         pencil: '<path d="m15 5 4 4M4 20l4-1L20 7a2.8 2.8 0 0 0-4-4L4 15Z"/>',
         grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',

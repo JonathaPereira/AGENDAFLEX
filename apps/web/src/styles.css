@@ -382,3 +382,55 @@ footer {
   outline: 3px solid #ffa734;
   outline-offset: 4px;
 }
+
+.ross-auth {
+  padding-top: max(28px, env(safe-area-inset-top));
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+  padding-left: max(20px, env(safe-area-inset-left));
+  padding-right: max(20px, env(safe-area-inset-right));
+}
+.auth-preview-note {
+  max-width: 460px;
+  color: #ffc074;
+  font-size: 13px;
+  text-align: center;
+}
+.mobile-preview {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: #100d0a;
+  color: #eee7da;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+.mobile-preview header {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #473524;
+}
+.mobile-preview header div {
+  flex: 1;
+  min-width: 150px;
+}
+.mobile-preview small {
+  display: block;
+  font-size: 11px;
+  color: #c0b09b;
+}
+.mobile-preview header a {
+  font-size: 13px;
+  color: #ffc074;
+  padding: 12px;
+  border: 1px solid #59432d;
+  border-radius: 8px;
+}
+.mobile-preview iframe {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  border: 0;
+}

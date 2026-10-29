@@ -8,6 +8,10 @@ Acesse `/login` no React para a tela Ross com entrada, criação de conta e recu
 
 Siga [o passo a passo do Supabase](docs/supabase-setup.md). O SQL inicial para um projeto de desenvolvimento vazio está em `database/supabase/setup-dev.sql`; `link-owner.sql` atribui o primeiro proprietário após confirmação de e-mail. Nenhum script foi aplicado no seu projeto automaticamente.
 
+## Android e iOS — preparação
+
+Os projetos Capacitor estão em `apps/web/android` e `apps/web/ios`. `pnpm mobile:prepare` prepara uma **prévia sem contas reais**, com dados fictícios e Auth desativado. Na tela de login web, **Ver demonstração para celular** abre a mesma experiência visual. A documentação de [mobile](docs/mobile.md) explica Android Studio, Xcode, modo conectado e pendências. Nenhum APK/IPA ou publicação foi feito.
+
 ## Abrir a demonstração sem instalação
 
 Abra `apps/web/public/demo.html` no navegador, com dois cliques. O HTML contém logo, retratos, estilos e interações e não precisa de internet, API ou Supabase.

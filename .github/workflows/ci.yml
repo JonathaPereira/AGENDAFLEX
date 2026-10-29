@@ -25,6 +25,8 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:e2e
       - run: pnpm test:e2e:auth
+      - run: pnpm mobile:prepare
+      - run: pnpm test:e2e:mobile
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
